@@ -1,7 +1,7 @@
 name: ffmpeg_demo
 description: An Flutter application to test ffmpeg.
 
-publish_to: 'none' # Remove this line if you wish to publish to pub.dev
+publish_to: 'none'
 
 version: 1.0.0+1
 
@@ -12,8 +12,13 @@ dependencies:
   flutter:
     sdk: flutter
   cupertino_icons: ^1.0.2
+
+  # Video
   flutter_ffmpeg: ^0.4.0
-  flutter_riverpod: ^0.13.1+1
+
+  # State management
+  flutter_hooks: ^0.16.0
+  hooks_riverpod: ^0.13.1+1
 
 dev_dependencies:
   flutter_test:

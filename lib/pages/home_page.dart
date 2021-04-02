@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-class HomePage extends StatefulWidget {
+import '../providers.dart';
+
+class HomePage extends HookWidget {
   const HomePage({
     Key? key,
     String? title,
@@ -10,23 +14,22 @@ class HomePage extends StatefulWidget {
   final String? _title;
 
   @override
-  _HomePageState createState() => _HomePageState();
-}
-
-class _HomePageState extends State<HomePage> {
-  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(widget._title ?? ''),
+        title: Text(_title ?? ''),
       ),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            Text(
-              'Initial',
-            ),
+            const Text('Initial'),
+            ElevatedButton(
+              onPressed: () {
+                context.read(videoControllerProvider).startVideo();
+              },
+              child: const Text('Start Video'),
+            )
           ],
         ),
       ),
