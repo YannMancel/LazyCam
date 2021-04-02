@@ -21,15 +21,29 @@ class HomePage extends HookWidget {
       ),
       body: Center(
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            const Text('Initial'),
-            ElevatedButton(
-              onPressed: () {
-                context.read(videoControllerProvider).startVideo();
-              },
-              child: const Text('Start Video'),
-            )
+          children: [
+            Expanded(
+              child: Align(
+                child: const Text(
+                  'Initial',
+                ),
+              ),
+            ),
+            Row(
+              children: [
+                Expanded(
+                  child: Padding(
+                    padding: EdgeInsets.all(16.0),
+                    child: ElevatedButton(
+                      onPressed: () {
+                        context.read(videoControllerProvider).startVideo();
+                      },
+                      child: const Text('Start Video'),
+                    ),
+                  ),
+                ),
+              ],
+            ),
           ],
         ),
       ),
