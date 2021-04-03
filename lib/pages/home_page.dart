@@ -12,9 +12,14 @@ class HomePage extends HookWidget {
         super(key: key);
 
   final String? _title;
+  
+  static const kMessageKey = Key('message');
+  static const kButtonKey = Key('button');
 
   @override
   Widget build(BuildContext context) {
+    final videoState = useProvider(videoControllerProvider.state);
+
     return Scaffold(
       appBar: AppBar(
         title: Text(_title ?? ''),
@@ -24,9 +29,7 @@ class HomePage extends HookWidget {
           children: [
             Expanded(
               child: Align(
-                child: const Text(
-                  'Initial',
-                ),
+                child: Text(videoState, key: kMessageKey),
               ),
             ),
             Row(
@@ -35,6 +38,7 @@ class HomePage extends HookWidget {
                   child: Padding(
                     padding: EdgeInsets.all(16.0),
                     child: ElevatedButton(
+                      key: kButtonKey,
                       onPressed: () {
                         context.read(videoControllerProvider).startVideo();
                       },

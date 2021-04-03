@@ -1,10 +1,14 @@
+// @dart=2.8
 import 'package:flutter_test/flutter_test.dart';
+import 'package:integration_test/integration_test.dart';
 
 import 'package:ffmpeg_demo/main.dart';
 import 'package:ffmpeg_demo/pages/home_page.dart';
 
 void main() {
-  testWidgets('Test App', (WidgetTester tester) async {
+  IntegrationTestWidgetsFlutterBinding.ensureInitialized();
+
+  testWidgets('Test app', (WidgetTester tester) async {
     await tester.pumpWidget(MyApp());
 
     expect(find.byKey(HomePage.kMessageKey), findsOneWidget);
