@@ -12,7 +12,7 @@ class MyApp extends StatelessWidget {
       child: MaterialApp(
         title: 'ffmpeg demo',
         debugShowCheckedModeBanner: false,
-        theme: ThemeData(primarySwatch: Colors.blue),
+        theme: ThemeData.dark(),
         home: const HomePage(title: 'ffmpeg demo'),
       ),
     );

@@ -17,6 +17,10 @@ dependencies: ## update dependencies
 format: ## format code
 	flutter format lib/
 
+.PHONY: generate
+generate: ## update generated files
+	flutter pub run build_runner build --delete-conflicting-outputs
+
 .PHONY: run-dev
 run-dev: ## run app in debug mode
 	flutter run --debug
