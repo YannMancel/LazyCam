@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import 'pages/home_page.dart';
+import 'routes.dart';
 
 void main() => runApp(MyApp());
 
@@ -13,7 +13,8 @@ class MyApp extends StatelessWidget {
         title: 'ffmpeg demo',
         debugShowCheckedModeBanner: false,
         theme: ThemeData.dark(),
-        home: const HomePage(title: 'ffmpeg demo'),
+        initialRoute: MaterialRouteGenerator.kHomeRoute,
+        onGenerateRoute: MaterialRouteGenerator.generate,
       ),
     );
   }
