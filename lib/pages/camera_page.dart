@@ -17,25 +17,21 @@ class CameraPage extends HookWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text('Camera'),
+        title: const Text('Camera'),
         actions: [
           IconButton(
-            icon: Icon(Icons.flip_camera_ios_sharp), 
+            icon: const Icon(Icons.flip_camera_ios_sharp),
             onPressed: cameraController.switchCamera,
           )
         ],
       ),
       body: cameraState.maybeWhen(
         readyPreview: (_) => CameraPreview(cameraController.controller),
-        orElse: () {
-          return Center(
-            child: CircularProgressIndicator(),
-          );
-        },
+        orElse: () => const Center(child: CircularProgressIndicator()),
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: context.read(cameraControllerProvider).start,
-        child: Icon(Icons.camera),
+        onPressed: context.read(cameraControllerProvider).recordMovie,
+        child: const Icon(Icons.camera),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
     );
