@@ -1,9 +1,9 @@
-import 'package:ffmpeg_demo/pages/camera_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import '../providers.dart';
+import '../routes.dart';
 
 class HomePage extends HookWidget {
   const HomePage({
@@ -25,25 +25,52 @@ class HomePage extends HookWidget {
       appBar: AppBar(
         title: Text(_title ?? ''),
       ),
-      body: Center(
-        child: Column(
-          children: [
-            Expanded(
-              child: Align(
-                child: Text(videoState, key: kMessageKey),
-              ),
-            ),
-          ],
+      body: Stack(children: [
+        Align(
+          child: Text(videoState, key: kMessageKey),
         ),
-      ),
+        Positioned(
+          bottom: 80.0,
+          right: 20.0,
+          child: FloatingActionButton(
+            heroTag: 'camera',
+            mini: true,
+            onPressed: () {
+              Navigator.pushNamed(context, MaterialRouteGenerator.kCameraRoute);
+            },
+            child: Icon(Icons.camera),
+          ),
+        ),
+        Positioned(
+          bottom: 130.0,
+          right: 20.0,
+          child: FloatingActionButton(
+            heroTag: 'stream',
+            mini: true,
+            onPressed: () {
+              Navigator.pushNamed(context, MaterialRouteGenerator.kStreamRoute);
+            },
+            child: Icon(Icons.stream),
+          ),
+        ),
+        Positioned(
+          bottom: 180.0,
+          right: 20.0,
+          child: FloatingActionButton(
+            heroTag: 'timer',
+            mini: true,
+            onPressed: () {
+              Navigator.pushNamed(context, MaterialRouteGenerator.kTimerRoute);
+            },
+            child: Icon(Icons.timer),
+          ),
+        ),
+      ]),
       floatingActionButton: FloatingActionButton(
         key: kButtonKey,
         onPressed: () {
-          // todo replace logic
-          // context.read(videoControllerProvider).startVideo();
-          Navigator.push(context, MaterialPageRoute(builder: (_) {
-            return const CameraPage();
-          }));
+          // todo add animation for mini FABs
+          //context.read(videoControllerProvider).startVideo();
         },
         child: Icon(Icons.add),
       ),

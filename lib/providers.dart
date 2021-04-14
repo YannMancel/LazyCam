@@ -7,6 +7,11 @@ final videoControllerProvider = StateNotifierProvider(
   name: 'StateNotifierProvider____VideoController',
 );
 
+final timerControllerProvider = StateNotifierProvider.autoDispose(
+  (_) => TimerController(),
+  name: 'StateNotifierProvider____TimerController',
+);
+
 final imageControllerProvider = StateNotifierProvider.autoDispose(
   (_) => ImageController(),
   name: 'StateNotifierProvider____ImageController',
@@ -14,8 +19,12 @@ final imageControllerProvider = StateNotifierProvider.autoDispose(
 
 final cameraControllerProvider = StateNotifierProvider.autoDispose(
   (ref) {
+    final timerController = ref.watch(timerControllerProvider);
     final imageController = ref.watch(imageControllerProvider);
-    return CameraController(imageController: imageController);
+    return CameraController(
+      timerController: timerController,
+      imageController: imageController,
+    );
   },
   name: 'StateNotifierProvider____CameraController',
 );

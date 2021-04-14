@@ -6,6 +6,7 @@ abstract class MaterialRouteGenerator {
   static const kHomeRoute = '/';
   static const kCameraRoute = '/camera';
   static const kStreamRoute = '/stream';
+  static const kTimerRoute = '/timer';
 
   static Route<dynamic>? generate(RouteSettings? onGenerateRoute) {
     // Calls initialRoute of MaterialApp
@@ -25,6 +26,11 @@ abstract class MaterialRouteGenerator {
       case kStreamRoute:
         return MaterialPageRoute(
           builder: (_) => const OffsetStreamPage(),
+        );
+
+      case kTimerRoute:
+        return MaterialPageRoute(
+          builder: (_) => const TimerPage(),
         );
 
       default:
