@@ -10,7 +10,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return ProviderScope(
       child: MaterialApp(
-        title: 'ffmpeg demo',
+        title: 'Lazy Cam',
         debugShowCheckedModeBanner: false,
         theme: ThemeData.dark(),
         initialRoute: MaterialRouteGenerator.kHomeRoute,
