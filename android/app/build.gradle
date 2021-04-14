@@ -35,7 +35,7 @@ android {
     }
 
     defaultConfig {
-        applicationId "com.example.ffmpeg_demo"
+        applicationId "com.mancel.yann.LazyCam"
         minSdkVersion 24
         targetSdkVersion 30
         versionCode flutterVersionCode.toInteger()
