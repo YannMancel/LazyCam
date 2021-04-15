@@ -5,23 +5,23 @@ import 'controllers/controllers_link.dart';
 
 /// Manages the open/close system of normal FAB (and its mini FABs)
 final isOpenFAB = StateProvider<bool>(
-  (ref) => false,
-  name: 'StateProvider____isOpenFAB'
+  (_) => false,
+  name: 'isOpenFAB',
 );
 
 final videoControllerProvider = StateNotifierProvider(
   (_) => VideoController(),
-  name: 'StateNotifierProvider____VideoController',
+  name: 'VideoController',
 );
 
 final timerControllerProvider = StateNotifierProvider.autoDispose(
   (_) => TimerController(),
-  name: 'StateNotifierProvider____TimerController',
+  name: 'TimerController',
 );
 
 final imageControllerProvider = StateNotifierProvider.autoDispose(
   (_) => ImageController(),
-  name: 'StateNotifierProvider____ImageController',
+  name: 'ImageController',
 );
 
 final cameraControllerProvider = StateNotifierProvider.autoDispose(
@@ -33,5 +33,5 @@ final cameraControllerProvider = StateNotifierProvider.autoDispose(
       imageController: imageController,
     );
   },
-  name: 'StateNotifierProvider____CameraController',
+  name: 'CameraController',
 );
