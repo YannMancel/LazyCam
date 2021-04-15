@@ -4,6 +4,16 @@ import 'logger.dart';
 
 enum ProviderEvent { Add, Update, Dependencies, Dispose }
 
+extension $ProviderEvent on ProviderEvent {
+  int get lengthMax {
+    return ProviderEvent.values
+        .map((e) => e.toString().split('.').last.length)
+        .reduce((a, b) => (a < b) ? b : a);
+  }
+
+  String get nameInUpperCase => this.toString().split('.').last.toUpperCase();
+}
+
 class AppObserver extends ProviderObserver {
   const AppObserver();
 
@@ -12,11 +22,14 @@ class AppObserver extends ProviderObserver {
     required ProviderBase provider,
     Object? value,
   }) {
-    final event = providerEvent.toString().split('.').last.toUpperCase();
+    final num =
+        provider.hashCode.toUnsigned(20).toRadixString(16).padLeft(5, '0');
+    final event =
+        providerEvent.nameInUpperCase.padRight(providerEvent.lengthMax);
     final name = provider.name ?? provider.runtimeType;
-    final result = (value != null) ? ' - $value' : '';
+    final result = (value != null) ? '- $value' : '';
 
-    return '[$event]: $name $result';
+    return '[$num] [$event] $name $result';
   }
 
   @override
