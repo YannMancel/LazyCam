@@ -15,7 +15,7 @@ abstract class MaterialRouteGenerator {
     switch (onGenerateRoute.name) {
       case kHomeRoute:
         return MaterialPageRoute(
-          builder: (_) => const HomePage(title: 'home'),
+          builder: (_) => const HomePage(),
         );
 
       case kCameraRoute:
