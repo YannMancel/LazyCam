@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import 'routes.dart';
-import 'utils/AppObserver.dart';
+import 'utils/app_observer.dart';
 
 void main() => runApp(MyApp());
 
@@ -13,6 +13,8 @@ class MyApp extends StatelessWidget {
       observers: [const AppObserver()],
       child: MaterialApp(
         title: 'LazyCam',
+        showPerformanceOverlay: false,
+        debugShowMaterialGrid: false,
         debugShowCheckedModeBanner: false,
         theme: ThemeData.dark(),
         initialRoute: MaterialRouteGenerator.kHomeRoute,
