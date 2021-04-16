@@ -1,8 +1,7 @@
 import 'dart:async';
 
-import 'package:flutter_riverpod/flutter_riverpod.dart';
-
 import '../models/timer_state.dart';
+import 'base_controller.dart';
 
 abstract class _TimerController {
   set timer(int timeInSecond);
@@ -10,13 +9,30 @@ abstract class _TimerController {
   void stop();
 }
 
-class TimerController extends StateNotifier<TimerState>
+class TimerController extends BaseController<TimerState>
     implements _TimerController {
   TimerController() : super(TimerState.initial());
 
   StreamSubscription<int>? _stream;
   int? _timerInSecond;
 
+  static const kName = 'TimerController';
+
+  // ***************************************************************************
+  // BaseController abstract class
+  // ***************************************************************************
+  @override
+  String get name => kName;
+
+  @override
+  void dispose() {
+    _stream?.cancel();
+    super.dispose();
+  }
+
+  // ***************************************************************************
+  // _TimerController interface
+  // ***************************************************************************
   @override
   set timer(int timeInSecond) => _timerInSecond = timeInSecond;
 
@@ -42,11 +58,5 @@ class TimerController extends StateNotifier<TimerState>
     _timerInSecond = null;
     _stream?.cancel();
     state = TimerState.stop();
-  }
-
-  @override
-  void dispose() {
-    _stream?.cancel();
-    super.dispose();
   }
 }

@@ -12,12 +12,12 @@ final isOpenFAB = StateProvider<bool>(
 /// Manages the time with its start/stop methods
 final timerControllerProvider = StateNotifierProvider.autoDispose(
   (_) => TimerController(),
-  name: 'TimerController',
+  name: TimerController.kName,
 );
 
 final imageControllerProvider = StateNotifierProvider.autoDispose(
   (_) => ImageController(),
-  name: 'ImageController',
+  name: ImageController.kName,
 );
 
 final cameraControllerProvider = StateNotifierProvider.autoDispose(
@@ -29,5 +29,5 @@ final cameraControllerProvider = StateNotifierProvider.autoDispose(
       imageController: imageController,
     );
   },
-  name: 'CameraController',
+  name: CameraController.kName,
 );
