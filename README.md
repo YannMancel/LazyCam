@@ -1,6 +1,6 @@
-# ffmpeg_demo
+# LasyCam
 
-An Flutter application to test ffmpeg.
+An Flutter application to use camera.
 
 ## Getting Started
 

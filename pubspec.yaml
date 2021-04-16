@@ -13,27 +13,24 @@ dependencies:
     sdk: flutter
   cupertino_icons: ^1.0.2
 
-  # Video
-  flutter_ffmpeg: ^0.4.0
-
   # Camera
   camera: ^0.8.1
+
+  # Image converters
+  image: ^3.0.2          # Incompatible with integration_test -> Action to comment integration_test
 
   # State management
   flutter_hooks: ^0.16.0
   hooks_riverpod: ^0.13.1+1
   freezed_annotation: ^0.14.0
 
-  # Device path
-  path_provider: ^2.0.1
-
 dev_dependencies:
   flutter_test:
     sdk: flutter
 
   # Test-Lab
-  integration_test:
-    sdk: flutter
+  #integration_test:
+  #  sdk: flutter
 
   # Generators
   build_runner:

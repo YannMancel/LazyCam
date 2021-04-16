@@ -9,11 +9,7 @@ final isOpenFAB = StateProvider<bool>(
   name: 'isOpenFAB',
 );
 
-final videoControllerProvider = StateNotifierProvider(
-  (_) => VideoController(),
-  name: 'VideoController',
-);
-
+/// Manages the time with its start/stop methods
 final timerControllerProvider = StateNotifierProvider.autoDispose(
   (_) => TimerController(),
   name: 'TimerController',
