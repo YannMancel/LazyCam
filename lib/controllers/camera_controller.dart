@@ -1,7 +1,7 @@
 import 'package:camera/camera.dart' as camera_lib;
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../models/camera_state.dart';
+import 'base_controller.dart';
 import 'controllers_link.dart';
 
 abstract class _CameraController {
@@ -12,7 +12,7 @@ abstract class _CameraController {
   Future<void> stopImageStream();
 }
 
-class CameraController extends StateNotifier<CameraState>
+class CameraController extends BaseController<CameraState>
     implements _CameraController {
   CameraController({
     required ImageController imageController,
@@ -24,10 +24,19 @@ class CameraController extends StateNotifier<CameraState>
   final ImageController _imageController;
   camera_lib.CameraController? _controller;
 
+  static const kName = 'CameraController';
+
   set _error(String message) {
     state = CameraState.error(
       isFirstCamera: state.isFirstCamera,
       message: message,
+    );
+  }
+
+  bool get _isReadyPreviewState {
+    return state.maybeWhen(
+      readyPreview: (_) => true,
+      orElse: () => false,
     );
   }
 
@@ -37,7 +46,9 @@ class CameraController extends StateNotifier<CameraState>
     final cameras = await camera_lib.availableCameras();
 
     if (cameras.length == 1 && state.isFirstCamera == false) {
-      _error = 'There is only on camera.';
+      _error = 'There is only on camera. '
+          'The isFirstCamera field must no be equal to false.';
+      return;
     }
 
     _controller = camera_lib.CameraController(
@@ -50,6 +61,21 @@ class CameraController extends StateNotifier<CameraState>
     state = CameraState.readyPreview(isFirstCamera: state.isFirstCamera);
   }
 
+  // ***************************************************************************
+  // BaseController abstract class
+  // ***************************************************************************
+  @override
+  String get name => kName;
+
+  @override
+  void dispose() {
+    _controller?.dispose();
+    super.dispose();
+  }
+
+  // ***************************************************************************
+  // _CameraController interface
+  // ***************************************************************************
   @override
   camera_lib.CameraController get controller {
     if (_controller == null) _error = 'Error during initialisation.';
@@ -64,12 +90,23 @@ class CameraController extends StateNotifier<CameraState>
 
   @override
   Future<void> recordMovie() async {
+    if (!_isReadyPreviewState) {
+      _error = 'The camera is not in readyPreview state. '
+          'To start image stream is impossible.';
+      return;
+    }
+
     // todo add record action
   }
 
   @override
   Future<void> startImageStream() async {
-    _imageController.startTimer(timeInSecond: 15);
+    if (!_isReadyPreviewState) {
+      _error = 'The camera is not in readyPreview state. '
+          'To start image stream is impossible.';
+      return;
+    }
+
     await _controller!.startImageStream((image) {
       _imageController.addImage = image;
     });
@@ -79,11 +116,5 @@ class CameraController extends StateNotifier<CameraState>
   Future<void> stopImageStream() async {
     _imageController.stopImageStream();
     await _controller!.stopImageStream();
-  }
-
-  @override
-  void dispose() {
-    _controller?.dispose();
-    super.dispose();
   }
 }
