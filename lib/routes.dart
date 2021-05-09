@@ -14,27 +14,20 @@ abstract class MaterialRouteGenerator {
 
     switch (onGenerateRoute.name) {
       case kHomeRoute:
-        return MaterialPageRoute(
-          builder: (_) => const HomePage(),
-        );
-
+        return _getRoute(page: const HomePage());
       case kCameraRoute:
-        return MaterialPageRoute(
-          builder: (_) => const CameraPage(),
-        );
-
+        return _getRoute(page: const CameraPage());
       case kStreamRoute:
-        return MaterialPageRoute(
-          builder: (_) => const OffsetStreamPage(),
-        );
-
+        return _getRoute(page: const StreamPage());
       case kTimerRoute:
-        return MaterialPageRoute(
-          builder: (_) => const TimerPage(),
-        );
+        return _getRoute(page: const TimerPage());
 
       default:
         throw FormatException('Route not found.');
     }
+  }
+
+  static Route<dynamic> _getRoute({required Widget page}) {
+    return MaterialPageRoute(builder: (_) => page);
   }
 }

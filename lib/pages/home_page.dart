@@ -5,10 +5,8 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import '../providers.dart';
 import '../routes.dart';
 
-class HomePage extends HookWidget {
-  const HomePage({
-    Key? key,
-  }) : super(key: key);
+class HomePage extends StatelessWidget {
+  const HomePage({Key? key}) : super(key: key);
 
   static const kMessageKey = Key('message');
   static const kCameraMiniFabKey = Key('Mini FAB camera');

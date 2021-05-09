@@ -1,10 +1,18 @@
-import 'package:camera/camera.dart' as camera_lib;
+import 'package:camera/camera.dart' as camera_lib
+    show CameraController, availableCameras, ResolutionPreset;
 
-import '../models/camera_state.dart';
+import '../models/models_link.dart';
 import 'base_controller.dart';
 import 'controllers_link.dart';
 
-abstract class _CameraController {
+abstract class CameraController extends BaseController<CameraState> {
+  CameraController({required CameraState state}) : super(state);
+
+  static const kName = 'CameraController';
+
+  @override
+  String get name => CameraController.kName;
+
   camera_lib.CameraController get controller;
   void switchCamera();
   Future<void> recordMovie();
@@ -12,19 +20,16 @@ abstract class _CameraController {
   Future<void> stopImageStream();
 }
 
-class CameraController extends BaseController<CameraState>
-    implements _CameraController {
-  CameraController({
-    required ImageController imageController,
-  })   : _imageController = imageController,
-        super(CameraState.initial()) {
+class CameraControllerImpl extends CameraController {
+  CameraControllerImpl({
+    required ImageStreamController imageStreamController,
+  })   : _imageStreamController = imageStreamController,
+        super(state: CameraState.initial()) {
     _initialize();
   }
 
-  final ImageController _imageController;
+  final ImageStreamController _imageStreamController;
   camera_lib.CameraController? _controller;
-
-  static const kName = 'CameraController';
 
   set _error(String message) {
     state = CameraState.error(
@@ -61,21 +66,6 @@ class CameraController extends BaseController<CameraState>
     state = CameraState.readyPreview(isFirstCamera: state.isFirstCamera);
   }
 
-  // ***************************************************************************
-  // BaseController abstract class
-  // ***************************************************************************
-  @override
-  String get name => kName;
-
-  @override
-  void dispose() {
-    _controller?.dispose();
-    super.dispose();
-  }
-
-  // ***************************************************************************
-  // _CameraController interface
-  // ***************************************************************************
   @override
   camera_lib.CameraController get controller {
     if (_controller == null) _error = 'Error during initialisation.';
@@ -108,13 +98,19 @@ class CameraController extends BaseController<CameraState>
     }
 
     await _controller!.startImageStream((image) {
-      _imageController.addImage = image;
+      _imageStreamController.addImage = image;
     });
   }
 
   @override
   Future<void> stopImageStream() async {
-    _imageController.stopImageStream();
+    _imageStreamController.stopImageStream();
     await _controller!.stopImageStream();
+  }
+
+  @override
+  void dispose() {
+    _controller?.dispose();
+    super.dispose();
   }
 }

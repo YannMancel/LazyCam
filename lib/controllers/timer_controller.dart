@@ -1,38 +1,27 @@
-import 'dart:async';
+import 'dart:async' show StreamSubscription;
 
-import '../models/timer_state.dart';
+import '../models/models_link.dart';
 import 'base_controller.dart';
 
-abstract class _TimerController {
+abstract class TimerController extends BaseController<TimerState> {
+  TimerController({required TimerState state}) : super(state);
+
+  static const kName = 'timerProvider';
+
+  @override
+  String get name => TimerController.kName;
+
   set timer(int timeInSecond);
   void start();
   void stop();
 }
 
-class TimerController extends BaseController<TimerState>
-    implements _TimerController {
-  TimerController() : super(TimerState.initial());
+class TimerControllerImpl extends TimerController {
+  TimerControllerImpl() : super(state: TimerState.initial());
 
   StreamSubscription<int>? _stream;
   int? _timerInSecond;
 
-  static const kName = 'TimerController';
-
-  // ***************************************************************************
-  // BaseController abstract class
-  // ***************************************************************************
-  @override
-  String get name => kName;
-
-  @override
-  void dispose() {
-    _stream?.cancel();
-    super.dispose();
-  }
-
-  // ***************************************************************************
-  // _TimerController interface
-  // ***************************************************************************
   @override
   set timer(int timeInSecond) => _timerInSecond = timeInSecond;
 
@@ -47,7 +36,11 @@ class TimerController extends BaseController<TimerState>
     _stream = Stream.periodic(
       const Duration(seconds: 1),
       (x) => _timerInSecond! - x,
-    ).take(_timerInSecond! + 1).listen(
+    )
+        .take(
+          _timerInSecond! + 1,
+        )
+        .listen(
           (value) => state = TimerState.start(seconds: value),
           onDone: stop,
         );
@@ -58,5 +51,11 @@ class TimerController extends BaseController<TimerState>
     _timerInSecond = null;
     _stream?.cancel();
     state = TimerState.stop();
+  }
+
+  @override
+  void dispose() {
+    _stream?.cancel();
+    super.dispose();
   }
 }

@@ -21,7 +21,7 @@ dependencies:
 
   # State management
   flutter_hooks: ^0.16.0
-  hooks_riverpod: ^0.13.1+1
+  hooks_riverpod: ^0.14.0+3
   freezed_annotation: ^0.14.0
 
 dev_dependencies:

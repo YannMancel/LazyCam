@@ -5,16 +5,14 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import '../providers.dart';
 
 class TimerPage extends HookWidget {
-  const TimerPage({
-    Key? key,
-  }) : super(key: key);
+  const TimerPage({Key? key}) : super(key: key);
 
   static const double kTextSize = 80.0;
 
   @override
   Widget build(BuildContext context) {
-    final timerState = useProvider(timerControllerProvider.state);
-    final timerController = useProvider(timerControllerProvider);
+    final timerState = useProvider(timerProvider);
+    final timerController = useProvider(timerProvider.notifier);
 
     return Scaffold(
       appBar: AppBar(
@@ -22,7 +20,7 @@ class TimerPage extends HookWidget {
       ),
       body: Center(
         child: timerState.when(
-          initial: (_) => const Text(''),
+          initial: (_) => const Text('Start timer'),
           start: (seconds) {
             return _TimerWidget(seconds: seconds, textSize: kTextSize);
           },

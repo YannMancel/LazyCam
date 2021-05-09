@@ -2,6 +2,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import 'controllers/controllers_link.dart';
+import 'models/models_link.dart';
 
 /// Manages the open/close system of normal FAB (and its mini FABs).
 final isOpenFAB = StateProvider<bool>(
@@ -10,25 +11,28 @@ final isOpenFAB = StateProvider<bool>(
 );
 
 /// Manages the time with its start/stop methods.
-final timerControllerProvider = StateNotifierProvider.autoDispose(
-  (_) => TimerController(),
+final timerProvider =
+    StateNotifierProvider.autoDispose<TimerController, TimerState>(
+  (_) => TimerControllerImpl(),
   name: TimerController.kName,
 );
 
 /// Manages the image stream from camera.
-final imageControllerProvider = StateNotifierProvider.autoDispose(
+final imageStreamProvider =
+    StateNotifierProvider.autoDispose<ImageStreamController, StreamState>(
   (ref) {
-    final timerController = ref.watch(timerControllerProvider);
-    return ImageController(timerController: timerController);
+    final timerController = ref.watch(timerProvider.notifier);
+    return ImageStreamControllerImpl(timerController: timerController);
   },
-  name: ImageController.kName,
+  name: ImageStreamController.kName,
 );
 
 /// Manages the camera states and starts/stops the image stream.
-final cameraControllerProvider = StateNotifierProvider.autoDispose(
+final cameraProvider =
+    StateNotifierProvider.autoDispose<CameraController, CameraState>(
   (ref) {
-    final imageController = ref.watch(imageControllerProvider);
-    return CameraController(imageController: imageController);
+    final imageStreamController = ref.watch(imageStreamProvider.notifier);
+    return CameraControllerImpl(imageStreamController: imageStreamController);
   },
   name: CameraController.kName,
 );
