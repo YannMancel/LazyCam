@@ -7,8 +7,6 @@ import '../providers.dart';
 class TimerPage extends HookWidget {
   const TimerPage({Key? key}) : super(key: key);
 
-  static const double kTextSize = 80.0;
-
   @override
   Widget build(BuildContext context) {
     final timerState = useProvider(timerProvider);
@@ -20,60 +18,44 @@ class TimerPage extends HookWidget {
       ),
       body: Center(
         child: timerState.when(
-          initial: (_) => const Text('Start timer'),
-          start: (seconds) {
-            return _TimerWidget(seconds: seconds, textSize: kTextSize);
-          },
-          stop: (_) => const _StopWidget(textSize: kTextSize),
+          initial: (_) => const _StyledText(data: 'START'),
+          start: (seconds) => _StyledText(data: '$seconds'),
+          stop: (_) => const _StyledText(data: 'STOP'),
         ),
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          timerController.timer = 15;
-          timerController.start();
-        },
-        child: Icon(Icons.timer),
+      floatingActionButton: timerState.maybeWhen(
+        start: (_) => FloatingActionButton(
+          onPressed: timerController.stop,
+          child: Icon(Icons.stop),
+        ),
+        orElse: () => FloatingActionButton(
+          onPressed: () {
+            timerController.timer = 15;
+            timerController.start();
+          },
+          child: Icon(Icons.timer),
+        ),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
     );
   }
 }
 
-class _TimerWidget extends StatelessWidget {
-  const _TimerWidget({
+class _StyledText extends StatelessWidget {
+  const _StyledText({
     Key? key,
-    required int seconds,
-    required double textSize,
-  })   : _seconds = seconds,
-        _textSize = textSize,
+    required String data,
+  })   : _data = data,
         super(key: key);
 
-  final int _seconds;
-  final double _textSize;
+  final String _data;
 
   @override
   Widget build(BuildContext context) {
     return Text(
-      '$_seconds',
-      style: TextStyle(fontSize: _textSize),
-    );
-  }
-}
-
-class _StopWidget extends StatelessWidget {
-  const _StopWidget({
-    Key? key,
-    required double textSize,
-  })   : _textSize = textSize,
-        super(key: key);
-
-  final double _textSize;
-
-  @override
-  Widget build(BuildContext context) {
-    return Text(
-      'STOP',
-      style: TextStyle(fontSize: _textSize),
+      _data,
+      textAlign: TextAlign.center,
+      style: TextStyle(fontSize: 80.0),
     );
   }
 }
