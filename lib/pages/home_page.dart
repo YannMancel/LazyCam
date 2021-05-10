@@ -4,6 +4,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import '../providers.dart';
 import '../routes.dart';
+import '../widgets/widgets_link.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -23,7 +24,10 @@ class HomePage extends StatelessWidget {
       body: Stack(
         children: [
           Align(
-            child: const Text('videoState', key: kMessageKey),
+            child: const StyledText(
+              data: 'Hello',
+              key: kMessageKey,
+            ),
           ),
           _MiniFAB(
             keyOfFAB: kCameraMiniFabKey,

@@ -20,12 +20,13 @@ class CameraPage extends HookWidget {
           IconButton(
             icon: const Icon(Icons.flip_camera_ios_sharp),
             onPressed: cameraController.switchCamera,
-          )
+          ),
         ],
       ),
       body: cameraState.maybeWhen(
-        readyPreview: (_) =>
-            camera_lib.CameraPreview(cameraController.controller),
+        readyPreview: (_) => SizedBox.expand(
+          child: camera_lib.CameraPreview(cameraController.controller),
+        ),
         orElse: () => const Center(child: CircularProgressIndicator()),
       ),
       floatingActionButton: FloatingActionButton(

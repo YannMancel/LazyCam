@@ -3,6 +3,7 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import '../providers.dart';
+import '../widgets/widgets_link.dart';
 
 class TimerPage extends HookWidget {
   const TimerPage({Key? key}) : super(key: key);
@@ -18,9 +19,9 @@ class TimerPage extends HookWidget {
       ),
       body: Center(
         child: timerState.when(
-          initial: (_) => const _StyledText(data: 'START'),
-          start: (seconds) => _StyledText(data: '$seconds'),
-          stop: (_) => const _StyledText(data: 'STOP'),
+          initial: (_) => const StyledText(data: 'START'),
+          start: (seconds) => StyledText(data: '$seconds'),
+          stop: (_) => const StyledText(data: 'STOP'),
         ),
       ),
       floatingActionButton: timerState.maybeWhen(
@@ -29,33 +30,11 @@ class TimerPage extends HookWidget {
           child: Icon(Icons.stop),
         ),
         orElse: () => FloatingActionButton(
-          onPressed: () {
-            timerController.timer = 15;
-            timerController.start();
-          },
+          onPressed: () => timerController.start(timeInSecond: 15),
           child: Icon(Icons.timer),
         ),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
-    );
-  }
-}
-
-class _StyledText extends StatelessWidget {
-  const _StyledText({
-    Key? key,
-    required String data,
-  })   : _data = data,
-        super(key: key);
-
-  final String _data;
-
-  @override
-  Widget build(BuildContext context) {
-    return Text(
-      _data,
-      textAlign: TextAlign.center,
-      style: TextStyle(fontSize: 80.0),
     );
   }
 }

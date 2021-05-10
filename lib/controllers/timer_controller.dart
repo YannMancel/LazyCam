@@ -11,8 +11,7 @@ abstract class TimerController extends BaseController<TimerState> {
   @override
   String get name => TimerController.kName;
 
-  set timer(int timeInSecond);
-  void start();
+  void start({required int timeInSecond});
   void stop();
 }
 
@@ -20,25 +19,19 @@ class TimerControllerImpl extends TimerController {
   TimerControllerImpl() : super(state: TimerState.initial());
 
   StreamSubscription<int>? _stream;
-  int? _timerInSecond;
 
   @override
-  set timer(int timeInSecond) => _timerInSecond = timeInSecond;
+  void start({required int timeInSecond}) {
+    assert(timeInSecond > 0, 'timerInSecond > O');
 
-  @override
-  void start() {
     _stream?.cancel();
-
-    if (_timerInSecond == null) {
-      throw Exception('timerInSecond is null. Set timer before start call.');
-    }
 
     _stream = Stream.periodic(
       const Duration(seconds: 1),
-      (x) => _timerInSecond! - x,
+      (x) => timeInSecond - x,
     )
         .take(
-          _timerInSecond! + 1,
+          timeInSecond + 1,
         )
         .listen(
           (value) => state = TimerState.start(seconds: value),
@@ -48,7 +41,6 @@ class TimerControllerImpl extends TimerController {
 
   @override
   void stop() {
-    _timerInSecond = null;
     _stream?.cancel();
     state = TimerState.stop();
   }
