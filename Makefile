@@ -2,6 +2,7 @@
 FLUTTER?=flutter
 REPOSITORIES?=lib
 RUN_VERSION?=--debug
+DOC_PORT?=8088
 
 DRIVER_FOLDER=test_driver
 DRIVER_FILE=integration_test.dart
@@ -15,6 +16,35 @@ NO_COLOR=\033[0m
 define print_color_message
 	@echo "$(GREEN_COLOR)$(1)$(NO_COLOR)";
 endef
+
+##
+## ---------------------------------------------------------------
+## Installation
+## ---------------------------------------------------------------
+##
+
+.PHONY: install
+install: ## install environment
+	@$(call print_color_message,"install environment")
+	$(FLUTTER) pub global activate devtools
+	$(FLUTTER) pub global activate dartdoc
+	$(FLUTTER) pub global activate dhttpd
+
+##
+## ---------------------------------------------------------------
+## Documentation
+## ---------------------------------------------------------------
+##
+
+.PHONY: doc
+doc: ## create documentation
+	@$(call print_color_message,"create documentation")
+	$(FLUTTER) pub global run dartdoc
+
+.PHONY: view-doc
+view-doc: ## view documentation in http page
+	@$(call print_color_message,"view documentation in http page")
+	$(FLUTTER) pub global run dhttpd --path doc/api --port $(DOC_PORT)
 
 ##
 ## ---------------------------------------------------------------
@@ -42,6 +72,11 @@ run: ## run application by default debug version
 	@$(call print_color_message,"run application by default debug version")
 	$(FLUTTER) run $(RUN_VERSION)
 
+.PHONY: devtools
+devtools: ## Serving DevTools
+	@$(call print_color_message,"Serving DevTools")
+	$(FLUTTER) pub global run devtools
+
 ##
 ## ---------------------------------------------------------------
 ## Build_runner
@@ -63,7 +98,7 @@ generate: ## generate files with build_runner
 integration-tests: ## run integration tests
 	@$(call print_color_message,"run integration tests")
 	$(foreach test_file, $(INTEGRATION_TEST_FILES), \
- 		flutter drive \
+ 		$(FLUTTER) drive \
 			--driver=$(DRIVER_FOLDER)/$(DRIVER_FILE) \
 			--target=$(test_file); \
 	)
