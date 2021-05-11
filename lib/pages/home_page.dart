@@ -121,8 +121,10 @@ class _MiniFAB extends HookWidget {
       duration: const Duration(milliseconds: 800),
     );
 
-    final isOpen = useProvider(isOpenFAB).state;
-    isOpen ? animationController.forward() : animationController.reverse();
+    useProvider(menuProvider).when(
+      open: animationController.forward,
+      close: animationController.reverse,
+    );
 
     return Positioned(
       right: _right,
@@ -175,13 +177,12 @@ class _NormalFAB extends HookWidget {
         (status) {
           switch (status) {
             case AnimationStatus.dismissed:
-              context.read(isOpenFAB).state = false;
-              break;
-            case AnimationStatus.forward: /* Do anything here */
-            case AnimationStatus.reverse: /* Do anything here */
-              break;
             case AnimationStatus.completed:
-              context.read(isOpenFAB).state = true;
+              context.read(menuProvider.notifier).reverseState();
+              break;
+            case AnimationStatus.forward:
+            case AnimationStatus.reverse:
+              /* Do anything here */
               break;
           }
         },
@@ -192,8 +193,10 @@ class _NormalFAB extends HookWidget {
     required BuildContext context,
     required AnimationController controller,
   }) {
-    final isOpen = context.read(isOpenFAB).state;
-    (!isOpen) ? controller.forward() : controller.reverse();
+    context.read(menuProvider).when(
+          open: controller.reverse,
+          close: controller.forward,
+        );
   }
 
   @override

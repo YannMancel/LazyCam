@@ -4,10 +4,10 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'controllers/controllers_link.dart';
 import 'models/models_link.dart';
 
-/// Manages the open/close system of normal FAB (and its mini FABs).
-final isOpenFAB = StateProvider<bool>(
-  (_) => false,
-  name: 'isOpenFAB',
+/// Manages the open/close system of menu.
+final menuProvider = StateNotifierProvider<MenuController, MenuState>(
+  (_) => MenuControllerImpl(),
+  name: MenuController.kName,
 );
 
 /// Manages the time with its start/stop methods.
