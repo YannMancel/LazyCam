@@ -1,7 +1,7 @@
-import 'package:camera/camera.dart' as camera_lib show CameraPreview;
+import 'package:camera/camera.dart' show CameraPreview;
 import 'package:flutter/material.dart';
-import 'package:flutter_hooks/flutter_hooks.dart';
-import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:flutter_hooks/flutter_hooks.dart' show HookWidget;
+import 'package:hooks_riverpod/hooks_riverpod.dart' show useProvider;
 
 import '../providers.dart';
 import '../widgets/widgets_link.dart';
@@ -30,7 +30,7 @@ class StreamPage extends HookWidget {
       body: cameraState.maybeWhen(
         readyPreview: (_) => timerState.when(
           initial: (_) => SizedBox.expand(
-            child: camera_lib.CameraPreview(cameraController.controller),
+            child: CameraPreview(cameraController.controller),
           ),
           start: (seconds) => Center(
             child: StyledText(data: '$seconds'),

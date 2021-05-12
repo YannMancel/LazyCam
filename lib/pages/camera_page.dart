@@ -1,7 +1,7 @@
-import 'package:camera/camera.dart' as camera_lib show CameraPreview;
+import 'package:camera/camera.dart' show CameraPreview;
 import 'package:flutter/material.dart';
-import 'package:flutter_hooks/flutter_hooks.dart';
-import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:flutter_hooks/flutter_hooks.dart' show HookWidget;
+import 'package:hooks_riverpod/hooks_riverpod.dart' show useProvider;
 
 import '../providers.dart';
 
@@ -25,12 +25,12 @@ class CameraPage extends HookWidget {
       ),
       body: cameraState.maybeWhen(
         readyPreview: (_) => SizedBox.expand(
-          child: camera_lib.CameraPreview(cameraController.controller),
+          child: CameraPreview(cameraController.controller),
         ),
         orElse: () => const Center(child: CircularProgressIndicator()),
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: context.read(cameraProvider.notifier).recordMovie,
+        onPressed: cameraController.recordMovie,
         child: const Icon(Icons.camera),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_hooks/flutter_hooks.dart';
-import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:flutter_hooks/flutter_hooks.dart' show HookWidget;
+import 'package:hooks_riverpod/hooks_riverpod.dart' show useProvider;
 
 import '../providers.dart';
 import '../widgets/widgets_link.dart';
@@ -27,11 +27,11 @@ class TimerPage extends HookWidget {
       floatingActionButton: timerState.maybeWhen(
         start: (_) => FloatingActionButton(
           onPressed: timerController.stop,
-          child: Icon(Icons.stop),
+          child: const Icon(Icons.stop),
         ),
         orElse: () => FloatingActionButton(
           onPressed: () => timerController.start(timeInSecond: 15),
-          child: Icon(Icons.timer),
+          child: const Icon(Icons.timer),
         ),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,

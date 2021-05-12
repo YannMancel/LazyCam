@@ -1,8 +1,8 @@
 import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
-import 'package:image/image.dart' as imglib;
-import 'package:camera/camera.dart';
+import 'package:image/image.dart' as imglib show Image, PngEncoder, Format;
+import 'package:camera/camera.dart' show CameraImage, ImageFormatGroup, Plane;
 
 mixin ImageConverter {
   /*

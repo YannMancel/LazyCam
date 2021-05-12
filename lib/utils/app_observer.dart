@@ -1,18 +1,10 @@
-import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart'
+    show ProviderObserver, ProviderBase;
 
+import '../extensions/extensions_link.dart';
 import 'logger.dart';
 
 enum ProviderEvent { Add, Update, Dependencies, Dispose }
-
-extension $ProviderEvent on ProviderEvent {
-  int get lengthMax {
-    return ProviderEvent.values
-        .map((e) => e.toString().split('.').last.length)
-        .reduce((a, b) => (a < b) ? b : a);
-  }
-
-  String get nameInUpperCase => this.toString().split('.').last.toUpperCase();
-}
 
 class AppObserver extends ProviderObserver {
   const AppObserver();
@@ -22,10 +14,8 @@ class AppObserver extends ProviderObserver {
     required ProviderBase provider,
     Object? value,
   }) {
-    final num =
-        provider.hashCode.toUnsigned(20).toRadixString(16).padLeft(5, '0');
-    final event =
-        providerEvent.nameInUpperCase.padRight(providerEvent.lengthMax);
+    final num = provider.number;
+    final event = providerEvent.nameInUpperCaseWithPadRight;
     final name = provider.name ?? provider.runtimeType;
     final result = (value != null) ? '- $value' : '';
 

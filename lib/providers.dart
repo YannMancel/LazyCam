@@ -1,5 +1,5 @@
-import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart'
+    show StateNotifierProvider;
 
 import 'controllers/controllers_link.dart';
 import 'models/models_link.dart';

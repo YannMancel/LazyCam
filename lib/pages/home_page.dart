@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_hooks/flutter_hooks.dart';
-import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:flutter_hooks/flutter_hooks.dart'
+    show HookWidget, useAnimationController;
+import 'package:hooks_riverpod/hooks_riverpod.dart' show useProvider;
+import 'package:flutter_riverpod/flutter_riverpod.dart' show BuildContextX;
 
+import '../extensions/extensions_link.dart';
 import '../providers.dart';
 import '../routes.dart';
 import '../widgets/widgets_link.dart';
@@ -30,26 +33,22 @@ class HomePage extends StatelessWidget {
             ),
           ),
           _MiniFAB(
-            keyOfFAB: kCameraMiniFabKey,
-            heroTag: 'camera',
-            right: 20.0,
-            bottom: 16.0,
-            verticalOffset: -1.3,
-            iconData: Icons.camera,
-            action: () {
-              Navigator.pushNamed(context, MaterialRouteGenerator.kCameraRoute);
-            },
-          ),
-          _MiniFAB(
             keyOfFAB: kStreamMiniFabKey,
             heroTag: 'stream',
             right: 20.0,
             bottom: 16.0,
-            verticalOffset: -2.3,
+            verticalOffset: -1.3,
             iconData: Icons.stream,
-            action: () {
-              Navigator.pushNamed(context, MaterialRouteGenerator.kStreamRoute);
-            },
+            action: () => context.pushBy = MaterialRouteGenerator.kStreamRoute,
+          ),
+          _MiniFAB(
+            keyOfFAB: kCameraMiniFabKey,
+            heroTag: 'camera',
+            right: 20.0,
+            bottom: 16.0,
+            verticalOffset: -2.3,
+            iconData: Icons.camera,
+            action: () => context.pushBy = MaterialRouteGenerator.kCameraRoute,
           ),
           _MiniFAB(
             keyOfFAB: kTimerMiniFabKey,
@@ -58,9 +57,7 @@ class HomePage extends StatelessWidget {
             bottom: 16.0,
             verticalOffset: -3.3,
             iconData: Icons.timer,
-            action: () {
-              Navigator.pushNamed(context, MaterialRouteGenerator.kTimerRoute);
-            },
+            action: () => context.pushBy = MaterialRouteGenerator.kTimerRoute,
           ),
         ],
       ),

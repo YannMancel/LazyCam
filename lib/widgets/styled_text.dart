@@ -14,7 +14,7 @@ class StyledText extends StatelessWidget {
     return Text(
       _data,
       textAlign: TextAlign.center,
-      style: TextStyle(fontSize: 80.0),
+      style: const TextStyle(fontSize: 80.0),
     );
   }
 }
