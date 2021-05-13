@@ -4,6 +4,7 @@ import 'package:flutter_hooks/flutter_hooks.dart' show HookWidget;
 import 'package:hooks_riverpod/hooks_riverpod.dart' show useProvider;
 
 import '../providers.dart';
+import '../widgets/widgets_link.dart';
 
 class CameraPage extends HookWidget {
   const CameraPage({Key? key}) : super(key: key);
@@ -23,11 +24,16 @@ class CameraPage extends HookWidget {
           ),
         ],
       ),
-      body: cameraState.maybeWhen(
-        readyPreview: (_) => SizedBox.expand(
-          child: CameraPreview(cameraController.controller),
+      body: Center(
+        child: cameraState.maybeWhen(
+          readyPreview: (_) => (cameraController.controller == null)
+              ? const SizedBox()
+              : SizedBox.expand(
+                  child: CameraPreview(cameraController.controller!),
+                ),
+          error: (_, message) => StyledText(data: message ?? 'Unknown error'),
+          orElse: () => const CircularProgressIndicator(),
         ),
-        orElse: () => const Center(child: CircularProgressIndicator()),
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: cameraController.recordMovie,
