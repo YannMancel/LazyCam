@@ -1,6 +1,9 @@
 import '../models/models_link.dart';
 import 'controllers_link.dart';
 
+// -----------------------------------------------------------------------------
+// Abstract class
+// -----------------------------------------------------------------------------
 abstract class MenuController extends BaseController<MenuState> {
   MenuController({required MenuState state}) : super(state: state);
 
@@ -12,6 +15,9 @@ abstract class MenuController extends BaseController<MenuState> {
   void reverseState();
 }
 
+// -----------------------------------------------------------------------------
+// Implementation
+// -----------------------------------------------------------------------------
 class MenuControllerImpl extends MenuController {
   MenuControllerImpl() : super(state: const MenuState.close());
 

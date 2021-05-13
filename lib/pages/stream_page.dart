@@ -2,6 +2,7 @@ import 'package:camera/camera.dart' show CameraPreview;
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart' show HookWidget;
 import 'package:hooks_riverpod/hooks_riverpod.dart' show useProvider;
+import 'package:flutter_riverpod/flutter_riverpod.dart' show BuildContextX;
 
 import '../providers.dart';
 import '../widgets/widgets_link.dart';
@@ -11,10 +12,9 @@ class StreamPage extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
-    final cameraState = useProvider(cameraProvider);
-    final cameraController = useProvider(cameraProvider.notifier);
-    final timerController = useProvider(timerProvider.notifier);
-    //final imageState = useProvider(imageStreamProvider);
+    final cameraState = useProvider(streamCameraProvider);
+    final cameraController =
+        useProvider(imageStreamProvider.notifier).cameraController;
 
     return Scaffold(
       appBar: AppBar(
@@ -26,15 +26,21 @@ class StreamPage extends HookWidget {
           )
         ],
       ),
-      body: cameraState.maybeWhen(
-        readyPreview: (_) => StreamView(
-          preview: CameraPreview(cameraController.controller),
+      body: Center(
+        child: cameraState.maybeWhen(
+          readyPreview: (_) => (cameraController.controller == null)
+              ? const SizedBox()
+              : StreamView(
+                  preview: CameraPreview(cameraController.controller!),
+                ),
+          error: (_, message) => StyledText(data: message ?? 'Unknown error'),
+          orElse: () => const CircularProgressIndicator(),
         ),
-        orElse: () => const Center(child: CircularProgressIndicator()),
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () => timerController.start(
-            timeInSecond: 15), //cameraController.startImageStream,
+        onPressed: () {
+          context.read(imageStreamProvider.notifier).start(timeInSecond: 15);
+        },
         child: Icon(Icons.stream),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
@@ -53,7 +59,7 @@ class StreamView extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
-    final timerState = useProvider(timerProvider);
+    final timerState = useProvider(streamTimerProvider);
 
     return timerState.when(
       initial: (_) => SizedBox.expand(child: _preview),

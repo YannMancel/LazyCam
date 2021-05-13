@@ -5,6 +5,9 @@ import 'package:flutter/foundation.dart' show visibleForTesting;
 import '../models/models_link.dart';
 import 'controllers_link.dart';
 
+// -----------------------------------------------------------------------------
+// Abstract class
+// -----------------------------------------------------------------------------
 abstract class CameraController extends BaseController<CameraState> {
   CameraController({required CameraState state}) : super(state: state);
 
@@ -20,6 +23,9 @@ abstract class CameraController extends BaseController<CameraState> {
   Future<void> recordMovie();
 }
 
+// -----------------------------------------------------------------------------
+// Implementation
+// -----------------------------------------------------------------------------
 class CameraControllerImpl extends CameraController {
   CameraControllerImpl() : super(state: CameraState.initial()) {
     initialize();

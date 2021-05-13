@@ -1,4 +1,4 @@
-import 'dart:ui';
+import 'package:flutter/material.dart' show Image;
 
 import 'package:flutter/foundation.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';

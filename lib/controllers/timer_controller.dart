@@ -3,6 +3,9 @@ import 'dart:async' show StreamSubscription;
 import '../models/models_link.dart';
 import 'controllers_link.dart';
 
+// -----------------------------------------------------------------------------
+// Abstract class
+// -----------------------------------------------------------------------------
 abstract class TimerController extends BaseController<TimerState> {
   TimerController({required TimerState state}) : super(state: state);
 
@@ -15,6 +18,9 @@ abstract class TimerController extends BaseController<TimerState> {
   void stop();
 }
 
+// -----------------------------------------------------------------------------
+// Implementation
+// -----------------------------------------------------------------------------
 class TimerControllerImpl extends TimerController {
   TimerControllerImpl() : super(state: TimerState.initial());
 
