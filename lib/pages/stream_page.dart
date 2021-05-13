@@ -13,9 +13,8 @@ class StreamPage extends HookWidget {
   Widget build(BuildContext context) {
     final cameraState = useProvider(cameraProvider);
     final cameraController = useProvider(cameraProvider.notifier);
-    final imageState = useProvider(imageStreamProvider);
-    final timerState = useProvider(timerProvider);
     final timerController = useProvider(timerProvider.notifier);
+    //final imageState = useProvider(imageStreamProvider);
 
     return Scaffold(
       appBar: AppBar(
@@ -28,19 +27,8 @@ class StreamPage extends HookWidget {
         ],
       ),
       body: cameraState.maybeWhen(
-        readyPreview: (_) => timerState.when(
-          initial: (_) => SizedBox.expand(
-            child: CameraPreview(cameraController.controller),
-          ),
-          start: (seconds) => Center(
-            child: StyledText(data: '$seconds'),
-          ),
-          stop: (_) => SizedBox.expand(
-            child: Container(
-              color: Colors.red,
-              child: null,
-            ),
-          ),
+        readyPreview: (_) => StreamView(
+          preview: CameraPreview(cameraController.controller),
         ),
         orElse: () => const Center(child: CircularProgressIndicator()),
       ),
@@ -50,6 +38,34 @@ class StreamPage extends HookWidget {
         child: Icon(Icons.stream),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
+    );
+  }
+}
+
+class StreamView extends HookWidget {
+  const StreamView({
+    Key? key,
+    required CameraPreview preview,
+  })   : _preview = preview,
+        super(key: key);
+
+  final CameraPreview _preview;
+
+  @override
+  Widget build(BuildContext context) {
+    final timerState = useProvider(timerProvider);
+
+    return timerState.when(
+      initial: (_) => SizedBox.expand(child: _preview),
+      start: (seconds) => Center(
+        child: StyledText(data: '$seconds'),
+      ),
+      stop: (_) => SizedBox.expand(
+        child: Container(
+          color: Colors.red,
+          child: null,
+        ),
+      ),
     );
   }
 }

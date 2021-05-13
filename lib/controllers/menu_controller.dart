@@ -1,8 +1,8 @@
 import '../models/models_link.dart';
-import 'base_controller.dart';
+import 'controllers_link.dart';
 
 abstract class MenuController extends BaseController<MenuState> {
-  MenuController({required MenuState state}) : super(state);
+  MenuController({required MenuState state}) : super(state: state);
 
   static const kName = 'MenuProvider';
 

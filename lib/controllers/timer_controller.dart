@@ -1,10 +1,10 @@
 import 'dart:async' show StreamSubscription;
 
 import '../models/models_link.dart';
-import 'base_controller.dart';
+import 'controllers_link.dart';
 
 abstract class TimerController extends BaseController<TimerState> {
-  TimerController({required TimerState state}) : super(state);
+  TimerController({required TimerState state}) : super(state: state);
 
   static const kName = 'timerProvider';
 

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart' show ProviderScope;
 
 import 'routes.dart';
-import 'utils/app_observer.dart';
+import 'utils/utils_link.dart';
 
 void main() => runApp(MyApp());
 

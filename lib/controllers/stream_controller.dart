@@ -2,11 +2,10 @@ import 'package:camera/camera.dart' as camera_lib show CameraImage;
 
 import '../mixins/mixins_link.dart';
 import '../models/models_link.dart';
-import 'base_controller.dart';
-import 'timer_controller.dart';
+import 'controllers_link.dart';
 
 abstract class ImageStreamController extends BaseController<StreamState> {
-  ImageStreamController({required StreamState state}) : super(state);
+  ImageStreamController({required StreamState state}) : super(state: state);
 
   static const kName = 'imageStreamProvider';
 
@@ -16,6 +15,8 @@ abstract class ImageStreamController extends BaseController<StreamState> {
   void startTimer({required int timeInSecond});
   set addImage(camera_lib.CameraImage image);
   void stopImageStream();
+// Future<void> startImageStream();
+// Future<void> stopImageStream();
 }
 
 class ImageStreamControllerImpl extends ImageStreamController
@@ -60,4 +61,26 @@ class ImageStreamControllerImpl extends ImageStreamController
   void stopImageStream() {
     // todo add stop action
   }
+
+/*
+  @override
+  Future<void> startImageStream() async {
+    if (!_isReadyPreviewState) {
+      _error = 'The camera is not in readyPreview state. '
+          'To start image stream is impossible.';
+      return;
+    }
+
+    await _controller!.startImageStream((image) {
+      _imageStreamController.addImage = image;
+    });
+  }
+
+  @override
+  Future<void> stopImageStream() async {
+    _imageStreamController.stopImageStream();
+    await _controller!.stopImageStream();
+  }
+
+   */
 }

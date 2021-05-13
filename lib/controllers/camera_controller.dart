@@ -2,11 +2,10 @@ import 'package:camera/camera.dart' as camera_lib
     show CameraController, availableCameras, ResolutionPreset;
 
 import '../models/models_link.dart';
-import 'base_controller.dart';
 import 'controllers_link.dart';
 
 abstract class CameraController extends BaseController<CameraState> {
-  CameraController({required CameraState state}) : super(state);
+  CameraController({required CameraState state}) : super(state: state);
 
   static const kName = 'CameraController';
 
@@ -16,19 +15,13 @@ abstract class CameraController extends BaseController<CameraState> {
   camera_lib.CameraController get controller;
   void switchCamera();
   Future<void> recordMovie();
-  Future<void> startImageStream();
-  Future<void> stopImageStream();
 }
 
 class CameraControllerImpl extends CameraController {
-  CameraControllerImpl({
-    required ImageStreamController imageStreamController,
-  })   : _imageStreamController = imageStreamController,
-        super(state: CameraState.initial()) {
+  CameraControllerImpl() : super(state: CameraState.initial()) {
     _initialize();
   }
 
-  final ImageStreamController _imageStreamController;
   camera_lib.CameraController? _controller;
 
   set _error(String message) {
@@ -68,7 +61,9 @@ class CameraControllerImpl extends CameraController {
 
   @override
   camera_lib.CameraController get controller {
-    if (_controller == null) _error = 'Error during initialisation.';
+    if (_controller == null) {
+      _error = 'Error during initialisation. CameraController is null.';
+    }
     return _controller!;
   }
 
@@ -85,27 +80,7 @@ class CameraControllerImpl extends CameraController {
           'To start image stream is impossible.';
       return;
     }
-
-    // todo add record action
-  }
-
-  @override
-  Future<void> startImageStream() async {
-    if (!_isReadyPreviewState) {
-      _error = 'The camera is not in readyPreview state. '
-          'To start image stream is impossible.';
-      return;
-    }
-
-    await _controller!.startImageStream((image) {
-      _imageStreamController.addImage = image;
-    });
-  }
-
-  @override
-  Future<void> stopImageStream() async {
-    _imageStreamController.stopImageStream();
-    await _controller!.stopImageStream();
+    // TODO: add record action.
   }
 
   @override

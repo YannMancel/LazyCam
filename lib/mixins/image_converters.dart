@@ -1,8 +1,71 @@
-import 'dart:typed_data';
+import 'dart:typed_data' show Uint8List;
 
-import 'package:flutter/material.dart';
-import 'package:image/image.dart' as imglib show Image, PngEncoder, Format;
+import 'package:flutter/material.dart' show Image;
+import 'package:image/image.dart' as image_lib show Image, PngEncoder, Format;
 import 'package:camera/camera.dart' show CameraImage, ImageFormatGroup, Plane;
+
+/*
+// imgLib -> Image package from https://pub.dartlang.org/packages/image
+import 'package:image/image.dart' as imglib;
+import 'package:camera/camera.dart';
+
+Future<List<int>> convertImagetoPng(CameraImage image) async {
+  try {
+    imglib.Image img;
+    if (image.format.group == ImageFormatGroup.yuv420) {
+      img = _convertYUV420(image);
+    } else if (image.format.group == ImageFormatGroup.bgra8888) {
+      img = _convertBGRA8888(image);
+    }
+
+    imglib.PngEncoder pngEncoder = new imglib.PngEncoder();
+
+    // Convert to png
+    List<int> png = pngEncoder.encodeImage(img);
+    return png;
+  } catch (e) {
+    print(">>>>>>>>>>>> ERROR:" + e.toString());
+  }
+  return null;
+}
+
+// CameraImage BGRA8888 -> PNG
+// Color
+imglib.Image _convertBGRA8888(CameraImage image) {
+  return imglib.Image.fromBytes(
+    image.width,
+    image.height,
+    image.planes[0].bytes,
+    format: imglib.Format.bgra,
+  );
+}
+
+// CameraImage YUV420_888 -> PNG -> Image (compresion:0, filter: none)
+// Black
+imglib.Image _convertYUV420(CameraImage image) {
+  var img = imglib.Image(image.width, image.height); // Create Image buffer
+
+  Plane plane = image.planes[0];
+  const int shift = (0xFF << 24);
+
+  // Fill image buffer with plane[0] from YUV420_888
+  for (int x = 0; x < image.width; x++) {
+    for (int planeOffset = 0;
+        planeOffset < image.height * image.width;
+        planeOffset += image.width) {
+      final pixelColor = plane.bytes[planeOffset + x];
+      // color: 0x FF  FF  FF  FF
+      //           A   B   G   R
+      // Calculate pixel color
+      var newVal = shift | (pixelColor << 16) | (pixelColor << 8) | pixelColor;
+
+      img.data[planeOffset + x] = newVal;
+    }
+  }
+
+  return img;
+}
+ */
 
 mixin ImageConverter {
   /*
@@ -52,52 +115,60 @@ mixin ImageConverter {
 
   Image? convertImageFromCamera(CameraImage image) {
     try {
-      imglib.Image? img;
-      if (image.format.group == ImageFormatGroup.yuv420) {
-        img = _convertYUV420(image);
-      } else if (image.format.group == ImageFormatGroup.bgra8888) {
-        img = _convertBGRA8888(image);
+      image_lib.Image? img;
+
+      switch (image.format.group) {
+        case ImageFormatGroup.unknown:
+          // TODO: Handle this case.
+          break;
+        case ImageFormatGroup.yuv420:
+          img = _convertYUV420(cameraImage: image);
+          break;
+        case ImageFormatGroup.bgra8888:
+          img = _convertBGRA8888(cameraImage: image);
+          break;
+        case ImageFormatGroup.jpeg:
+          // TODO: Handle this case.
+          break;
       }
 
       if (img == null) return null;
 
-      imglib.PngEncoder pngEncoder = imglib.PngEncoder();
-
       // Convert to png
-      List<int> png = pngEncoder.encodeImage(img);
+      final png = image_lib.PngEncoder().encodeImage(img);
 
       return Image.memory(Uint8List.fromList(png));
     } catch (e) {
       print('Error during conversion of CameraImage to Image: $e');
+      return null;
     }
-    return null;
   }
 
   // CameraImage BGRA8888 -> PNG
   // Color
-  imglib.Image _convertBGRA8888(CameraImage image) {
-    return imglib.Image.fromBytes(
-      image.width,
-      image.height,
-      image.planes[0].bytes,
-      format: imglib.Format.bgra,
+  image_lib.Image _convertBGRA8888({required CameraImage cameraImage}) {
+    return image_lib.Image.fromBytes(
+      cameraImage.width,
+      cameraImage.height,
+      cameraImage.planes[0].bytes,
+      format: image_lib.Format.bgra,
     );
   }
 
   // CameraImage YUV420_888 -> PNG -> Image (compression:0, filter: none)
   // Black
-  imglib.Image _convertYUV420(CameraImage image) {
+  image_lib.Image _convertYUV420({required CameraImage cameraImage}) {
     // Create Image buffer
-    var img = imglib.Image(image.width, image.height);
+    var img = image_lib.Image(cameraImage.width, cameraImage.height);
 
-    Plane plane = image.planes[0];
+    Plane plane = cameraImage.planes[0];
     const int shift = (0xFF << 24);
 
     // Fill image buffer with plane[0] from YUV420_888
-    for (int x = 0; x < image.width; x++) {
+    for (int x = 0; x < cameraImage.width; x++) {
       for (int planeOffset = 0;
-          planeOffset < image.height * image.width;
-          planeOffset += image.width) {
+          planeOffset < cameraImage.height * cameraImage.width;
+          planeOffset += cameraImage.width) {
         final pixelColor = plane.bytes[planeOffset + x];
         // color: 0x FF  FF  FF  FF
         //           A   B   G   R

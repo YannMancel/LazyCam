@@ -2,7 +2,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart'
     show ProviderObserver, ProviderBase;
 
 import '../extensions/extensions_link.dart';
-import 'logger.dart';
+import 'utils_link.dart';
 
 enum ProviderEvent { Add, Update, Dependencies, Dispose }
 

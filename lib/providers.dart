@@ -17,6 +17,13 @@ final timerProvider =
   name: TimerController.kName,
 );
 
+/// Manages the camera states and starts/stops the image stream.
+final cameraProvider =
+    StateNotifierProvider.autoDispose<CameraController, CameraState>(
+  (ref) => CameraControllerImpl(),
+  name: CameraController.kName,
+);
+
 /// Manages the image stream from camera.
 final imageStreamProvider =
     StateNotifierProvider.autoDispose<ImageStreamController, StreamState>(
@@ -25,14 +32,4 @@ final imageStreamProvider =
     return ImageStreamControllerImpl(timerController: timerController);
   },
   name: ImageStreamController.kName,
-);
-
-/// Manages the camera states and starts/stops the image stream.
-final cameraProvider =
-    StateNotifierProvider.autoDispose<CameraController, CameraState>(
-  (ref) {
-    final imageStreamController = ref.watch(imageStreamProvider.notifier);
-    return CameraControllerImpl(imageStreamController: imageStreamController);
-  },
-  name: CameraController.kName,
 );

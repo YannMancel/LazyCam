@@ -1,14 +1,8 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart' show StateNotifier;
 
-abstract class _BaseController {
-  String get name;
-}
+abstract class BaseController<T> extends StateNotifier<T> {
+  BaseController({required T state}) : super(state);
 
-abstract class BaseController<T> extends StateNotifier<T>
-    implements _BaseController {
-  BaseController(T value) : super(value);
-
-  @override
   String get name;
 
   @override
