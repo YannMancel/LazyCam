@@ -30,7 +30,7 @@ class StreamPage extends HookWidget {
         child: cameraState.maybeWhen(
           readyPreview: (_) => (cameraController.controller == null)
               ? const SizedBox()
-              : StreamView(
+              : _StreamView(
                   preview: CameraPreview(cameraController.controller!),
                 ),
           error: (_, message) => StyledText(data: message ?? 'Unknown error'),
@@ -48,8 +48,8 @@ class StreamPage extends HookWidget {
   }
 }
 
-class StreamView extends HookWidget {
-  const StreamView({
+class _StreamView extends HookWidget {
+  const _StreamView({
     Key? key,
     required CameraPreview preview,
   })   : _preview = preview,
