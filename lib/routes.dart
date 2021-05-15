@@ -1,29 +1,30 @@
 import 'package:flutter/material.dart';
 
+import 'mixins/mixins_link.dart';
 import 'pages/pages_link.dart';
 
-abstract class MaterialRouteGenerator {
-  static const kHomeRoute = '/';
-  static const kTimerRoute = '/timer';
-  static const kCameraRoute = '/camera';
-  static const kStreamRoute = '/stream';
-
+abstract class MaterialRouteGenerator with RouteNames {
   static Route<dynamic>? generate(RouteSettings? onGenerateRoute) {
     // Calls initialRoute of MaterialApp
     if (onGenerateRoute == null) return null;
 
     switch (onGenerateRoute.name) {
-      case kHomeRoute:
+      // [LEVEL 0]
+      case RouteNames.kHomeRoute:
         return _getRoute(page: const HomePage());
-      case kTimerRoute:
-        return _getRoute(page: const TimerPage());
-      case kCameraRoute:
+      // [LEVEL 1]
+      case RouteNames.kTimeSelectorRoute:
+        return _getRoute(page: const TimeSelectorPage());
+      case RouteNames.kCameraRoute:
         return _getRoute(page: const CameraPage());
-      case kStreamRoute:
+      case RouteNames.kStreamRoute:
         return _getRoute(page: const StreamPage());
+      // [LEVEL 2]
+      case RouteNames.kTimerRoute:
+        return _getRoute(page: const TimerPage());
 
       default:
-        throw FormatException('Route not found.');
+        throw FormatException('Route of ${onGenerateRoute.name} unknown.');
     }
   }
 

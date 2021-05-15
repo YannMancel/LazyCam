@@ -5,11 +5,11 @@ import 'package:hooks_riverpod/hooks_riverpod.dart' show useProvider;
 import 'package:flutter_riverpod/flutter_riverpod.dart' show BuildContextX;
 
 import '../extensions/extensions_link.dart';
+import '../mixins/mixins_link.dart';
 import '../providers.dart';
-import '../routes.dart';
 import '../widgets/widgets_link.dart';
 
-class HomePage extends StatelessWidget {
+class HomePage extends StatelessWidget with RouteNames {
   const HomePage({Key? key}) : super(key: key);
 
   static const kMessageKey = Key('message');
@@ -39,7 +39,7 @@ class HomePage extends StatelessWidget {
             bottom: 16.0,
             verticalOffset: -1.4,
             iconData: Icons.stream,
-            action: () => context.pushBy = MaterialRouteGenerator.kStreamRoute,
+            action: () => context.pushBy = RouteNames.kStreamRoute,
           ),
           _MiniFAB(
             keyOfFAB: kCameraMiniFabKey,
@@ -48,7 +48,7 @@ class HomePage extends StatelessWidget {
             bottom: 16.0,
             verticalOffset: -2.5,
             iconData: Icons.camera,
-            action: () => context.pushBy = MaterialRouteGenerator.kCameraRoute,
+            action: () => context.pushBy = RouteNames.kCameraRoute,
           ),
           _MiniFAB(
             keyOfFAB: kTimerMiniFabKey,
@@ -57,7 +57,7 @@ class HomePage extends StatelessWidget {
             bottom: 16.0,
             verticalOffset: -3.6,
             iconData: Icons.timer,
-            action: () => context.pushBy = MaterialRouteGenerator.kTimerRoute,
+            action: () => context.pushBy = RouteNames.kTimeSelectorRoute,
           ),
         ],
       ),

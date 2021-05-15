@@ -2,11 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart' show ProviderScope;
 
 import 'routes.dart';
+import 'mixins/mixins_link.dart';
 import 'utils/utils_link.dart';
 
 void main() => runApp(MyApp());
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatelessWidget with RouteNames {
   @override
   Widget build(BuildContext context) {
     return ProviderScope(
@@ -17,7 +18,7 @@ class MyApp extends StatelessWidget {
         debugShowMaterialGrid: false,
         debugShowCheckedModeBanner: false,
         theme: ThemeData.dark(),
-        initialRoute: MaterialRouteGenerator.kHomeRoute,
+        initialRoute: RouteNames.kHomeRoute,
         onGenerateRoute: MaterialRouteGenerator.generate,
       ),
     );
