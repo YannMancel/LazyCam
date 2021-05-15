@@ -24,8 +24,8 @@ class _AppBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SliverAppBar(
-      title: const Text('Timer'),
+    return const SliverAppBar(
+      title: Text('Timer'),
     );
   }
 }
@@ -69,7 +69,8 @@ class _TimeCycles extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: 8.0),
       sliver: SliverList(
         delegate: SliverChildBuilderDelegate(
-          (context, index) => _CycleCard(), // TODO: cycle: cycles[index]
+          (_, index) =>
+              _CycleCard(cycleId: index), // TODO: cycle: cycles[index]
           childCount: 4,
         ),
       ),
@@ -79,11 +80,16 @@ class _TimeCycles extends StatelessWidget {
 
 // TODO drag & drop card
 class _CycleCard extends StatelessWidget {
-  const _CycleCard({Key? key}) : super(key: key);
+  const _CycleCard({
+    Key? key,
+    required int cycleId,
+  })   : _cycleId = cycleId,
+        super(key: key);
 
   // TODO: const _CycleCard({Key? key, required Cycle cycle,}) : _cycle = cycle, super(key: key);
 
   // TODO: final Cycle _cycle;
+  final int _cycleId;
 
   @override
   Widget build(BuildContext context) {
@@ -96,13 +102,16 @@ class _CycleCard extends StatelessWidget {
           child: Column(
             mainAxisSize: MainAxisSize.min,
             crossAxisAlignment: CrossAxisAlignment.start,
-            children: const [
+            children: [
               // TODO: create TextStyles in utils
-              Text('Cycle 1', style: TextStyle(fontSize: 20.0)),
-              Divider(),
-              _TimeSection(title: 'Time (min:s)'),
-              _TempoSection(title: 'Tempo (rep/min)'),
-              _TimeSection(title: 'Pause (min:s)'),
+              const Text('Cycle 1', style: TextStyle(fontSize: 20.0)),
+              const Divider(),
+              const _TimeSection(title: 'Time (min:s)'),
+              _TempoSection(
+                title: 'Tempo (rep/min)',
+                cycleId: _cycleId,
+              ),
+              const _TimeSection(title: 'Pause (min:s)'),
             ],
           ),
         ),
@@ -146,10 +155,13 @@ class _TempoSection extends StatelessWidget {
   const _TempoSection({
     Key? key,
     required String title,
+    required int cycleId,
   })   : _title = title,
+        _cycleId = cycleId,
         super(key: key);
 
   final String _title;
+  final int _cycleId;
 
   @override
   Widget build(BuildContext context) {
@@ -163,7 +175,7 @@ class _TempoSection extends StatelessWidget {
           flex: 2,
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 16.0),
-            child: NumberSelector(),
+            child: NumberSelector(cycleId: _cycleId),
           ),
         ),
       ],

@@ -60,3 +60,15 @@ final streamCameraProvider =
   (ref) => ref.watch(imageStreamProvider.notifier).cameraController,
   name: '${ImageStreamController.kName}.${CameraController.kName}',
 );
+
+// -----------------------------------------------------------------------------
+// Number
+// -----------------------------------------------------------------------------
+
+// TODO change cycleId by Cycle data class
+/// Manages the number with its decrement/increment methods.
+final numberProvider =
+    StateNotifierProvider.autoDispose.family<NumberController, int, int>(
+  (ref, cycleId) => NumberControllerImpl(state: 5),
+  name: NumberController.kName,
+);
