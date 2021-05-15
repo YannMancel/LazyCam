@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../widgets/time_selector.dart';
+import '../widgets/widgets_link.dart';
 
 class TimeSelectorPage extends StatelessWidget {
   const TimeSelectorPage({Key? key}) : super(key: key);
@@ -100,9 +100,9 @@ class _CycleCard extends StatelessWidget {
               // TODO: create TextStyles in utils
               Text('Cycle 1', style: TextStyle(fontSize: 20.0)),
               Divider(),
-              _Section(title: 'Time'),
-              _Section(title: 'Tempo (rep/min)'),
-              _Section(title: 'Pause'),
+              _TimeSection(title: 'Time (min:s)'),
+              _TempoSection(title: 'Tempo (rep/min)'),
+              _TimeSection(title: 'Pause (min:s)'),
             ],
           ),
         ),
@@ -112,8 +112,8 @@ class _CycleCard extends StatelessWidget {
 }
 
 // TODO: callback of TimerSelector
-class _Section extends StatelessWidget {
-  const _Section({
+class _TimeSection extends StatelessWidget {
+  const _TimeSection({
     Key? key,
     required String title,
   })   : _title = title,
@@ -125,8 +125,47 @@ class _Section extends StatelessWidget {
   Widget build(BuildContext context) {
     return Row(
       children: [
-        Expanded(flex: 1, child: Text(_title)),
-        Expanded(flex: 2, child: const TimerSelector()),
+        Expanded(
+          flex: 1,
+          child: Text(_title),
+        ),
+        Expanded(
+          flex: 2,
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 16.0),
+            child: const TimerSelector(),
+          ),
+        ),
+      ],
+    );
+  }
+}
+
+// TODO: callback of NumberSelector
+class _TempoSection extends StatelessWidget {
+  const _TempoSection({
+    Key? key,
+    required String title,
+  })   : _title = title,
+        super(key: key);
+
+  final String _title;
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      children: [
+        Expanded(
+          flex: 1,
+          child: Text(_title),
+        ),
+        Expanded(
+          flex: 2,
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 16.0),
+            child: const NumberSelector(),
+          ),
+        ),
       ],
     );
   }
