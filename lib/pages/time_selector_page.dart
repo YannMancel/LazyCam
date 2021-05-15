@@ -163,7 +163,7 @@ class _TempoSection extends StatelessWidget {
           flex: 2,
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 16.0),
-            child: const NumberSelector(),
+            child: NumberSelector(),
           ),
         ),
       ],
