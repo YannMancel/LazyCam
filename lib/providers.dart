@@ -20,9 +20,9 @@ final menuProvider = StateNotifierProvider<MenuController, MenuState>(
 
 /// Manages the time with its start/stop methods.
 final timerProvider =
-    StateNotifierProvider.autoDispose<TimerController, TimerState>(
-  (_) => TimerControllerImpl(),
-  name: TimerController.kName,
+    StateNotifierProvider.autoDispose<ChronometerController, TimerState>(
+  (_) => ChronometerControllerImpl(),
+  name: ChronometerController.kName,
 );
 
 // -----------------------------------------------------------------------------
@@ -49,9 +49,9 @@ final imageStreamProvider =
 
 /// Manages the time with its start/stop methods.
 final streamTimerProvider =
-    StateNotifierProvider.autoDispose<TimerController, TimerState>(
-  (ref) => ref.watch(imageStreamProvider.notifier).timerController,
-  name: '${ImageStreamController.kName}.${TimerController.kName}',
+    StateNotifierProvider.autoDispose<ChronometerController, TimerState>(
+  (ref) => ref.watch(imageStreamProvider.notifier).chronometerController,
+  name: '${ImageStreamController.kName}.${ChronometerController.kName}',
 );
 
 /// Manages the camera states and starts/stops the image stream.
@@ -77,6 +77,7 @@ final trainingProvider =
 // -----------------------------------------------------------------------------
 
 // TODO rename to tempoProvider?!
+// TODO change family parameter -> class(cycleId, tempo)
 /// Manages the number with its decrement/increment methods.
 final numberProvider =
     StateNotifierProvider.autoDispose.family<NumberController, int, Cycle>(

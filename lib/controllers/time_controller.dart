@@ -3,15 +3,18 @@ import 'controllers_link.dart';
 // -----------------------------------------------------------------------------
 // Abstract class
 // -----------------------------------------------------------------------------
-abstract class NumberController extends BaseController<int> {
-  NumberController({required int state}) : super(state: state);
+abstract class TimerController extends BaseController<int> {
+  TimerController({required int state}) : super(state: state);
 
-  static const kName = 'NumberProvider';
+  static const kName = 'TimeProvider';
 
   @override
-  String get name => NumberController.kName;
+  String get name => TimerController.kName;
 
-  set input(String value);
+  void input({
+    required String minutes,
+    required String seconds,
+  });
   void decrement();
   void increment();
 }
@@ -19,20 +22,26 @@ abstract class NumberController extends BaseController<int> {
 // -----------------------------------------------------------------------------
 // Implementation
 // -----------------------------------------------------------------------------
-class NumberControllerImpl extends NumberController {
-  NumberControllerImpl({required int state}) : super(state: state);
+class TimerControllerImpl extends TimerController {
+  TimerControllerImpl({required int state}) : super(state: state);
 
   @override
-  set input(String value) {
-    state = value.isNotEmpty ? int.parse(value) : 0;
+  void input({
+    required String minutes,
+    required String seconds,
+  }) {
+    // TODO: add logic
+    //state = value.isNotEmpty ? int.parse(value) : 0;
   }
 
   @override
   void decrement() {
     if (state == 0) return;
+
     state--;
   }
 
+  // TODO: check digit
   @override
   void increment() => state++;
 }

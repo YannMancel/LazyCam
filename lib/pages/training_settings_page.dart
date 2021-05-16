@@ -120,22 +120,9 @@ class _CycleCard extends StatelessWidget {
                 style: const TextStyle(fontSize: 20.0),
               ),
               const Divider(),
-              const _TimeSection(title: 'Time (min:s)'),
-              _TempoSection(
-                title: 'Tempo (rep/min)',
-                cycle: _cycle,
-                onChanged: (value) {
-                  context
-                      .read(
-                        trainingProvider.notifier,
-                      )
-                      .updateTempoOfCycle(
-                        cycle: _cycle,
-                        tempo: value,
-                      );
-                },
-              ),
-              const _TimeSection(title: 'Pause (min:s)'),
+              _Time(cycle: _cycle),
+              _Tempo(cycle: _cycle),
+              _Pause(cycle: _cycle),
             ],
           ),
         ),
@@ -144,50 +131,97 @@ class _CycleCard extends StatelessWidget {
   }
 }
 
-// TODO: callback of TimerSelector
-class _TimeSection extends StatelessWidget {
-  const _TimeSection({
+class _Time extends StatelessWidget {
+  const _Time({
     Key? key,
-    required String title,
-  })   : _title = title,
+    required Cycle cycle,
+  })   : _cycle = cycle,
         super(key: key);
 
-  final String _title;
+  final Cycle _cycle;
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      children: [
-        Expanded(
-          flex: 1,
-          child: Text(_title),
-        ),
-        Expanded(
-          flex: 2,
-          child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 16.0),
-            child: const TimerSelector(),
-          ),
-        ),
-      ],
+    return _Section(
+      title: 'Time (min:s)',
+      child: TimerSelector(
+        cycle: _cycle,
+        onChanged: (value) {
+          print('TIME -> $value');
+          // context.read(trainingProvider.notifier).updateTimeOfCycle(
+          //       cycle: _cycle,
+          //       time: value,
+          //     );
+        },
+      ),
     );
   }
 }
 
-class _TempoSection extends StatelessWidget {
-  const _TempoSection({
+class _Tempo extends StatelessWidget {
+  const _Tempo({
+    Key? key,
+    required Cycle cycle,
+  })   : _cycle = cycle,
+        super(key: key);
+
+  final Cycle _cycle;
+
+  @override
+  Widget build(BuildContext context) {
+    return _Section(
+      title: 'Tempo (rep/min)',
+      child: NumberSelector(
+        cycle: _cycle,
+        onChanged: (value) {
+          context.read(trainingProvider.notifier).updateTempoOfCycle(
+                cycle: _cycle,
+                tempo: value,
+              );
+        },
+      ),
+    );
+  }
+}
+
+class _Pause extends StatelessWidget {
+  const _Pause({
+    Key? key,
+    required Cycle cycle,
+  })   : _cycle = cycle,
+        super(key: key);
+
+  final Cycle _cycle;
+
+  @override
+  Widget build(BuildContext context) {
+    return _Section(
+      title: 'Pause (min:s)',
+      child: TimerSelector(
+        cycle: _cycle,
+        onChanged: (value) {
+          print('PAUSE -> $value');
+          // context.read(trainingProvider.notifier).updatePauseOfCycle(
+          //       cycle: _cycle,
+          //       pause: value,
+          //     );
+        },
+      ),
+    );
+  }
+}
+
+class _Section extends StatelessWidget {
+  const _Section({
     Key? key,
     required String title,
-    required Cycle cycle,
-    ValueChanged<int>? onChanged,
-  })  : _title = title,
-        _cycle = cycle,
-        _onChanged = onChanged,
+    required Widget child,
+  })   : _title = title,
+        _child = child,
         super(key: key);
 
   final String _title;
-  final Cycle _cycle;
-  final ValueChanged<int>? _onChanged;
+  final Widget _child;
 
   @override
   Widget build(BuildContext context) {
@@ -201,10 +235,7 @@ class _TempoSection extends StatelessWidget {
           flex: 2,
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 16.0),
-            child: NumberSelector(
-              cycle: _cycle,
-              onChanged: _onChanged,
-            ),
+            child: _child,
           ),
         ),
       ],

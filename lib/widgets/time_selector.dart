@@ -4,17 +4,26 @@ import 'package:flutter/services.dart'
 import 'package:flutter_hooks/flutter_hooks.dart'
     show HookWidget, useTextEditingController;
 
+import '../models/models_link.dart';
+
+// TODO: asset on digit
 class TimerSelector extends HookWidget {
   const TimerSelector({
     Key? key,
+    required Cycle cycle,
     int maxDigitForMinute = 3,
     int maxDigitForSecond = 2,
-  })  : _maxDigitForMinute = maxDigitForMinute,
+    ValueChanged<int>? onChanged,
+  })  : _cycle = cycle,
+        _maxDigitForMinute = maxDigitForMinute,
         _maxDigitForSecond = maxDigitForSecond,
+        _onChanged = onChanged,
         super(key: key);
 
+  final Cycle _cycle;
   final int _maxDigitForMinute;
   final int _maxDigitForSecond;
+  final ValueChanged<int>? _onChanged;
 
   @override
   Widget build(BuildContext context) {

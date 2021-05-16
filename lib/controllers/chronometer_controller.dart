@@ -6,13 +6,13 @@ import 'controllers_link.dart';
 // -----------------------------------------------------------------------------
 // Abstract class
 // -----------------------------------------------------------------------------
-abstract class TimerController extends BaseController<TimerState> {
-  TimerController({required TimerState state}) : super(state: state);
+abstract class ChronometerController extends BaseController<TimerState> {
+  ChronometerController({required TimerState state}) : super(state: state);
 
-  static const kName = 'timerProvider';
+  static const kName = 'ChronometerProvider';
 
   @override
-  String get name => TimerController.kName;
+  String get name => ChronometerController.kName;
 
   void start({required int timeInSecond});
   void stop();
@@ -21,8 +21,8 @@ abstract class TimerController extends BaseController<TimerState> {
 // -----------------------------------------------------------------------------
 // Implementation
 // -----------------------------------------------------------------------------
-class TimerControllerImpl extends TimerController {
-  TimerControllerImpl() : super(state: TimerState.initial());
+class ChronometerControllerImpl extends ChronometerController {
+  ChronometerControllerImpl() : super(state: TimerState.initial());
 
   StreamSubscription<int>? _stream;
 

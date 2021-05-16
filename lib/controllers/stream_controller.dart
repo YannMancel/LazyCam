@@ -12,13 +12,13 @@ import 'controllers_link.dart';
 abstract class ImageStreamController extends BaseController<StreamState> {
   ImageStreamController({required StreamState state}) : super(state: state);
 
-  static const kName = 'imageStreamProvider';
+  static const kName = 'ImageStreamProvider';
 
   @override
   String get name => ImageStreamController.kName;
 
   CameraController get cameraController;
-  TimerController get timerController;
+  ChronometerController get chronometerController;
   Future<void> start({required int timeInSecond});
   Future<void> stop();
 }
@@ -31,7 +31,8 @@ class ImageStreamControllerImpl extends ImageStreamController
   ImageStreamControllerImpl() : super(state: StreamState.initial());
 
   final CameraController _cameraController = CameraControllerImpl();
-  final TimerController _timerController = TimerControllerImpl();
+  final ChronometerController _chronometerController =
+      ChronometerControllerImpl();
 
   // To calculate the difference between the begin and end of timer
   int _frameNumber = 0;
@@ -40,7 +41,7 @@ class ImageStreamControllerImpl extends ImageStreamController
   CameraController get cameraController => _cameraController;
 
   @override
-  TimerController get timerController => _timerController;
+  ChronometerController get chronometerController => _chronometerController;
 
   @override
   Future<void> start({required int timeInSecond}) async {
@@ -50,7 +51,7 @@ class ImageStreamControllerImpl extends ImageStreamController
       return;
     }
 
-    _timerController.start(timeInSecond: timeInSecond);
+    _chronometerController.start(timeInSecond: timeInSecond);
 
     // TODO: create stream.
     //await _cameraController.controller?.startImageStream(
@@ -67,7 +68,7 @@ class ImageStreamControllerImpl extends ImageStreamController
   @override
   void dispose() {
     _cameraController.dispose();
-    _timerController.dispose();
+    _chronometerController.dispose();
     super.dispose();
   }
 

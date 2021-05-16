@@ -22,8 +22,8 @@ class NumberSelector extends HookWidget {
           "The cycle's tempo is out of digit range.",
         ),
         _cycle = cycle,
-        _onChanged = onChanged,
         _maxDigit = maxDigit,
+        _onChanged = onChanged,
         super(key: key);
 
   final Cycle _cycle;
@@ -51,8 +51,7 @@ class NumberSelector extends HookWidget {
         children: [
           IconButton(
             icon: const Icon(Icons.remove_circle, color: Colors.red),
-            onPressed: () =>
-                numberController.decrement = textEditController.text,
+            onPressed: numberController.decrement,
           ),
           Expanded(
             child: TextField(
@@ -67,13 +66,13 @@ class NumberSelector extends HookWidget {
                 floatingLabelBehavior: FloatingLabelBehavior.never,
               ),
               onEditingComplete: () =>
+                  // TODO: hide keyboard
                   numberController.input = textEditController.text,
             ),
           ),
           IconButton(
             icon: const Icon(Icons.add_circle, color: Colors.red),
-            onPressed: () =>
-                numberController.increment = textEditController.text,
+            onPressed: numberController.increment,
           ),
         ],
       ),
