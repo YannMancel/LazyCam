@@ -12,8 +12,8 @@ class TrainingSettingsPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: const CustomScrollView(
+    return const Scaffold(
+      body: CustomScrollView(
         slivers: [
           _AppBar(),
           _Training(),
@@ -117,13 +117,16 @@ class _CycleCard extends StatelessWidget {
               // TODO: create TextStyles in utils
               Text(
                 'Cycle ${_cycle.id + 1}',
-                style: TextStyle(fontSize: 20.0),
+                style: const TextStyle(fontSize: 20.0),
               ),
               const Divider(),
               const _TimeSection(title: 'Time (min:s)'),
               _TempoSection(
                 title: 'Tempo (rep/min)',
                 cycle: _cycle,
+                onChanged: (value) {
+                  // TODO: context.read(trainingProvider.notifier).updateTempoOfCycle(cycle: _cycle, tempo: value);
+                },
               ),
               const _TimeSection(title: 'Pause (min:s)'),
             ],
@@ -170,12 +173,15 @@ class _TempoSection extends StatelessWidget {
     Key? key,
     required String title,
     required Cycle cycle,
-  })   : _title = title,
+    ValueChanged<int>? onChanged,
+  })  : _title = title,
         _cycle = cycle,
+        _onChanged = onChanged,
         super(key: key);
 
   final String _title;
   final Cycle _cycle;
+  final ValueChanged<int>? _onChanged;
 
   @override
   Widget build(BuildContext context) {
@@ -189,7 +195,10 @@ class _TempoSection extends StatelessWidget {
           flex: 2,
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 16.0),
-            child: NumberSelector(cycle: _cycle),
+            child: NumberSelector(
+              cycle: _cycle,
+              onChanged: _onChanged,
+            ),
           ),
         ),
       ],

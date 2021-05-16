@@ -39,14 +39,20 @@ class NumberSelector extends HookWidget {
 
     return ProviderListener<int>(
       provider: numberProvider(_cycle),
-      onChange: (_, value) => textEditController.text = '$value',
+      onChange: (_, value) {
+        // Increment & decrement calls of empty text
+        if (value.toString() != textEditController.text) {
+          textEditController.text = value.toString();
+        }
+
+        _onChanged?.call(value);
+      },
       child: Row(
         children: [
           IconButton(
             icon: const Icon(Icons.remove_circle, color: Colors.red),
-            onPressed: () {
-              numberController.decrement = textEditController.text;
-            },
+            onPressed: () =>
+                numberController.decrement = textEditController.text,
           ),
           Expanded(
             child: TextField(
@@ -56,22 +62,18 @@ class NumberSelector extends HookWidget {
               inputFormatters: <TextInputFormatter>[
                 LengthLimitingTextInputFormatter(_maxDigit),
               ],
-              decoration: InputDecoration(
+              decoration: const InputDecoration(
                 border: InputBorder.none,
                 floatingLabelBehavior: FloatingLabelBehavior.never,
               ),
-              onChanged: (value) {
-                if (textEditController.text.isNotEmpty) {
-                  _onChanged?.call(int.parse(value));
-                }
-              },
+              onEditingComplete: () =>
+                  numberController.input = textEditController.text,
             ),
           ),
           IconButton(
             icon: const Icon(Icons.add_circle, color: Colors.red),
-            onPressed: () {
-              numberController.increment = textEditController.text;
-            },
+            onPressed: () =>
+                numberController.increment = textEditController.text,
           ),
         ],
       ),

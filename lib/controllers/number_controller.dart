@@ -11,6 +11,7 @@ abstract class NumberController extends BaseController<int> {
   @override
   String get name => NumberController.kName;
 
+  set input(String value);
   set decrement(String value);
   set increment(String value);
 }
@@ -20,6 +21,11 @@ abstract class NumberController extends BaseController<int> {
 // -----------------------------------------------------------------------------
 class NumberControllerImpl extends NumberController {
   NumberControllerImpl({required int state}) : super(state: state);
+
+  @override
+  set input(String value) {
+    state = value.isNotEmpty ? int.parse(value) : 0;
+  }
 
   @override
   set decrement(String value) {
