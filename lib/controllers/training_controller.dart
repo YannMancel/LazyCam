@@ -14,6 +14,10 @@ abstract class TrainingController extends BaseController<Training> {
 
   void addCycle();
   void copyLastCycle();
+  void updateTempoOfCycle({
+    required Cycle cycle,
+    required int tempo,
+  });
 }
 
 // -----------------------------------------------------------------------------
@@ -39,6 +43,18 @@ class TrainingControllerImpl extends TrainingController {
         ...state.cycles,
         state.cycles.last.copyWith(id: state.cycles.length),
       ],
+    );
+  }
+
+  @override
+  void updateTempoOfCycle({
+    required Cycle cycle,
+    required int tempo,
+  }) {
+    state = state.copyWith(
+      cycles: state.cycles
+          .map((e) => (e == cycle) ? cycle.copyWith(tempo: tempo) : e)
+          .toList(growable: false),
     );
   }
 }

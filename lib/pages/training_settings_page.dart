@@ -52,7 +52,7 @@ class _Actions extends HookWidget {
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
               ...(training.cycles.isNotEmpty
-                  ? [
+                  ? <Widget>[
                       ElevatedButton(
                         onPressed: context
                             .read(trainingProvider.notifier)
@@ -60,7 +60,7 @@ class _Actions extends HookWidget {
                         child: const Icon(Icons.copy),
                       )
                     ]
-                  : []),
+                  : <Widget>[]),
               ElevatedButton(
                 onPressed: context.read(trainingProvider.notifier).addCycle,
                 child: const Icon(Icons.add),
@@ -125,7 +125,14 @@ class _CycleCard extends StatelessWidget {
                 title: 'Tempo (rep/min)',
                 cycle: _cycle,
                 onChanged: (value) {
-                  // TODO: context.read(trainingProvider.notifier).updateTempoOfCycle(cycle: _cycle, tempo: value);
+                  context
+                      .read(
+                        trainingProvider.notifier,
+                      )
+                      .updateTempoOfCycle(
+                        cycle: _cycle,
+                        tempo: value,
+                      );
                 },
               ),
               const _TimeSection(title: 'Pause (min:s)'),
@@ -167,7 +174,6 @@ class _TimeSection extends StatelessWidget {
   }
 }
 
-// TODO: callback of NumberSelector
 class _TempoSection extends StatelessWidget {
   const _TempoSection({
     Key? key,
