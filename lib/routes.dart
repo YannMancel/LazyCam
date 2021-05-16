@@ -13,8 +13,8 @@ abstract class MaterialRouteGenerator with RouteNames {
       case RouteNames.kHomeRoute:
         return _getRoute(page: const HomePage());
       // [LEVEL 1]
-      case RouteNames.kTimeSelectorRoute:
-        return _getRoute(page: const TimeSelectorPage());
+      case RouteNames.kTrainingSettingsRoute:
+        return _getRoute(page: const TrainingSettingsPage());
       case RouteNames.kCameraRoute:
         return _getRoute(page: const CameraPage());
       case RouteNames.kStreamRoute:

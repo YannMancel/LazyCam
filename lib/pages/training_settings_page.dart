@@ -1,9 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_hooks/flutter_hooks.dart' show HookWidget;
+import 'package:flutter_riverpod/flutter_riverpod.dart' show BuildContextX;
+import 'package:hooks_riverpod/hooks_riverpod.dart' show useProvider;
 
+import '../models/models_link.dart';
+import '../providers.dart';
 import '../widgets/widgets_link.dart';
 
-class TimeSelectorPage extends StatelessWidget {
-  const TimeSelectorPage({Key? key}) : super(key: key);
+class TrainingSettingsPage extends StatelessWidget {
+  const TrainingSettingsPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -11,7 +16,7 @@ class TimeSelectorPage extends StatelessWidget {
       body: const CustomScrollView(
         slivers: [
           _AppBar(),
-          _TimeCycles(),
+          _Training(),
           _Actions(),
         ],
       ),
@@ -19,23 +24,26 @@ class TimeSelectorPage extends StatelessWidget {
   }
 }
 
-class _AppBar extends StatelessWidget {
+class _AppBar extends HookWidget {
   const _AppBar({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return const SliverAppBar(
-      title: Text('Timer'),
+    final training = useProvider(trainingProvider);
+
+    return SliverAppBar(
+      title: Text(training.name),
     );
   }
 }
 
-class _Actions extends StatelessWidget {
+class _Actions extends HookWidget {
   const _Actions({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    // TODO final cyclesController = useProvider(cyclesProvider.notifier);
+    final training = useProvider(trainingProvider);
+
     return SliverPadding(
       padding: const EdgeInsets.all(8.0),
       sliver: SliverToBoxAdapter(
@@ -43,12 +51,18 @@ class _Actions extends StatelessWidget {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
+              ...(training.cycles.isNotEmpty
+                  ? [
+                      ElevatedButton(
+                        onPressed: context
+                            .read(trainingProvider.notifier)
+                            .copyLastCycle,
+                        child: const Icon(Icons.copy),
+                      )
+                    ]
+                  : []),
               ElevatedButton(
-                onPressed: null, // TODO: copy action
-                child: const Icon(Icons.copy),
-              ),
-              ElevatedButton(
-                onPressed: null, // TODO: add action
+                onPressed: context.read(trainingProvider.notifier).addCycle,
                 child: const Icon(Icons.add),
               ),
             ],
@@ -59,19 +73,19 @@ class _Actions extends StatelessWidget {
   }
 }
 
-class _TimeCycles extends StatelessWidget {
-  const _TimeCycles({Key? key}) : super(key: key);
+class _Training extends HookWidget {
+  const _Training({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    // TODO final cycles = useProvider(cyclesProvider);
+    final training = useProvider(trainingProvider);
+
     return SliverPadding(
       padding: const EdgeInsets.symmetric(horizontal: 8.0),
       sliver: SliverList(
         delegate: SliverChildBuilderDelegate(
-          (_, index) =>
-              _CycleCard(cycleId: index), // TODO: cycle: cycles[index]
-          childCount: 4,
+          (_, index) => _CycleCard(cycle: training.cycles[index]),
+          childCount: training.cycles.length,
         ),
       ),
     );
@@ -82,14 +96,11 @@ class _TimeCycles extends StatelessWidget {
 class _CycleCard extends StatelessWidget {
   const _CycleCard({
     Key? key,
-    required int cycleId,
-  })   : _cycleId = cycleId,
+    required Cycle cycle,
+  })   : _cycle = cycle,
         super(key: key);
 
-  // TODO: const _CycleCard({Key? key, required Cycle cycle,}) : _cycle = cycle, super(key: key);
-
-  // TODO: final Cycle _cycle;
-  final int _cycleId;
+  final Cycle _cycle;
 
   @override
   Widget build(BuildContext context) {
@@ -104,12 +115,15 @@ class _CycleCard extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               // TODO: create TextStyles in utils
-              const Text('Cycle 1', style: TextStyle(fontSize: 20.0)),
+              Text(
+                'Cycle ${_cycle.id + 1}',
+                style: TextStyle(fontSize: 20.0),
+              ),
               const Divider(),
               const _TimeSection(title: 'Time (min:s)'),
               _TempoSection(
                 title: 'Tempo (rep/min)',
-                cycleId: _cycleId,
+                cycle: _cycle,
               ),
               const _TimeSection(title: 'Pause (min:s)'),
             ],
@@ -155,13 +169,13 @@ class _TempoSection extends StatelessWidget {
   const _TempoSection({
     Key? key,
     required String title,
-    required int cycleId,
+    required Cycle cycle,
   })   : _title = title,
-        _cycleId = cycleId,
+        _cycle = cycle,
         super(key: key);
 
   final String _title;
-  final int _cycleId;
+  final Cycle _cycle;
 
   @override
   Widget build(BuildContext context) {
@@ -175,7 +189,7 @@ class _TempoSection extends StatelessWidget {
           flex: 2,
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 16.0),
-            child: NumberSelector(cycleId: _cycleId),
+            child: NumberSelector(cycle: _cycle),
           ),
         ),
       ],

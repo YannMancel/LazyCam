@@ -2,7 +2,7 @@
 /// Summary:
 ///  [/]
 ///   |
-///   + --> [timer_selector]
+///   + --> [training_settings]
 ///   |     |
 ///   |     + --> [/][timer]
 ///   |
@@ -14,9 +14,9 @@ mixin RouteNames {
   // [LEVEL 0]
   static const kHomeRoute = '/';
   // [LEVEL 1]
-  static const kTimeSelectorRoute = '${kHomeRoute}timer_selector';
+  static const kTrainingSettingsRoute = '${kHomeRoute}training_settings';
   static const kCameraRoute = '${kHomeRoute}camera';
   static const kStreamRoute = '${kHomeRoute}stream';
   // [LEVEL 2]
-  static const kTimerRoute = '$kTimeSelectorRoute/timer';
+  static const kTimerRoute = '$kTrainingSettingsRoute/timer';
 }

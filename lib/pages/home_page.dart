@@ -57,7 +57,7 @@ class HomePage extends StatelessWidget with RouteNames {
             bottom: 16.0,
             verticalOffset: -3.6,
             iconData: Icons.timer,
-            action: () => context.pushBy = RouteNames.kTimeSelectorRoute,
+            action: () => context.pushBy = RouteNames.kTrainingSettingsRoute,
           ),
         ],
       ),

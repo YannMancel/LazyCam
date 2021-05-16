@@ -62,13 +62,24 @@ final streamCameraProvider =
 );
 
 // -----------------------------------------------------------------------------
+// Training
+// -----------------------------------------------------------------------------
+
+/// Manages the training with its addCycle/copyLastCycle methods.
+final trainingProvider =
+    StateNotifierProvider.autoDispose<TrainingController, Training>(
+  (_) => TrainingControllerImpl(),
+  name: TrainingController.kName,
+);
+
+// -----------------------------------------------------------------------------
 // Number
 // -----------------------------------------------------------------------------
 
-// TODO change cycleId by Cycle data class
+// TODO rename to tempoProvider?!
 /// Manages the number with its decrement/increment methods.
 final numberProvider =
-    StateNotifierProvider.autoDispose.family<NumberController, int, int>(
-  (ref, cycleId) => NumberControllerImpl(state: 5),
+    StateNotifierProvider.autoDispose.family<NumberController, int, Cycle>(
+  (ref, cycle) => NumberControllerImpl(state: cycle.tempo),
   name: NumberController.kName,
 );

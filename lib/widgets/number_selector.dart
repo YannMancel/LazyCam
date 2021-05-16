@@ -8,37 +8,37 @@ import 'package:flutter_hooks/flutter_hooks.dart'
 import 'package:hooks_riverpod/hooks_riverpod.dart'
     show ProviderListener, useProvider;
 
+import '../models/models_link.dart';
 import '../providers.dart';
 
 class NumberSelector extends HookWidget {
   NumberSelector({
     Key? key,
-    required int cycleId,
-    int initialValue = 5,
+    required Cycle cycle,
     int maxDigit = 3,
     ValueChanged<int>? onChanged,
   })  : assert(
-          initialValue < pow(10, maxDigit + 1),
-          'initialValue is out of digit range.',
+          cycle.tempo < pow(10, maxDigit + 1),
+          "The cycle's tempo is out of digit range.",
         ),
-        _cycleId = cycleId,
-        _initialValue = initialValue,
+        _cycle = cycle,
         _onChanged = onChanged,
         _maxDigit = maxDigit,
         super(key: key);
 
-  final int _cycleId;
-  final int _initialValue;
+  final Cycle _cycle;
   final int _maxDigit;
   final ValueChanged<int>? _onChanged;
 
   @override
   Widget build(BuildContext context) {
-    final numberController = useProvider(numberProvider(_cycleId).notifier);
-    final textEditController = useTextEditingController(text: '$_initialValue');
+    final numberController = useProvider(numberProvider(_cycle).notifier);
+    final textEditController = useTextEditingController(
+      text: '${_cycle.tempo}',
+    );
 
     return ProviderListener<int>(
-      provider: numberProvider(_cycleId),
+      provider: numberProvider(_cycle),
       onChange: (_, value) => textEditController.text = '$value',
       child: Row(
         children: [
