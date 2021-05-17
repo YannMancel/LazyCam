@@ -18,6 +18,8 @@ class HomePage extends StatelessWidget with RouteNames {
   static const kTimerMiniFabKey = Key('Mini FAB timer');
   static const kNormalFabKey = Key('Normal FAB');
 
+  static const kMiniFabPosition = 16.0 + 56.0 / 2.0 - 40.0 / 2.0 - 4.0;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -26,8 +28,8 @@ class HomePage extends StatelessWidget with RouteNames {
       ),
       body: Stack(
         children: [
-          Align(
-            child: const StyledText(
+          const Align(
+            child: StyledText(
               data: 'Hello',
               key: kMessageKey,
             ),
@@ -35,27 +37,27 @@ class HomePage extends StatelessWidget with RouteNames {
           _MiniFAB(
             keyOfFAB: kStreamMiniFabKey,
             heroTag: 'stream',
-            right: 20.0,
-            bottom: 16.0,
-            verticalOffset: -1.4,
+            right: kMiniFabPosition,
+            bottomFrom: kMiniFabPosition,
+            bottomTo: 16.0 + 56.0 - 4.0 + 20.0,
             iconData: Icons.stream,
             action: () => context.pushBy = RouteNames.kStreamRoute,
           ),
           _MiniFAB(
             keyOfFAB: kCameraMiniFabKey,
             heroTag: 'camera',
-            right: 20.0,
-            bottom: 16.0,
-            verticalOffset: -2.5,
+            right: kMiniFabPosition,
+            bottomFrom: kMiniFabPosition,
+            bottomTo: 16.0 + 56.0 - 4.0 + 20.0 + 40.0 + 20.0,
             iconData: Icons.camera,
             action: () => context.pushBy = RouteNames.kCameraRoute,
           ),
           _MiniFAB(
             keyOfFAB: kTimerMiniFabKey,
             heroTag: 'timer',
-            right: 20.0,
-            bottom: 16.0,
-            verticalOffset: -3.6,
+            right: kMiniFabPosition,
+            bottomFrom: kMiniFabPosition,
+            bottomTo: 16.0 + 56.0 - 4.0 + 20.0 + 2 * (40.0 + 20.0),
             iconData: Icons.timer,
             action: () => context.pushBy = RouteNames.kTrainingSettingsRoute,
           ),
@@ -75,15 +77,15 @@ class _MiniFAB extends HookWidget {
     Key? key,
     required String heroTag,
     required double right,
-    required double bottom,
-    required double verticalOffset,
+    required double bottomFrom,
+    required double bottomTo,
     required IconData iconData,
     VoidCallback? action,
     Key? keyOfFAB,
   })  : _heroTag = heroTag,
         _right = right,
-        _bottom = bottom,
-        _verticalOffset = verticalOffset,
+        _bottomFrom = bottomFrom,
+        _bottomTo = bottomTo,
         _iconData = iconData,
         _action = action,
         _keyOfFAB = keyOfFAB,
@@ -91,45 +93,29 @@ class _MiniFAB extends HookWidget {
 
   final String _heroTag;
   final double _right;
-  final double _bottom;
-  final double _verticalOffset;
+  final double _bottomFrom;
+  final double _bottomTo;
   final IconData _iconData;
   final VoidCallback? _action;
   final Key? _keyOfFAB;
 
-  Animation<Offset> _getSlideAnimation({
-    required BuildContext context,
-    required AnimationController controller,
-  }) {
-    return Tween<Offset>(
-      begin: Offset.zero,
-      end: Offset(0.0, _verticalOffset),
-    ).animate(
-      CurvedAnimation(
-        parent: controller,
-        curve: Curves.elasticOut,
-      ),
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
-    final animationController = useAnimationController(
-      duration: const Duration(milliseconds: 800),
-    );
+    final menuState = useProvider(menuProvider);
 
-    useProvider(menuProvider).when(
-      open: animationController.forward,
-      close: animationController.reverse,
-    );
-
-    return Positioned(
+    return AnimatedPositioned(
       right: _right,
-      bottom: _bottom,
-      child: SlideTransition(
-        position: _getSlideAnimation(
-          context: context,
-          controller: animationController,
+      bottom: menuState.when(
+        open: () => _bottomTo,
+        close: () => _bottomFrom,
+      ),
+      duration: const Duration(milliseconds: 600),
+      curve: Curves.easeInOutQuart,
+      child: AnimatedOpacity(
+        duration: const Duration(milliseconds: 300),
+        opacity: menuState.when(
+          open: () => 1.0,
+          close: () => 0.0,
         ),
         child: FloatingActionButton(
           key: _keyOfFAB,
