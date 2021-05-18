@@ -22,9 +22,10 @@ class _$ResultTearOff {
     );
   }
 
-  _Error<T> error<T>({required String message}) {
+  _Error<T> error<T>({required String message, T? lastData}) {
     return _Error<T>(
       message: message,
+      lastData: lastData,
     );
   }
 }
@@ -37,13 +38,13 @@ mixin _$Result<T> {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(T value) data,
-    required TResult Function(String message) error,
+    required TResult Function(String message, T? lastData) error,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(T value)? data,
-    TResult Function(String message)? error,
+    TResult Function(String message, T? lastData)? error,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -147,7 +148,7 @@ class _$_Data<T> with DiagnosticableTreeMixin implements _Data<T> {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(T value) data,
-    required TResult Function(String message) error,
+    required TResult Function(String message, T? lastData) error,
   }) {
     return data(value);
   }
@@ -156,7 +157,7 @@ class _$_Data<T> with DiagnosticableTreeMixin implements _Data<T> {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(T value)? data,
-    TResult Function(String message)? error,
+    TResult Function(String message, T? lastData)? error,
     required TResult orElse(),
   }) {
     if (data != null) {
@@ -201,7 +202,7 @@ abstract class _Data<T> implements Result<T> {
 abstract class _$ErrorCopyWith<T, $Res> {
   factory _$ErrorCopyWith(_Error<T> value, $Res Function(_Error<T>) then) =
       __$ErrorCopyWithImpl<T, $Res>;
-  $Res call({String message});
+  $Res call({String message, T? lastData});
 }
 
 /// @nodoc
@@ -216,26 +217,33 @@ class __$ErrorCopyWithImpl<T, $Res> extends _$ResultCopyWithImpl<T, $Res>
   @override
   $Res call({
     Object? message = freezed,
+    Object? lastData = freezed,
   }) {
     return _then(_Error<T>(
       message: message == freezed
           ? _value.message
           : message // ignore: cast_nullable_to_non_nullable
               as String,
+      lastData: lastData == freezed
+          ? _value.lastData
+          : lastData // ignore: cast_nullable_to_non_nullable
+              as T?,
     ));
   }
 }
 
 /// @nodoc
 class _$_Error<T> with DiagnosticableTreeMixin implements _Error<T> {
-  const _$_Error({required this.message});
+  const _$_Error({required this.message, this.lastData});
 
   @override
   final String message;
+  @override
+  final T? lastData;
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'Result<$T>.error(message: $message)';
+    return 'Result<$T>.error(message: $message, lastData: $lastData)';
   }
 
   @override
@@ -243,7 +251,8 @@ class _$_Error<T> with DiagnosticableTreeMixin implements _Error<T> {
     super.debugFillProperties(properties);
     properties
       ..add(DiagnosticsProperty('type', 'Result<$T>.error'))
-      ..add(DiagnosticsProperty('message', message));
+      ..add(DiagnosticsProperty('message', message))
+      ..add(DiagnosticsProperty('lastData', lastData));
   }
 
   @override
@@ -251,12 +260,18 @@ class _$_Error<T> with DiagnosticableTreeMixin implements _Error<T> {
     return identical(this, other) ||
         (other is _Error<T> &&
             (identical(other.message, message) ||
-                const DeepCollectionEquality().equals(other.message, message)));
+                const DeepCollectionEquality()
+                    .equals(other.message, message)) &&
+            (identical(other.lastData, lastData) ||
+                const DeepCollectionEquality()
+                    .equals(other.lastData, lastData)));
   }
 
   @override
   int get hashCode =>
-      runtimeType.hashCode ^ const DeepCollectionEquality().hash(message);
+      runtimeType.hashCode ^
+      const DeepCollectionEquality().hash(message) ^
+      const DeepCollectionEquality().hash(lastData);
 
   @JsonKey(ignore: true)
   @override
@@ -267,20 +282,20 @@ class _$_Error<T> with DiagnosticableTreeMixin implements _Error<T> {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(T value) data,
-    required TResult Function(String message) error,
+    required TResult Function(String message, T? lastData) error,
   }) {
-    return error(message);
+    return error(message, lastData);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(T value)? data,
-    TResult Function(String message)? error,
+    TResult Function(String message, T? lastData)? error,
     required TResult orElse(),
   }) {
     if (error != null) {
-      return error(message);
+      return error(message, lastData);
     }
     return orElse();
   }
@@ -309,9 +324,10 @@ class _$_Error<T> with DiagnosticableTreeMixin implements _Error<T> {
 }
 
 abstract class _Error<T> implements Result<T> {
-  const factory _Error({required String message}) = _$_Error<T>;
+  const factory _Error({required String message, T? lastData}) = _$_Error<T>;
 
   String get message => throw _privateConstructorUsedError;
+  T? get lastData => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
   _$ErrorCopyWith<T, _Error<T>> get copyWith =>
       throw _privateConstructorUsedError;

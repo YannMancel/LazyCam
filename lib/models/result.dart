@@ -11,5 +11,6 @@ class Result<T> with _$Result<T> {
 
   const factory Result.error({
     required String message,
+    T? lastData,
   }) = _Error<T>;
 }

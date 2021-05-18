@@ -43,17 +43,17 @@ class NumberSelector extends HookWidget {
     return ProviderListener<Result<int>>(
       provider: tempoProvider(_cycle),
       onChange: (context, result) {
-        result.when(
-          data: (value) {
-            // Increment & decrement calls of empty text
-            if (value.toString() != textEditController.text) {
-              textEditController.text = value.toString();
-            }
+        result.when(data: (value) {
+          // Increment & decrement calls of empty text
+          if (value.toString() != textEditController.text) {
+            textEditController.text = value.toString();
+          }
 
-            _onChanged?.call(value);
-          },
-          error: (message) => context.notify = message,
-        );
+          _onChanged?.call(value);
+        }, error: (message, lastData) {
+          context.notify = message;
+          numberController.input = '$lastData';
+        });
       },
       child: Row(
         children: [

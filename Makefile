@@ -77,6 +77,11 @@ devtools: ## Serving DevTools
 	@$(call print_color_message,"Serving DevTools")
 	$(FLUTTER) pub global run devtools
 
+.PHONY: outdated
+outdated: ## check the version of packages
+	@$(call print_color_message,"check the version of packages")
+	$(FLUTTER) pub outdated --color
+
 ##
 ## ---------------------------------------------------------------
 ## Build_runner

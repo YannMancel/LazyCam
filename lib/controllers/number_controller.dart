@@ -2,6 +2,7 @@ import 'dart:math' show pow;
 
 import 'package:flutter/foundation.dart' show visibleForTesting;
 
+import '../extensions/extensions_link.dart';
 import '../models/models_link.dart';
 import 'controllers_link.dart';
 
@@ -26,8 +27,12 @@ abstract class NumberController extends BaseController<Result<int>> {
 // Implementation
 // -----------------------------------------------------------------------------
 class NumberControllerImpl extends NumberController {
-  NumberControllerImpl({required Result<int> state}) : super(state: state);
+  NumberControllerImpl({
+    required int initialValue,
+  })   : _lastData = initialValue,
+        super(state: Result.data(value: initialValue));
 
+  int _lastData;
   int? _digit;
 
   @override
@@ -63,7 +68,7 @@ class NumberControllerImpl extends NumberController {
         }
         state = Result.data(value: value - 1);
       },
-      error: (_) => state = const Result.data(value: 0),
+      error: (_, lastData) => state = Result.data(value: lastData ?? 0),
     );
   }
 
@@ -82,12 +87,23 @@ class NumberControllerImpl extends NumberController {
         }
         state = Result.data(value: value + 1);
       },
-      error: (_) => state = const Result.data(value: 1),
+      error: (_, lastData) => state = Result.data(value: lastData ?? 1),
     );
   }
 
+  @override
+  set state(Result<int> value) {
+    if (value.isData) _lastData = value.dataOrThrow;
+    super.state = value;
+  }
+
   @visibleForTesting
-  set error(String message) => state = Result.error(message: message);
+  set error(String message) {
+    state = Result.error(
+      message: message,
+      lastData: _lastData,
+    );
+  }
 
   @visibleForTesting
   bool isInValidRange({
