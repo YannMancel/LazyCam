@@ -32,20 +32,29 @@ class NumberSelector extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
-    final numberController = useProvider(numberProvider(_cycle).notifier);
+    final numberController = useProvider(tempoProvider(_cycle).notifier);
+    numberController.digit = _maxDigit;
+
     final textEditController = useTextEditingController(
       text: '${_cycle.tempo}',
     );
 
-    return ProviderListener<int>(
-      provider: numberProvider(_cycle),
-      onChange: (_, value) {
-        // Increment & decrement calls of empty text
-        if (value.toString() != textEditController.text) {
-          textEditController.text = value.toString();
-        }
+    return ProviderListener<Result<int>>(
+      provider: tempoProvider(_cycle),
+      onChange: (_, result) {
+        result.when(
+          data: (value) {
+            // Increment & decrement calls of empty text
+            if (value.toString() != textEditController.text) {
+              textEditController.text = value.toString();
+            }
 
-        _onChanged?.call(value);
+            _onChanged?.call(value);
+          },
+          error: (message) {
+            // TODO: add snackbar
+          },
+        );
       },
       child: Row(
         children: [

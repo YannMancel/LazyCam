@@ -1,16 +1,22 @@
+import 'dart:math' show pow;
+
+import 'package:flutter/foundation.dart' show visibleForTesting;
+
+import '../models/models_link.dart';
 import 'controllers_link.dart';
 
 // -----------------------------------------------------------------------------
 // Abstract class
 // -----------------------------------------------------------------------------
-abstract class NumberController extends BaseController<int> {
-  NumberController({required int state}) : super(state: state);
+abstract class NumberController extends BaseController<Result<int>> {
+  NumberController({required Result<int> state}) : super(state: state);
 
   static const kName = 'NumberProvider';
 
   @override
   String get name => NumberController.kName;
 
+  set digit(int value);
   set input(String value);
   void decrement();
   void increment();
@@ -20,19 +26,74 @@ abstract class NumberController extends BaseController<int> {
 // Implementation
 // -----------------------------------------------------------------------------
 class NumberControllerImpl extends NumberController {
-  NumberControllerImpl({required int state}) : super(state: state);
+  NumberControllerImpl({required Result<int> state}) : super(state: state);
+
+  int? _digit;
+
+  @override
+  set digit(int value) => _digit = value;
 
   @override
   set input(String value) {
-    state = value.isNotEmpty ? int.parse(value) : 0;
+    if (_digit == null) {
+      error = 'Digit is null. The digit setter must be called.';
+      return;
+    }
+
+    if (value.isEmpty) {
+      state = const Result.data(value: 0);
+      return;
+    }
+
+    final newValue = int.parse(value);
+    if (!isInValidRange(value: newValue, digit: _digit!)) {
+      error = 'The requested value is outside the validity range.';
+      return;
+    }
+    state = Result.data(value: newValue);
   }
 
   @override
   void decrement() {
-    if (state == 0) return;
-    state--;
+    state.when(
+      data: (value) {
+        if (value == 0) {
+          error = 'The minimal value is equal to 0.';
+          return;
+        }
+        state = Result.data(value: value - 1);
+      },
+      error: (_) => state = const Result.data(value: 0),
+    );
   }
 
   @override
-  void increment() => state++;
+  void increment() {
+    if (_digit == null) {
+      error = 'Digit is null. The digit setter must be called.';
+      return;
+    }
+
+    state.when(
+      data: (value) {
+        if (!isInValidRange(value: value + 1, digit: _digit!)) {
+          error = 'The requested value is outside the validity range.';
+          return;
+        }
+        state = Result.data(value: value + 1);
+      },
+      error: (_) => state = const Result.data(value: 1),
+    );
+  }
+
+  @visibleForTesting
+  set error(String message) => state = Result.error(message: message);
+
+  @visibleForTesting
+  bool isInValidRange({
+    required int value,
+    required int digit,
+  }) {
+    return value < pow(10, digit);
+  }
 }
