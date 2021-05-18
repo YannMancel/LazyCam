@@ -2,9 +2,12 @@ import 'dart:math' show pow;
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart'
-    show TextInputFormatter, LengthLimitingTextInputFormatter;
+    show
+        TextInputFormatter,
+        FilteringTextInputFormatter,
+        LengthLimitingTextInputFormatter;
 import 'package:flutter_hooks/flutter_hooks.dart'
-    show HookWidget, useTextEditingController;
+    show HookWidget, useTextEditingController, useFocusNode;
 import 'package:hooks_riverpod/hooks_riverpod.dart'
     show ProviderListener, useProvider;
 
@@ -40,9 +43,14 @@ class NumberSelector extends HookWidget {
       text: '${_cycle.tempo}',
     );
 
+    final nodeFocus = useFocusNode();
+
     return ProviderListener<Result<int>>(
       provider: tempoProvider(_cycle),
       onChange: (context, result) {
+        // Close keyboard if it is open
+        nodeFocus.unfocus();
+
         result.when(data: (value) {
           // Increment & decrement calls of empty text
           if (value.toString() != textEditController.text) {
@@ -63,20 +71,21 @@ class NumberSelector extends HookWidget {
           ),
           Expanded(
             child: TextField(
-              controller: textEditController,
-              keyboardType: TextInputType.number,
-              textAlign: TextAlign.center,
-              inputFormatters: <TextInputFormatter>[
-                LengthLimitingTextInputFormatter(_maxDigit),
-              ],
-              decoration: const InputDecoration(
-                border: InputBorder.none,
-                floatingLabelBehavior: FloatingLabelBehavior.never,
-              ),
-              onEditingComplete: () =>
-                  // TODO: hide keyboard
-                  numberController.input = textEditController.text,
-            ),
+                controller: textEditController,
+                focusNode: nodeFocus,
+                keyboardType: TextInputType.number,
+                textAlign: TextAlign.center,
+                inputFormatters: <TextInputFormatter>[
+                  FilteringTextInputFormatter.digitsOnly,
+                  LengthLimitingTextInputFormatter(_maxDigit),
+                ],
+                decoration: const InputDecoration(
+                  border: InputBorder.none,
+                  floatingLabelBehavior: FloatingLabelBehavior.never,
+                ),
+                onEditingComplete: () {
+                  numberController.input = textEditController.text;
+                }),
           ),
           IconButton(
             icon: const Icon(Icons.add_circle, color: Colors.red),
