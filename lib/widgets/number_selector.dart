@@ -8,6 +8,7 @@ import 'package:flutter_hooks/flutter_hooks.dart'
 import 'package:hooks_riverpod/hooks_riverpod.dart'
     show ProviderListener, useProvider;
 
+import '../extensions/extensions_link.dart';
 import '../models/models_link.dart';
 import '../providers.dart';
 
@@ -41,7 +42,7 @@ class NumberSelector extends HookWidget {
 
     return ProviderListener<Result<int>>(
       provider: tempoProvider(_cycle),
-      onChange: (_, result) {
+      onChange: (context, result) {
         result.when(
           data: (value) {
             // Increment & decrement calls of empty text
@@ -51,9 +52,7 @@ class NumberSelector extends HookWidget {
 
             _onChanged?.call(value);
           },
-          error: (message) {
-            // TODO: add snackbar
-          },
+          error: (message) => context.notify = message,
         );
       },
       child: Row(

@@ -41,7 +41,7 @@ class HomePage extends StatelessWidget with RouteNames {
             bottomFrom: kMiniFabPosition,
             bottomTo: 16.0 + 56.0 - 4.0 + 20.0,
             iconData: Icons.stream,
-            action: () => context.pushBy = RouteNames.kStreamRoute,
+            action: () => context.pushTo = RouteNames.kStreamRoute,
           ),
           _MiniFAB(
             keyOfFAB: kCameraMiniFabKey,
@@ -50,7 +50,7 @@ class HomePage extends StatelessWidget with RouteNames {
             bottomFrom: kMiniFabPosition,
             bottomTo: 16.0 + 56.0 - 4.0 + 20.0 + 40.0 + 20.0,
             iconData: Icons.camera,
-            action: () => context.pushBy = RouteNames.kCameraRoute,
+            action: () => context.pushTo = RouteNames.kCameraRoute,
           ),
           _MiniFAB(
             keyOfFAB: kTimerMiniFabKey,
@@ -59,7 +59,7 @@ class HomePage extends StatelessWidget with RouteNames {
             bottomFrom: kMiniFabPosition,
             bottomTo: 16.0 + 56.0 - 4.0 + 20.0 + 2 * (40.0 + 20.0),
             iconData: Icons.timer,
-            action: () => context.pushBy = RouteNames.kTrainingSettingsRoute,
+            action: () => context.pushTo = RouteNames.kTrainingSettingsRoute,
           ),
         ],
       ),
