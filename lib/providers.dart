@@ -64,7 +64,6 @@ final trainingProvider =
 // -----------------------------------------------------------------------------
 // Number
 // -----------------------------------------------------------------------------
-// TODO change family parameter -> class(cycleId, 'tempo')
 /// Manages the [Cycle]'s tempo.
 final tempoProvider = StateNotifierProvider.autoDispose
     .family<NumberController, Result<int>, Cycle>(

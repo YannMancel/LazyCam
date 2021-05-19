@@ -171,7 +171,7 @@ class _Tempo extends StatelessWidget {
   Widget build(BuildContext context) {
     return _Section(
       title: 'Tempo (rep/min)',
-      child: NumberSelector(
+      child: TempoSelector(
         cycle: _cycle,
         onChanged: (value) {
           context.read(trainingProvider.notifier).updateTempoOfCycle(

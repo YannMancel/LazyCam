@@ -15,8 +15,8 @@ import '../extensions/extensions_link.dart';
 import '../models/models_link.dart';
 import '../providers.dart';
 
-class NumberSelector extends HookWidget {
-  NumberSelector({
+class TempoSelector extends HookWidget {
+  TempoSelector({
     Key? key,
     required Cycle cycle,
     int maxDigit = 3,

@@ -18,14 +18,14 @@ class _$CycleTearOff {
 
   _Cycle call(
       {int id = 0,
-      int timeInSecond = 90,
+      Duration time = const Duration(minutes: 1, seconds: 30),
       int tempo = 0,
-      int pauseInSecond = 0}) {
+      Duration pause = Duration.zero}) {
     return _Cycle(
       id: id,
-      timeInSecond: timeInSecond,
+      time: time,
       tempo: tempo,
-      pauseInSecond: pauseInSecond,
+      pause: pause,
     );
   }
 }
@@ -36,9 +36,9 @@ const $Cycle = _$CycleTearOff();
 /// @nodoc
 mixin _$Cycle {
   int get id => throw _privateConstructorUsedError;
-  int get timeInSecond => throw _privateConstructorUsedError;
+  Duration get time => throw _privateConstructorUsedError;
   int get tempo => throw _privateConstructorUsedError;
-  int get pauseInSecond => throw _privateConstructorUsedError;
+  Duration get pause => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $CycleCopyWith<Cycle> get copyWith => throw _privateConstructorUsedError;
@@ -48,7 +48,7 @@ mixin _$Cycle {
 abstract class $CycleCopyWith<$Res> {
   factory $CycleCopyWith(Cycle value, $Res Function(Cycle) then) =
       _$CycleCopyWithImpl<$Res>;
-  $Res call({int id, int timeInSecond, int tempo, int pauseInSecond});
+  $Res call({int id, Duration time, int tempo, Duration pause});
 }
 
 /// @nodoc
@@ -62,27 +62,27 @@ class _$CycleCopyWithImpl<$Res> implements $CycleCopyWith<$Res> {
   @override
   $Res call({
     Object? id = freezed,
-    Object? timeInSecond = freezed,
+    Object? time = freezed,
     Object? tempo = freezed,
-    Object? pauseInSecond = freezed,
+    Object? pause = freezed,
   }) {
     return _then(_value.copyWith(
       id: id == freezed
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
               as int,
-      timeInSecond: timeInSecond == freezed
-          ? _value.timeInSecond
-          : timeInSecond // ignore: cast_nullable_to_non_nullable
-              as int,
+      time: time == freezed
+          ? _value.time
+          : time // ignore: cast_nullable_to_non_nullable
+              as Duration,
       tempo: tempo == freezed
           ? _value.tempo
           : tempo // ignore: cast_nullable_to_non_nullable
               as int,
-      pauseInSecond: pauseInSecond == freezed
-          ? _value.pauseInSecond
-          : pauseInSecond // ignore: cast_nullable_to_non_nullable
-              as int,
+      pause: pause == freezed
+          ? _value.pause
+          : pause // ignore: cast_nullable_to_non_nullable
+              as Duration,
     ));
   }
 }
@@ -92,7 +92,7 @@ abstract class _$CycleCopyWith<$Res> implements $CycleCopyWith<$Res> {
   factory _$CycleCopyWith(_Cycle value, $Res Function(_Cycle) then) =
       __$CycleCopyWithImpl<$Res>;
   @override
-  $Res call({int id, int timeInSecond, int tempo, int pauseInSecond});
+  $Res call({int id, Duration time, int tempo, Duration pause});
 }
 
 /// @nodoc
@@ -107,27 +107,27 @@ class __$CycleCopyWithImpl<$Res> extends _$CycleCopyWithImpl<$Res>
   @override
   $Res call({
     Object? id = freezed,
-    Object? timeInSecond = freezed,
+    Object? time = freezed,
     Object? tempo = freezed,
-    Object? pauseInSecond = freezed,
+    Object? pause = freezed,
   }) {
     return _then(_Cycle(
       id: id == freezed
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
               as int,
-      timeInSecond: timeInSecond == freezed
-          ? _value.timeInSecond
-          : timeInSecond // ignore: cast_nullable_to_non_nullable
-              as int,
+      time: time == freezed
+          ? _value.time
+          : time // ignore: cast_nullable_to_non_nullable
+              as Duration,
       tempo: tempo == freezed
           ? _value.tempo
           : tempo // ignore: cast_nullable_to_non_nullable
               as int,
-      pauseInSecond: pauseInSecond == freezed
-          ? _value.pauseInSecond
-          : pauseInSecond // ignore: cast_nullable_to_non_nullable
-              as int,
+      pause: pause == freezed
+          ? _value.pause
+          : pause // ignore: cast_nullable_to_non_nullable
+              as Duration,
     ));
   }
 }
@@ -136,26 +136,26 @@ class __$CycleCopyWithImpl<$Res> extends _$CycleCopyWithImpl<$Res>
 class _$_Cycle with DiagnosticableTreeMixin implements _Cycle {
   const _$_Cycle(
       {this.id = 0,
-      this.timeInSecond = 90,
+      this.time = const Duration(minutes: 1, seconds: 30),
       this.tempo = 0,
-      this.pauseInSecond = 0});
+      this.pause = Duration.zero});
 
   @JsonKey(defaultValue: 0)
   @override
   final int id;
-  @JsonKey(defaultValue: 90)
+  @JsonKey(defaultValue: const Duration(minutes: 1, seconds: 30))
   @override
-  final int timeInSecond;
+  final Duration time;
   @JsonKey(defaultValue: 0)
   @override
   final int tempo;
-  @JsonKey(defaultValue: 0)
+  @JsonKey(defaultValue: Duration.zero)
   @override
-  final int pauseInSecond;
+  final Duration pause;
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'Cycle(id: $id, timeInSecond: $timeInSecond, tempo: $tempo, pauseInSecond: $pauseInSecond)';
+    return 'Cycle(id: $id, time: $time, tempo: $tempo, pause: $pause)';
   }
 
   @override
@@ -164,9 +164,9 @@ class _$_Cycle with DiagnosticableTreeMixin implements _Cycle {
     properties
       ..add(DiagnosticsProperty('type', 'Cycle'))
       ..add(DiagnosticsProperty('id', id))
-      ..add(DiagnosticsProperty('timeInSecond', timeInSecond))
+      ..add(DiagnosticsProperty('time', time))
       ..add(DiagnosticsProperty('tempo', tempo))
-      ..add(DiagnosticsProperty('pauseInSecond', pauseInSecond));
+      ..add(DiagnosticsProperty('pause', pause));
   }
 
   @override
@@ -175,23 +175,21 @@ class _$_Cycle with DiagnosticableTreeMixin implements _Cycle {
         (other is _Cycle &&
             (identical(other.id, id) ||
                 const DeepCollectionEquality().equals(other.id, id)) &&
-            (identical(other.timeInSecond, timeInSecond) ||
-                const DeepCollectionEquality()
-                    .equals(other.timeInSecond, timeInSecond)) &&
+            (identical(other.time, time) ||
+                const DeepCollectionEquality().equals(other.time, time)) &&
             (identical(other.tempo, tempo) ||
                 const DeepCollectionEquality().equals(other.tempo, tempo)) &&
-            (identical(other.pauseInSecond, pauseInSecond) ||
-                const DeepCollectionEquality()
-                    .equals(other.pauseInSecond, pauseInSecond)));
+            (identical(other.pause, pause) ||
+                const DeepCollectionEquality().equals(other.pause, pause)));
   }
 
   @override
   int get hashCode =>
       runtimeType.hashCode ^
       const DeepCollectionEquality().hash(id) ^
-      const DeepCollectionEquality().hash(timeInSecond) ^
+      const DeepCollectionEquality().hash(time) ^
       const DeepCollectionEquality().hash(tempo) ^
-      const DeepCollectionEquality().hash(pauseInSecond);
+      const DeepCollectionEquality().hash(pause);
 
   @JsonKey(ignore: true)
   @override
@@ -200,17 +198,17 @@ class _$_Cycle with DiagnosticableTreeMixin implements _Cycle {
 }
 
 abstract class _Cycle implements Cycle {
-  const factory _Cycle(
-      {int id, int timeInSecond, int tempo, int pauseInSecond}) = _$_Cycle;
+  const factory _Cycle({int id, Duration time, int tempo, Duration pause}) =
+      _$_Cycle;
 
   @override
   int get id => throw _privateConstructorUsedError;
   @override
-  int get timeInSecond => throw _privateConstructorUsedError;
+  Duration get time => throw _privateConstructorUsedError;
   @override
   int get tempo => throw _privateConstructorUsedError;
   @override
-  int get pauseInSecond => throw _privateConstructorUsedError;
+  Duration get pause => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
   _$CycleCopyWith<_Cycle> get copyWith => throw _privateConstructorUsedError;

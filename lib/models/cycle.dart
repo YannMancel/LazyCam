@@ -7,8 +7,8 @@ part 'cycle.freezed.dart';
 class Cycle with _$Cycle {
   const factory Cycle({
     @Default(0) int id,
-    @Default(90) int timeInSecond,
+    @Default(const Duration(minutes: 1, seconds: 30)) Duration time,
     @Default(0) int tempo,
-    @Default(0) int pauseInSecond,
+    @Default(Duration.zero) Duration pause,
   }) = _Cycle;
 }
