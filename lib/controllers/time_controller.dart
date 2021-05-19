@@ -1,3 +1,5 @@
+import 'package:flutter/foundation.dart' show visibleForTesting;
+
 import '../extensions/extensions_link.dart';
 import '../models/models_link.dart';
 import 'controllers_link.dart';
@@ -13,11 +15,14 @@ abstract class TimerController extends BaseController<Result<Duration>> {
   @override
   String get name => TimerController.kName;
 
-  //int get seconds;
-  //int get minutes;
-  //set minutes(String minutes);
-  //void decrement();
-  //void increment();
+  void setDigits({
+    required int minutes,
+    required int seconds,
+  });
+  set seconds(String value);
+  set minutes(String value);
+  void decrement();
+  void increment();
 }
 
 // -----------------------------------------------------------------------------
@@ -31,47 +36,109 @@ class TimerControllerImpl extends TimerController {
 
   Duration _lastData;
 
-  // @override
-  // int get seconds => state.dataOrThrow.inSeconds;
+  int? _minuteDigit;
+  int? _secondDigit;
 
-  // @override
-  // int get minutes => state.dataOrThrow.inMinutes;
+  @override
+  void setDigits({required int minutes, required int seconds}) {
+    _minuteDigit = minutes;
+    _secondDigit = seconds;
+  }
 
-  // @override
-  // set seconds(String seconds) {
-  //   // TODO: implement seconds
-  // }
+  @override
+  set seconds(String value) {
+    if (_secondDigit == null) {
+      error = 'Second digit is null. The digits setter must be called.';
+      return;
+    }
 
-  //@override
-  //int get seconds {
-  //  if (state >= 60) return '59';
-  //  if (state >= 10) return '$state';
-  //  return '$state'.padLeft(1, '0');
-  //
-  //}
+    if (value.isEmpty) {
+      state = Result.data(
+        value: Duration(
+          minutes: _lastData.inMinutes,
+          seconds: 0,
+        ),
+      );
+      return;
+    }
 
-// @override
-// void input({
-//   required String minutes,
-//   required String seconds,
-// }) {
-//   // TODO: add logic
-//   //state = value.isNotEmpty ? int.parse(value) : 0;
-// }
+    final newValue = int.parse(value);
 
-// @override
-// void decrement() {
-//   if (state.inSeconds == 0) return;
-//   state = Duration(seconds: state.inSeconds - 1);
-// }
+    // TODO error if second >= 60
 
-// // TODO: check digit
-// @override
-// void increment() => state = Duration(seconds: state.inSeconds + 1);
+    if (!newValue.isInValidRange(digit: _secondDigit!)) {
+      error = 'The requested value is outside the validity range.';
+      return;
+    }
+    state = Result.data(
+      value: Duration(
+        minutes: _lastData.inMinutes,
+        seconds: newValue,
+      ),
+    );
+  }
+
+  @override
+  set minutes(String value) {
+    if (_minuteDigit == null) {
+      error = 'Minute digit is null. The digits setter must be called.';
+      return;
+    }
+
+    if (value.isEmpty) {
+      state = Result.data(
+        value: Duration(
+          minutes: 0,
+          seconds: _lastData.secondsSubtractedWithMinutes,
+        ),
+      );
+      return;
+    }
+
+    final newValue = int.parse(value);
+    if (!newValue.isInValidRange(digit: _minuteDigit!)) {
+      error = 'The requested value is outside the validity range.';
+      return;
+    }
+    state = Result.data(
+      value: Duration(
+        minutes: newValue,
+        seconds: _lastData.secondsSubtractedWithMinutes,
+      ),
+    );
+  }
+
+  @override
+  void decrement() {
+    state.when(
+      data: (value) {
+        if (value.inSeconds == 0) {
+          error = 'The minimal value is equal to 0.';
+          return;
+        }
+        state = Result.data(value: Duration(seconds: value.inSeconds - 1));
+      },
+      error: (_, lastData) =>
+          state = Result.data(value: lastData ?? Duration.zero),
+    );
+  }
+
+  @override
+  void increment() {
+    // TODO: implement increment
+  }
 
   @override
   set state(Result<Duration> value) {
     if (value.isData) _lastData = value.dataOrThrow;
     super.state = value;
+  }
+
+  @visibleForTesting
+  set error(String message) {
+    state = Result.error(
+      message: message,
+      lastData: _lastData,
+    );
   }
 }

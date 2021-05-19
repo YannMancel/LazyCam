@@ -1,5 +1,3 @@
-import 'dart:math' show pow;
-
 import 'package:flutter/foundation.dart' show visibleForTesting;
 
 import '../extensions/extensions_link.dart';
@@ -51,7 +49,7 @@ class NumberControllerImpl extends NumberController {
     }
 
     final newValue = int.parse(value);
-    if (!isInValidRange(value: newValue, digit: _digit!)) {
+    if (!newValue.isInValidRange(digit: _digit!)) {
       error = 'The requested value is outside the validity range.';
       return;
     }
@@ -81,11 +79,12 @@ class NumberControllerImpl extends NumberController {
 
     state.when(
       data: (value) {
-        if (!isInValidRange(value: value + 1, digit: _digit!)) {
+        final nextValue = value + 1;
+        if (!nextValue.isInValidRange(digit: _digit!)) {
           error = 'The requested value is outside the validity range.';
           return;
         }
-        state = Result.data(value: value + 1);
+        state = Result.data(value: nextValue);
       },
       error: (_, lastData) => state = Result.data(value: lastData ?? 1),
     );
@@ -103,13 +102,5 @@ class NumberControllerImpl extends NumberController {
       message: message,
       lastData: _lastData,
     );
-  }
-
-  @visibleForTesting
-  bool isInValidRange({
-    required int value,
-    required int digit,
-  }) {
-    return value < pow(10, digit);
   }
 }
