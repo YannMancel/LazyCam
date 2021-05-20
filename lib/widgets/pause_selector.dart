@@ -13,8 +13,8 @@ import '../extensions/extensions_link.dart';
 import '../models/models_link.dart';
 import '../providers.dart';
 
-class TimerSelector extends HookWidget {
-  TimerSelector({
+class PauseSelector extends HookWidget {
+  PauseSelector({
     Key? key,
     required Cycle cycle,
     int maxDigitForMinute = 3,
@@ -43,24 +43,24 @@ class TimerSelector extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
-    final timeController = useProvider(timeProvider(_cycle).notifier);
+    final timeController = useProvider(pauseProvider(_cycle).notifier);
     timeController.setDigits(
       minutes: _maxDigitForMinute,
       seconds: _maxDigitForSecond,
     );
 
     final minuteController = useTextEditingController(
-      text: '${_cycle.time.inMinutes}',
+      text: '${_cycle.pause.inMinutes}',
     );
     final secondController = useTextEditingController(
-      text: '${_cycle.time.secondsSubtractedWithMinutes}',
+      text: '${_cycle.pause.secondsSubtractedWithMinutes}',
     );
 
     final minuteNodeFocus = useFocusNode();
     final secondNodeFocus = useFocusNode();
 
     return ProviderListener<Result<Duration>>(
-      provider: timeProvider(_cycle),
+      provider: pauseProvider(_cycle),
       onChange: (context, result) {
         // Close keyboard if it is open
         minuteNodeFocus.unfocus();

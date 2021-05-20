@@ -197,7 +197,7 @@ class _Pause extends StatelessWidget {
   Widget build(BuildContext context) {
     return _Section(
       title: 'Pause (min:s)',
-      child: TimerSelector(
+      child: PauseSelector(
         cycle: _cycle,
         onChanged: (value) {
           print('PAUSE -> $value');

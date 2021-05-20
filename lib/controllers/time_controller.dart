@@ -7,18 +7,19 @@ import 'controllers_link.dart';
 // -----------------------------------------------------------------------------
 // Abstract class
 // -----------------------------------------------------------------------------
-abstract class TimerController extends BaseController<Result<Duration>> {
-  TimerController({required Result<Duration> state}) : super(state: state);
+abstract class TimeController extends BaseController<Result<Duration>> {
+  TimeController({required Result<Duration> state}) : super(state: state);
 
   static const kName = 'TimeProvider';
 
   @override
-  String get name => TimerController.kName;
+  String get name => TimeController.kName;
 
   void setDigits({
     required int minutes,
     required int seconds,
   });
+  void setWithLastData();
   set seconds(String value);
   set minutes(String value);
   void decrement();
@@ -28,8 +29,8 @@ abstract class TimerController extends BaseController<Result<Duration>> {
 // -----------------------------------------------------------------------------
 // Implementation
 // -----------------------------------------------------------------------------
-class TimerControllerImpl extends TimerController {
-  TimerControllerImpl({
+class TimeControllerImpl extends TimeController {
+  TimeControllerImpl({
     required Duration initialValue,
   })   : _lastData = initialValue,
         super(state: Result.data(value: initialValue));
@@ -44,6 +45,9 @@ class TimerControllerImpl extends TimerController {
     _minuteDigit = minutes;
     _secondDigit = seconds;
   }
+
+  @override
+  void setWithLastData() => state = Result.data(value: _lastData);
 
   @override
   set seconds(String value) {
@@ -63,10 +67,7 @@ class TimerControllerImpl extends TimerController {
     }
 
     final newValue = int.parse(value);
-
-    // TODO error if second >= 60
-
-    if (!newValue.isInValidRange(digit: _secondDigit!)) {
+    if (newValue >= 60 || !newValue.isInValidRange(digit: _secondDigit!)) {
       error = 'The requested value is outside the validity range.';
       return;
     }
@@ -125,7 +126,24 @@ class TimerControllerImpl extends TimerController {
 
   @override
   void increment() {
-    // TODO: implement increment
+    if (_minuteDigit == null) {
+      error = 'Minute digit is null. The digits setter must be called.';
+      return;
+    }
+
+    state.when(
+      data: (value) {
+        final nextValue = Duration(seconds: value.inSeconds + 1);
+        if (!nextValue.inMinutes.isInValidRange(digit: _minuteDigit!)) {
+          error = 'The requested value is outside the validity range.';
+          return;
+        }
+        state = Result.data(value: nextValue);
+      },
+      error: (_, lastData) => state = Result.data(
+        value: Duration(seconds: lastData?.inSeconds ?? 1),
+      ),
+    );
   }
 
   @override

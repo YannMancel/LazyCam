@@ -1,5 +1,3 @@
-import 'dart:math' show pow;
-
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart'
     show
@@ -22,7 +20,7 @@ class TempoSelector extends HookWidget {
     int maxDigit = 3,
     ValueChanged<int>? onChanged,
   })  : assert(
-          cycle.tempo < pow(10, maxDigit + 1),
+          cycle.tempo.isInValidRange(digit: maxDigit) == true,
           "The cycle's tempo is out of digit range.",
         ),
         _cycle = cycle,
@@ -53,8 +51,8 @@ class TempoSelector extends HookWidget {
 
         result.when(data: (value) {
           // Increment & decrement calls of empty text
-          if (value.toString() != textEditController.text) {
-            textEditController.text = value.toString();
+          if ('$value' != textEditController.text) {
+            textEditController.text = '$value';
           }
 
           _onChanged?.call(value);
