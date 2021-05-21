@@ -1,3 +1,4 @@
+import '../extensions/extensions_link.dart';
 import '../models/models_link.dart';
 import 'controllers_link.dart';
 
@@ -12,12 +13,13 @@ abstract class TrainingController extends BaseController<Training> {
   @override
   String get name => TrainingController.kName;
 
-  void addCycle();
-  void copyLastCycle();
-  void updateTempoOfCycle({
-    required Cycle cycle,
-    required int tempo,
+  void replaceCycle({
+    required Cycle oldVersion,
+    required Cycle newVersion,
   });
+  void addCycleAfter({required Cycle cycle});
+  void copyCycleAfterItself({required Cycle cycle});
+  void remove({required Cycle cycle});
 }
 
 // -----------------------------------------------------------------------------
@@ -27,34 +29,77 @@ class TrainingControllerImpl extends TrainingController {
   TrainingControllerImpl() : super(state: Training());
 
   @override
-  void addCycle() {
-    state = state.copyWith(
-      cycles: <Cycle>[
-        ...state.cycles,
-        Cycle(id: state.cycles.length),
-      ],
-    );
-  }
-
-  @override
-  void copyLastCycle() {
-    state = state.copyWith(
-      cycles: <Cycle>[
-        ...state.cycles,
-        state.cycles.last.copyWith(id: state.cycles.length),
-      ],
-    );
-  }
-
-  @override
-  void updateTempoOfCycle({
-    required Cycle cycle,
-    required int tempo,
+  void replaceCycle({
+    required Cycle oldVersion,
+    required Cycle newVersion,
   }) {
-    state = state.copyWith(
-      cycles: state.cycles
-          .map((e) => (e == cycle) ? cycle.copyWith(tempo: tempo) : e)
-          .toList(growable: false),
+    final index = state.cycles.indexWhere((e) => e == oldVersion);
+
+    final items = <Cycle>[...state.cycles].apply(
+      actionOnItself: (it) => it[index] = newVersion,
     );
+
+    state = state.copyWith(cycles: items);
+  }
+
+  @override
+  void addCycleAfter({required Cycle cycle}) {
+    final index = state.cycles.indexWhere((e) => e == cycle);
+
+    final items = <Cycle>[...state.cycles].apply(
+      actionOnItself: (it) {
+        it.insert(index + 1, const Cycle());
+
+        // Update indexes
+        it.asMap().forEach(
+          (index, value) {
+            it[index] = value.copyWith(id: index);
+          },
+        );
+      },
+    );
+
+    state = state.copyWith(cycles: items);
+  }
+
+  @override
+  void copyCycleAfterItself({required Cycle cycle}) {
+    final index = state.cycles.indexWhere((e) => e == cycle);
+
+    final items = <Cycle>[...state.cycles].apply(
+      actionOnItself: (it) {
+        it.insert(index + 1, cycle);
+
+        // Update indexes
+        it.asMap().forEach(
+          (index, value) {
+            it[index] = value.copyWith(id: index);
+          },
+        );
+      },
+    );
+
+    state = state.copyWith(cycles: items);
+  }
+
+  @override
+  void remove({required Cycle cycle}) {
+    // TODO Snackbar
+    if (state.cycles.length == 1) return;
+
+    final items = <Cycle>[...state.cycles].apply(
+      actionOnItself: (it) {
+        it.remove(cycle);
+
+        // Update index
+        it.asMap().forEach(
+          (index, value) {
+            it[index] = value.copyWith(id: index);
+          },
+        );
+      },
+    );
+
+    state = state.copyWith(cycles: items);
   }
 }

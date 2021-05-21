@@ -1,3 +1,4 @@
+export 'collection_extension.dart';
 export 'context_extension.dart';
 export 'duration_extension.dart';
 export 'primitive_extension.dart';

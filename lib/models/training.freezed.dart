@@ -17,7 +17,8 @@ class _$TrainingTearOff {
   const _$TrainingTearOff();
 
   _Training call(
-      {String name = 'Training', List<Cycle> cycles = const <Cycle>[]}) {
+      {String name = 'Training',
+      List<Cycle> cycles = const <Cycle>[const Cycle()]}) {
     return _Training(
       name: name,
       cycles: cycles,
@@ -108,12 +109,13 @@ class __$TrainingCopyWithImpl<$Res> extends _$TrainingCopyWithImpl<$Res>
 
 /// @nodoc
 class _$_Training with DiagnosticableTreeMixin implements _Training {
-  const _$_Training({this.name = 'Training', this.cycles = const <Cycle>[]});
+  const _$_Training(
+      {this.name = 'Training', this.cycles = const <Cycle>[const Cycle()]});
 
   @JsonKey(defaultValue: 'Training')
   @override
   final String name;
-  @JsonKey(defaultValue: const <Cycle>[])
+  @JsonKey(defaultValue: const <Cycle>[const Cycle()])
   @override
   final List<Cycle> cycles;
 

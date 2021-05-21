@@ -9,6 +9,6 @@ part 'training.freezed.dart';
 class Training with _$Training {
   const factory Training({
     @Default('Training') String name,
-    @Default(<Cycle>[]) List<Cycle> cycles,
+    @Default(const <Cycle>[Cycle()]) List<Cycle> cycles,
   }) = _Training;
 }
