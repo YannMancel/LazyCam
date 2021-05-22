@@ -98,7 +98,10 @@ class _CycleCard extends StatelessWidget {
             ),
           ),
           child: Padding(
-            padding: const EdgeInsets.all(8.0),
+            padding: const EdgeInsets.symmetric(
+              horizontal: 16.0,
+              vertical: 8.0,
+            ),
             child: Column(
               mainAxisSize: MainAxisSize.min,
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -139,6 +142,7 @@ class _CycleCard extends StatelessWidget {
                 ),
                 const Divider(),
                 _SectionCard(
+                  iconData: Icons.timer,
                   title: 'Time',
                   child: Text(
                     '${_cycle.time.inMinutes} min '
@@ -147,6 +151,7 @@ class _CycleCard extends StatelessWidget {
                   ),
                 ),
                 _SectionCard(
+                  iconData: Icons.whatshot,
                   title: 'Tempo',
                   child: Text(
                     '${_cycle.tempo} rep/min',
@@ -154,10 +159,19 @@ class _CycleCard extends StatelessWidget {
                   ),
                 ),
                 _SectionCard(
+                  iconData: Icons.pause,
                   title: 'Pause',
                   child: Text(
                     '${_cycle.pause.inMinutes} min '
                     '${_cycle.pause.secondsSubtractedWithMinutes} s',
+                    textAlign: TextAlign.right,
+                  ),
+                ),
+                _SectionCard(
+                  iconData: Icons.repeat,
+                  title: 'Repeat',
+                  child: Text(
+                    '${_cycle.repeat}',
                     textAlign: TextAlign.right,
                   ),
                 ),
@@ -202,14 +216,22 @@ class __CycleDialogState extends State<_CycleDialog> {
   Widget build(BuildContext context) {
     return Dialog(
       child: Padding(
-        padding: const EdgeInsets.all(8.0),
+        padding: const EdgeInsets.only(
+          left: 16.0,
+          right: 16.0,
+          top: 16.0,
+          bottom: 8.0,
+        ),
         child: Column(
           mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(
-              'Cycle ${widget._cycle.id + 1}',
-              style: const TextStyle(fontSize: 20.0),
+            Padding(
+              padding: const EdgeInsets.only(bottom: 8.0),
+              child: Text(
+                'Cycle ${widget._cycle.id + 1}',
+                style: const TextStyle(fontSize: 20.0),
+              ),
             ),
             const Divider(),
             _SectionDialog(
@@ -239,6 +261,15 @@ class __CycleDialogState extends State<_CycleDialog> {
                 },
               ),
             ),
+            _SectionDialog(
+              title: 'Repeat',
+              child: RepeatSelector(
+                cycle: widget._cycle,
+                onChanged: (repeat) {
+                  _newCycle = _newCycle.copyWith(repeat: repeat);
+                },
+              ),
+            ),
             Row(
               children: [
                 Spacer(),
@@ -262,12 +293,15 @@ class __CycleDialogState extends State<_CycleDialog> {
 class _SectionCard extends StatelessWidget {
   const _SectionCard({
     Key? key,
+    required IconData iconData,
     required String title,
     required Widget child,
-  })   : _title = title,
+  })   : _iconData = iconData,
+        _title = title,
         _child = child,
         super(key: key);
 
+  final IconData _iconData;
   final String _title;
   final Widget _child;
 
@@ -276,10 +310,12 @@ class _SectionCard extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 8.0),
       child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Padding(
-            padding: const EdgeInsets.only(left: 16.0),
+            padding: const EdgeInsets.symmetric(horizontal: 16.0),
+            child: Icon(_iconData),
+          ),
+          Expanded(
             child: Text(_title),
           ),
           Padding(
@@ -310,14 +346,14 @@ class _SectionDialog extends StatelessWidget {
       children: [
         Expanded(
           flex: 1,
-          child: Text(_title),
+          child: Padding(
+            padding: const EdgeInsets.only(left: 16.0),
+            child: Text(_title),
+          ),
         ),
         Expanded(
-          flex: 3,
-          child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 16.0),
-            child: _child,
-          ),
+          flex: 2,
+          child: _child,
         ),
       ],
     );

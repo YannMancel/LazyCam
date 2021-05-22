@@ -21,14 +21,15 @@ class PauseSelector extends HookWidget {
     int maxDigitForSecond = 2,
     ValueChanged<Duration>? onChanged,
   })  : assert(
-          cycle.time.secondsSubtractedWithMinutes
+          cycle.pause.secondsSubtractedWithMinutes
                   .isInValidRange(digit: maxDigitForSecond) ==
               true,
-          "The cycle's time is out of second digit range.",
+          "The cycle's pause is out of second digit range.",
         ),
         assert(
-          cycle.time.inMinutes.isInValidRange(digit: maxDigitForMinute) == true,
-          "The cycle's time is out of minute digit range.",
+          cycle.pause.inMinutes.isInValidRange(digit: maxDigitForMinute) ==
+              true,
+          "The cycle's pause is out of minute digit range.",
         ),
         _cycle = cycle,
         _maxDigitForMinute = maxDigitForMinute,

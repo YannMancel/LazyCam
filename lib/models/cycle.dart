@@ -10,5 +10,6 @@ class Cycle with _$Cycle {
     @Default(const Duration(minutes: 1, seconds: 30)) Duration time,
     @Default(0) int tempo,
     @Default(Duration.zero) Duration pause,
+    @Default(1) int repeat,
   }) = _Cycle;
 }

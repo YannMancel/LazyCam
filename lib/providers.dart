@@ -64,7 +64,7 @@ final trainingProvider =
 // -----------------------------------------------------------------------------
 // Time
 // -----------------------------------------------------------------------------
-/// Manages the [Cycle]'s time.
+/// Manages the [Cycle.time].
 final timeProvider = StateNotifierProvider.autoDispose
     .family<TimeController, Result<Duration>, Cycle>(
   (ref, cycle) => TimeControllerImpl(initialValue: cycle.time),
@@ -74,7 +74,7 @@ final timeProvider = StateNotifierProvider.autoDispose
 // -----------------------------------------------------------------------------
 // Number
 // -----------------------------------------------------------------------------
-/// Manages the [Cycle]'s tempo.
+/// Manages the [Cycle.tempo].
 final tempoProvider = StateNotifierProvider.autoDispose
     .family<NumberController, Result<int>, Cycle>(
   (ref, cycle) => NumberControllerImpl(initialValue: cycle.tempo),
@@ -84,9 +84,19 @@ final tempoProvider = StateNotifierProvider.autoDispose
 // -----------------------------------------------------------------------------
 // Pause
 // -----------------------------------------------------------------------------
-/// Manages the [Cycle]'s pause.
+/// Manages the [Cycle.pause].
 final pauseProvider = StateNotifierProvider.autoDispose
     .family<TimeController, Result<Duration>, Cycle>(
   (ref, cycle) => TimeControllerImpl(initialValue: cycle.pause),
   name: '${TimeController.kName}.pause',
+);
+
+// -----------------------------------------------------------------------------
+// Repeat
+// -----------------------------------------------------------------------------
+/// Manages the [Cycle.repeat].
+final repeatProvider = StateNotifierProvider.autoDispose
+    .family<NumberController, Result<int>, Cycle>(
+  (ref, cycle) => NumberControllerImpl(initialValue: cycle.repeat),
+  name: '${NumberController.kName}.repeat',
 );
