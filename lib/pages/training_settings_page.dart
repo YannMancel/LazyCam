@@ -69,7 +69,7 @@ class _Training extends HookWidget {
 }
 
 // TODO drag & drop card
-class _CycleCard extends StatelessWidget {
+class _CycleCard extends HookWidget {
   const _CycleCard({
     Key? key,
     required Cycle cycle,
@@ -80,6 +80,8 @@ class _CycleCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final training = useProvider(trainingProvider);
+
     return Container(
       margin: const EdgeInsets.only(top: 8.0),
       child: Card(
@@ -130,14 +132,15 @@ class _CycleCard extends StatelessWidget {
                             .copyCycleAfterItself(cycle: _cycle);
                       },
                     ),
-                    IconButton(
-                      icon: Icon(Icons.delete, color: Colors.red),
-                      onPressed: () {
-                        context
-                            .read(trainingProvider.notifier)
-                            .remove(cycle: _cycle);
-                      },
-                    ),
+                    if (training.cycles.length > 1)
+                      IconButton(
+                        icon: Icon(Icons.delete, color: Colors.red),
+                        onPressed: () {
+                          context
+                              .read(trainingProvider.notifier)
+                              .remove(cycle: _cycle);
+                        },
+                      ),
                   ],
                 ),
                 const Divider(),
