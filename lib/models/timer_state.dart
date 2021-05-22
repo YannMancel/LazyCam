@@ -6,14 +6,14 @@ part 'timer_state.freezed.dart';
 @freezed
 class TimerState with _$TimerState {
   const factory TimerState.initial({
-    @Default(0) int seconds,
+    @Default(Duration.zero) Duration duration,
   }) = _TimerStateInitial;
 
   const factory TimerState.start({
-    @Default(0) int seconds,
+    @Default(Duration.zero) Duration duration,
   }) = _TimerStateStart;
 
   const factory TimerState.stop({
-    @Default(0) int seconds,
+    @Default(Duration.zero) Duration duration,
   }) = _TimerStateStop;
 }

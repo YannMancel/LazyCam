@@ -14,7 +14,7 @@ abstract class ChronometerController extends BaseController<TimerState> {
   @override
   String get name => ChronometerController.kName;
 
-  void start({required int timeInSecond});
+  void start();
   void stop();
 }
 
@@ -22,27 +22,36 @@ abstract class ChronometerController extends BaseController<TimerState> {
 // Implementation
 // -----------------------------------------------------------------------------
 class ChronometerControllerImpl extends ChronometerController {
-  ChronometerControllerImpl() : super(state: TimerState.initial());
+  ChronometerControllerImpl({
+    required Duration initialDuration,
+  })   : _initialDuration = initialDuration,
+        super(state: TimerState.initial(duration: initialDuration));
+
+  final Duration _initialDuration;
 
   StreamSubscription<int>? _stream;
 
   @override
-  void start({required int timeInSecond}) {
-    assert(timeInSecond > 0, 'timerInSecond > O');
+  void start() {
+    assert(_initialDuration != Duration.zero, 'initial duration > O');
 
     _stream?.cancel();
 
     _stream = Stream.periodic(
       const Duration(seconds: 1),
-      (x) => timeInSecond - x,
+      (x) => _initialDuration.inSeconds - x,
     )
         .take(
-          timeInSecond + 1,
-        )
+      _initialDuration.inSeconds + 1,
+    )
         .listen(
-          (value) => state = TimerState.start(seconds: value),
-          onDone: stop,
+      (value) {
+        state = TimerState.start(
+          duration: Duration(seconds: value),
         );
+      },
+      onDone: stop,
+    );
   }
 
   @override

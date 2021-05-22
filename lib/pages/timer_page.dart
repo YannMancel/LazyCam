@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart'
     show HookWidget, useAnimationController;
-import 'package:flutter_riverpod/flutter_riverpod.dart' show BuildContextX;
-import 'package:hooks_riverpod/hooks_riverpod.dart' show useProvider;
+import 'package:hooks_riverpod/hooks_riverpod.dart'
+    show ProviderListener, useProvider;
 
+import '../models/models_link.dart';
 import '../providers.dart';
 import '../widgets/widgets_link.dart';
 
@@ -12,40 +13,52 @@ class TimerPage extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
-    final timerState = useProvider(timerProvider);
+    final initialDuration = const Duration(seconds: 15);
+
+    final timerState = useProvider(timerProvider(initialDuration));
+    final timerController =
+        useProvider(timerProvider(initialDuration).notifier);
 
     final animationController = useAnimationController(
       duration: const Duration(milliseconds: 200),
     );
 
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('Timer'),
-      ),
-      body: Center(
-        child: timerState.when(
-          initial: (_) => const StyledText(data: 'START'),
-          start: (seconds) => _TimerView(seconds: seconds),
-          stop: (_) => const StyledText(data: 'STOP'),
+    return ProviderListener<TimerState>(
+      provider: timerProvider(initialDuration),
+      onChange: (_, timerState) {
+        timerState.maybeWhen(
+          stop: (_) => animationController.reverse(),
+          orElse: () {/* Do nothing here */},
+        );
+      },
+      child: Scaffold(
+        appBar: AppBar(
+          title: const Text('Timer'),
         ),
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () => timerState.maybeWhen(
-          start: (_) {
-            animationController.reverse();
-            context.read(timerProvider.notifier).stop();
-          },
-          orElse: () {
-            animationController.forward();
-            context.read(timerProvider.notifier).start(timeInSecond: 15);
-          },
+        body: Center(
+          child: _TimerView(
+            initialDuration: initialDuration,
+            duration: timerState.duration,
+          ),
         ),
-        child: AnimatedIcon(
-          icon: AnimatedIcons.play_pause,
-          progress: animationController,
+        floatingActionButton: FloatingActionButton(
+          onPressed: () => timerState.maybeWhen(
+            start: (_) {
+              animationController.reverse();
+              timerController.stop();
+            },
+            orElse: () {
+              animationController.forward();
+              timerController.start();
+            },
+          ),
+          child: AnimatedIcon(
+            icon: AnimatedIcons.play_pause,
+            progress: animationController,
+          ),
         ),
+        floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       ),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
     );
   }
 }
@@ -53,14 +66,22 @@ class TimerPage extends HookWidget {
 class _TimerView extends StatelessWidget {
   const _TimerView({
     Key? key,
-    required int seconds,
-  })   : _seconds = seconds,
+    required Duration initialDuration,
+    required Duration duration,
+  })   : _initialDuration = initialDuration,
+        _duration = duration,
         super(key: key);
 
-  final int _seconds;
+  final Duration _initialDuration;
+  final Duration _duration;
 
   @override
   Widget build(BuildContext context) {
+    final value = ((_initialDuration.inSeconds.toDouble() -
+                _duration.inSeconds.toDouble()) *
+            1.0) /
+        _initialDuration.inSeconds.toDouble();
+
     return LayoutBuilder(
       builder: (context, constraints) {
         return Stack(
@@ -71,14 +92,14 @@ class _TimerView extends StatelessWidget {
               height: constraints.maxWidth * 0.7,
               child: SizedBox.expand(
                 child: CircularProgressIndicator(
-                  value: ((15.0 - _seconds.toDouble()) * 1.0) / 15.0,
+                  value: value,
                   backgroundColor: Colors.grey,
                   valueColor: const AlwaysStoppedAnimation(Colors.red),
                   strokeWidth: 15.0,
                 ),
               ),
             ),
-            StyledText(data: '$_seconds'),
+            StyledText(data: '${_duration.inSeconds}'),
           ],
         );
       },

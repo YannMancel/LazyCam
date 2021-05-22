@@ -32,7 +32,7 @@ class ImageStreamControllerImpl extends ImageStreamController
 
   final CameraController _cameraController = CameraControllerImpl();
   final ChronometerController _chronometerController =
-      ChronometerControllerImpl();
+      ChronometerControllerImpl(initialDuration: const Duration(seconds: 15));
 
   // To calculate the difference between the begin and end of timer
   int _frameNumber = 0;
@@ -51,7 +51,7 @@ class ImageStreamControllerImpl extends ImageStreamController
       return;
     }
 
-    _chronometerController.start(timeInSecond: timeInSecond);
+    _chronometerController.start();
 
     // TODO: create stream.
     //await _cameraController.controller?.startImageStream(

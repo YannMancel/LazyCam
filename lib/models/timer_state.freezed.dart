@@ -16,21 +16,21 @@ final _privateConstructorUsedError = UnsupportedError(
 class _$TimerStateTearOff {
   const _$TimerStateTearOff();
 
-  _TimerStateInitial initial({int seconds = 0}) {
+  _TimerStateInitial initial({Duration duration = Duration.zero}) {
     return _TimerStateInitial(
-      seconds: seconds,
+      duration: duration,
     );
   }
 
-  _TimerStateStart start({int seconds = 0}) {
+  _TimerStateStart start({Duration duration = Duration.zero}) {
     return _TimerStateStart(
-      seconds: seconds,
+      duration: duration,
     );
   }
 
-  _TimerStateStop stop({int seconds = 0}) {
+  _TimerStateStop stop({Duration duration = Duration.zero}) {
     return _TimerStateStop(
-      seconds: seconds,
+      duration: duration,
     );
   }
 }
@@ -40,20 +40,20 @@ const $TimerState = _$TimerStateTearOff();
 
 /// @nodoc
 mixin _$TimerState {
-  int get seconds => throw _privateConstructorUsedError;
+  Duration get duration => throw _privateConstructorUsedError;
 
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(int seconds) initial,
-    required TResult Function(int seconds) start,
-    required TResult Function(int seconds) stop,
+    required TResult Function(Duration duration) initial,
+    required TResult Function(Duration duration) start,
+    required TResult Function(Duration duration) stop,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(int seconds)? initial,
-    TResult Function(int seconds)? start,
-    TResult Function(int seconds)? stop,
+    TResult Function(Duration duration)? initial,
+    TResult Function(Duration duration)? start,
+    TResult Function(Duration duration)? stop,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -83,7 +83,7 @@ abstract class $TimerStateCopyWith<$Res> {
   factory $TimerStateCopyWith(
           TimerState value, $Res Function(TimerState) then) =
       _$TimerStateCopyWithImpl<$Res>;
-  $Res call({int seconds});
+  $Res call({Duration duration});
 }
 
 /// @nodoc
@@ -96,13 +96,13 @@ class _$TimerStateCopyWithImpl<$Res> implements $TimerStateCopyWith<$Res> {
 
   @override
   $Res call({
-    Object? seconds = freezed,
+    Object? duration = freezed,
   }) {
     return _then(_value.copyWith(
-      seconds: seconds == freezed
-          ? _value.seconds
-          : seconds // ignore: cast_nullable_to_non_nullable
-              as int,
+      duration: duration == freezed
+          ? _value.duration
+          : duration // ignore: cast_nullable_to_non_nullable
+              as Duration,
     ));
   }
 }
@@ -114,7 +114,7 @@ abstract class _$TimerStateInitialCopyWith<$Res>
           _TimerStateInitial value, $Res Function(_TimerStateInitial) then) =
       __$TimerStateInitialCopyWithImpl<$Res>;
   @override
-  $Res call({int seconds});
+  $Res call({Duration duration});
 }
 
 /// @nodoc
@@ -130,13 +130,13 @@ class __$TimerStateInitialCopyWithImpl<$Res>
 
   @override
   $Res call({
-    Object? seconds = freezed,
+    Object? duration = freezed,
   }) {
     return _then(_TimerStateInitial(
-      seconds: seconds == freezed
-          ? _value.seconds
-          : seconds // ignore: cast_nullable_to_non_nullable
-              as int,
+      duration: duration == freezed
+          ? _value.duration
+          : duration // ignore: cast_nullable_to_non_nullable
+              as Duration,
     ));
   }
 }
@@ -145,15 +145,15 @@ class __$TimerStateInitialCopyWithImpl<$Res>
 class _$_TimerStateInitial
     with DiagnosticableTreeMixin
     implements _TimerStateInitial {
-  const _$_TimerStateInitial({this.seconds = 0});
+  const _$_TimerStateInitial({this.duration = Duration.zero});
 
-  @JsonKey(defaultValue: 0)
+  @JsonKey(defaultValue: Duration.zero)
   @override
-  final int seconds;
+  final Duration duration;
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'TimerState.initial(seconds: $seconds)';
+    return 'TimerState.initial(duration: $duration)';
   }
 
   @override
@@ -161,20 +161,21 @@ class _$_TimerStateInitial
     super.debugFillProperties(properties);
     properties
       ..add(DiagnosticsProperty('type', 'TimerState.initial'))
-      ..add(DiagnosticsProperty('seconds', seconds));
+      ..add(DiagnosticsProperty('duration', duration));
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other is _TimerStateInitial &&
-            (identical(other.seconds, seconds) ||
-                const DeepCollectionEquality().equals(other.seconds, seconds)));
+            (identical(other.duration, duration) ||
+                const DeepCollectionEquality()
+                    .equals(other.duration, duration)));
   }
 
   @override
   int get hashCode =>
-      runtimeType.hashCode ^ const DeepCollectionEquality().hash(seconds);
+      runtimeType.hashCode ^ const DeepCollectionEquality().hash(duration);
 
   @JsonKey(ignore: true)
   @override
@@ -184,23 +185,23 @@ class _$_TimerStateInitial
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(int seconds) initial,
-    required TResult Function(int seconds) start,
-    required TResult Function(int seconds) stop,
+    required TResult Function(Duration duration) initial,
+    required TResult Function(Duration duration) start,
+    required TResult Function(Duration duration) stop,
   }) {
-    return initial(seconds);
+    return initial(duration);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(int seconds)? initial,
-    TResult Function(int seconds)? start,
-    TResult Function(int seconds)? stop,
+    TResult Function(Duration duration)? initial,
+    TResult Function(Duration duration)? start,
+    TResult Function(Duration duration)? stop,
     required TResult orElse(),
   }) {
     if (initial != null) {
-      return initial(seconds);
+      return initial(duration);
     }
     return orElse();
   }
@@ -231,10 +232,10 @@ class _$_TimerStateInitial
 }
 
 abstract class _TimerStateInitial implements TimerState {
-  const factory _TimerStateInitial({int seconds}) = _$_TimerStateInitial;
+  const factory _TimerStateInitial({Duration duration}) = _$_TimerStateInitial;
 
   @override
-  int get seconds => throw _privateConstructorUsedError;
+  Duration get duration => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
   _$TimerStateInitialCopyWith<_TimerStateInitial> get copyWith =>
@@ -248,7 +249,7 @@ abstract class _$TimerStateStartCopyWith<$Res>
           _TimerStateStart value, $Res Function(_TimerStateStart) then) =
       __$TimerStateStartCopyWithImpl<$Res>;
   @override
-  $Res call({int seconds});
+  $Res call({Duration duration});
 }
 
 /// @nodoc
@@ -264,13 +265,13 @@ class __$TimerStateStartCopyWithImpl<$Res>
 
   @override
   $Res call({
-    Object? seconds = freezed,
+    Object? duration = freezed,
   }) {
     return _then(_TimerStateStart(
-      seconds: seconds == freezed
-          ? _value.seconds
-          : seconds // ignore: cast_nullable_to_non_nullable
-              as int,
+      duration: duration == freezed
+          ? _value.duration
+          : duration // ignore: cast_nullable_to_non_nullable
+              as Duration,
     ));
   }
 }
@@ -279,15 +280,15 @@ class __$TimerStateStartCopyWithImpl<$Res>
 class _$_TimerStateStart
     with DiagnosticableTreeMixin
     implements _TimerStateStart {
-  const _$_TimerStateStart({this.seconds = 0});
+  const _$_TimerStateStart({this.duration = Duration.zero});
 
-  @JsonKey(defaultValue: 0)
+  @JsonKey(defaultValue: Duration.zero)
   @override
-  final int seconds;
+  final Duration duration;
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'TimerState.start(seconds: $seconds)';
+    return 'TimerState.start(duration: $duration)';
   }
 
   @override
@@ -295,20 +296,21 @@ class _$_TimerStateStart
     super.debugFillProperties(properties);
     properties
       ..add(DiagnosticsProperty('type', 'TimerState.start'))
-      ..add(DiagnosticsProperty('seconds', seconds));
+      ..add(DiagnosticsProperty('duration', duration));
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other is _TimerStateStart &&
-            (identical(other.seconds, seconds) ||
-                const DeepCollectionEquality().equals(other.seconds, seconds)));
+            (identical(other.duration, duration) ||
+                const DeepCollectionEquality()
+                    .equals(other.duration, duration)));
   }
 
   @override
   int get hashCode =>
-      runtimeType.hashCode ^ const DeepCollectionEquality().hash(seconds);
+      runtimeType.hashCode ^ const DeepCollectionEquality().hash(duration);
 
   @JsonKey(ignore: true)
   @override
@@ -318,23 +320,23 @@ class _$_TimerStateStart
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(int seconds) initial,
-    required TResult Function(int seconds) start,
-    required TResult Function(int seconds) stop,
+    required TResult Function(Duration duration) initial,
+    required TResult Function(Duration duration) start,
+    required TResult Function(Duration duration) stop,
   }) {
-    return start(seconds);
+    return start(duration);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(int seconds)? initial,
-    TResult Function(int seconds)? start,
-    TResult Function(int seconds)? stop,
+    TResult Function(Duration duration)? initial,
+    TResult Function(Duration duration)? start,
+    TResult Function(Duration duration)? stop,
     required TResult orElse(),
   }) {
     if (start != null) {
-      return start(seconds);
+      return start(duration);
     }
     return orElse();
   }
@@ -365,10 +367,10 @@ class _$_TimerStateStart
 }
 
 abstract class _TimerStateStart implements TimerState {
-  const factory _TimerStateStart({int seconds}) = _$_TimerStateStart;
+  const factory _TimerStateStart({Duration duration}) = _$_TimerStateStart;
 
   @override
-  int get seconds => throw _privateConstructorUsedError;
+  Duration get duration => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
   _$TimerStateStartCopyWith<_TimerStateStart> get copyWith =>
@@ -382,7 +384,7 @@ abstract class _$TimerStateStopCopyWith<$Res>
           _TimerStateStop value, $Res Function(_TimerStateStop) then) =
       __$TimerStateStopCopyWithImpl<$Res>;
   @override
-  $Res call({int seconds});
+  $Res call({Duration duration});
 }
 
 /// @nodoc
@@ -397,13 +399,13 @@ class __$TimerStateStopCopyWithImpl<$Res> extends _$TimerStateCopyWithImpl<$Res>
 
   @override
   $Res call({
-    Object? seconds = freezed,
+    Object? duration = freezed,
   }) {
     return _then(_TimerStateStop(
-      seconds: seconds == freezed
-          ? _value.seconds
-          : seconds // ignore: cast_nullable_to_non_nullable
-              as int,
+      duration: duration == freezed
+          ? _value.duration
+          : duration // ignore: cast_nullable_to_non_nullable
+              as Duration,
     ));
   }
 }
@@ -412,15 +414,15 @@ class __$TimerStateStopCopyWithImpl<$Res> extends _$TimerStateCopyWithImpl<$Res>
 class _$_TimerStateStop
     with DiagnosticableTreeMixin
     implements _TimerStateStop {
-  const _$_TimerStateStop({this.seconds = 0});
+  const _$_TimerStateStop({this.duration = Duration.zero});
 
-  @JsonKey(defaultValue: 0)
+  @JsonKey(defaultValue: Duration.zero)
   @override
-  final int seconds;
+  final Duration duration;
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'TimerState.stop(seconds: $seconds)';
+    return 'TimerState.stop(duration: $duration)';
   }
 
   @override
@@ -428,20 +430,21 @@ class _$_TimerStateStop
     super.debugFillProperties(properties);
     properties
       ..add(DiagnosticsProperty('type', 'TimerState.stop'))
-      ..add(DiagnosticsProperty('seconds', seconds));
+      ..add(DiagnosticsProperty('duration', duration));
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other is _TimerStateStop &&
-            (identical(other.seconds, seconds) ||
-                const DeepCollectionEquality().equals(other.seconds, seconds)));
+            (identical(other.duration, duration) ||
+                const DeepCollectionEquality()
+                    .equals(other.duration, duration)));
   }
 
   @override
   int get hashCode =>
-      runtimeType.hashCode ^ const DeepCollectionEquality().hash(seconds);
+      runtimeType.hashCode ^ const DeepCollectionEquality().hash(duration);
 
   @JsonKey(ignore: true)
   @override
@@ -451,23 +454,23 @@ class _$_TimerStateStop
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(int seconds) initial,
-    required TResult Function(int seconds) start,
-    required TResult Function(int seconds) stop,
+    required TResult Function(Duration duration) initial,
+    required TResult Function(Duration duration) start,
+    required TResult Function(Duration duration) stop,
   }) {
-    return stop(seconds);
+    return stop(duration);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(int seconds)? initial,
-    TResult Function(int seconds)? start,
-    TResult Function(int seconds)? stop,
+    TResult Function(Duration duration)? initial,
+    TResult Function(Duration duration)? start,
+    TResult Function(Duration duration)? stop,
     required TResult orElse(),
   }) {
     if (stop != null) {
-      return stop(seconds);
+      return stop(duration);
     }
     return orElse();
   }
@@ -498,10 +501,10 @@ class _$_TimerStateStop
 }
 
 abstract class _TimerStateStop implements TimerState {
-  const factory _TimerStateStop({int seconds}) = _$_TimerStateStop;
+  const factory _TimerStateStop({Duration duration}) = _$_TimerStateStop;
 
   @override
-  int get seconds => throw _privateConstructorUsedError;
+  Duration get duration => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
   _$TimerStateStopCopyWith<_TimerStateStop> get copyWith =>

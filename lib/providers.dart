@@ -15,9 +15,9 @@ final menuProvider = StateNotifierProvider<MenuController, MenuState>(
 // -----------------------------------------------------------------------------
 // Timer
 // -----------------------------------------------------------------------------
-final timerProvider =
-    StateNotifierProvider.autoDispose<ChronometerController, TimerState>(
-  (_) => ChronometerControllerImpl(),
+final timerProvider = StateNotifierProvider.autoDispose
+    .family<ChronometerController, TimerState, Duration>(
+  (_, duration) => ChronometerControllerImpl(initialDuration: duration),
   name: ChronometerController.kName,
 );
 
