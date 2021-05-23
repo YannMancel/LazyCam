@@ -5,6 +5,13 @@ import 'package:flutter/widgets.dart' show BuildContext, Navigator;
 extension ContextExtension on BuildContext {
   set pushTo(String routeName) => Navigator.pushNamed(this, routeName);
 
+  void pushWithArgumentTo({
+    required String routeName,
+    required Object arguments,
+  }) {
+    Navigator.pushNamed(this, routeName, arguments: arguments);
+  }
+
   void pop() => Navigator.of(this).pop();
 
   Future<T?> showCustomDialog<T>({required Widget dialog}) async {

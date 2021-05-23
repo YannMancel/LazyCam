@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'mixins/mixins_link.dart';
+import 'models/models_link.dart';
 import 'pages/pages_link.dart';
 
 abstract class MaterialRouteGenerator with RouteNames {
@@ -21,7 +22,8 @@ abstract class MaterialRouteGenerator with RouteNames {
         return _getRoute(page: const StreamPage());
       // [LEVEL 2]
       case RouteNames.kTimerRoute:
-        return _getRoute(page: const TimerPage());
+        final training = onGenerateRoute.arguments as Training;
+        return _getRoute(page: TimerPage(training: training));
 
       default:
         throw FormatException('Route of ${onGenerateRoute.name} unknown.');

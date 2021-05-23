@@ -148,8 +148,7 @@ class _CycleCard extends HookWidget {
                   iconData: Icons.timer,
                   title: 'Time',
                   child: Text(
-                    '${_cycle.time.inMinutes} min '
-                    '${_cycle.time.secondsSubtractedWithMinutes} s',
+                    _cycle.time.minutesAndSecondsFormat,
                     textAlign: TextAlign.right,
                   ),
                 ),
@@ -165,8 +164,7 @@ class _CycleCard extends HookWidget {
                   iconData: Icons.pause,
                   title: 'Pause',
                   child: Text(
-                    '${_cycle.pause.inMinutes} min '
-                    '${_cycle.pause.secondsSubtractedWithMinutes} s',
+                    _cycle.pause.minutesAndSecondsFormat,
                     textAlign: TextAlign.right,
                   ),
                 ),
@@ -363,18 +361,25 @@ class _SectionDialog extends StatelessWidget {
   }
 }
 
-class _GoAction extends StatelessWidget with RouteNames {
+class _GoAction extends HookWidget with RouteNames {
   const _GoAction({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    final training = useProvider(trainingProvider);
+
     return Padding(
       padding: const EdgeInsets.all(16.0),
       child: Row(
         children: [
           Expanded(
             child: ElevatedButton(
-              onPressed: () => context.pushTo = RouteNames.kTimerRoute,
+              onPressed: () {
+                context.pushWithArgumentTo(
+                  routeName: RouteNames.kTimerRoute,
+                  arguments: training,
+                );
+              },
               child: const Text('Go'),
             ),
           ),

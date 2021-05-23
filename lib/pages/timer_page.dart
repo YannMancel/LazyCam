@@ -4,16 +4,23 @@ import 'package:flutter_hooks/flutter_hooks.dart'
 import 'package:hooks_riverpod/hooks_riverpod.dart'
     show ProviderListener, useProvider;
 
+import '../extensions/extensions_link.dart';
 import '../models/models_link.dart';
 import '../providers.dart';
 import '../widgets/widgets_link.dart';
 
 class TimerPage extends HookWidget {
-  const TimerPage({Key? key}) : super(key: key);
+  const TimerPage({
+    Key? key,
+    required Training training,
+  })   : _training = training,
+        super(key: key);
+
+  final Training _training;
 
   @override
   Widget build(BuildContext context) {
-    final initialDuration = const Duration(seconds: 15);
+    final initialDuration = _training.cycles.first.time;
 
     final timerState = useProvider(timerProvider(initialDuration));
     final timerController =
@@ -83,7 +90,7 @@ class _TimerView extends StatelessWidget {
         _initialDuration.inSeconds.toDouble();
 
     return LayoutBuilder(
-      builder: (context, constraints) {
+      builder: (_, constraints) {
         return Stack(
           alignment: Alignment.center,
           children: [
@@ -99,7 +106,7 @@ class _TimerView extends StatelessWidget {
                 ),
               ),
             ),
-            StyledText(data: '${_duration.inSeconds}'),
+            StyledText(data: _duration.minutesAndSecondsFormatWithoutUnits),
           ],
         );
       },
