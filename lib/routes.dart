@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 
-import 'mixins/mixins_link.dart';
-import 'models/models_link.dart';
-import 'pages/pages_link.dart';
+import 'core/core.dart';
+import 'modules/modules.dart';
 
 abstract class MaterialRouteGenerator with RouteNames {
   static Route<dynamic>? generate(RouteSettings? onGenerateRoute) {

@@ -1,7 +1,7 @@
 import 'package:flutter_test/flutter_test.dart';
 
 import '../lib/main.dart';
-import '../lib/pages/home_page.dart';
+import '../lib/modules/home/home.dart';
 
 void main() {
   testWidgets('Test App', (WidgetTester tester) async {
