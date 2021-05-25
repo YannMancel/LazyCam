@@ -33,7 +33,8 @@ class StreamPage extends HookWidget {
               : _StreamView(
                   preview: CameraPreview(cameraController.controller!),
                 ),
-          error: (_, message) => StyledText(data: message ?? 'Unknown error'),
+          error: (_, message) =>
+              StyledText.huge(data: message ?? 'Unknown error'),
           orElse: () => const CircularProgressIndicator(),
         ),
       ),
@@ -64,7 +65,7 @@ class _StreamView extends HookWidget {
     return timerState.when(
       initial: (_) => SizedBox.expand(child: _preview),
       start: (seconds) => Center(
-        child: StyledText(data: '$seconds'),
+        child: StyledText.huge(data: '$seconds'),
       ),
       stop: (_) => SizedBox.expand(
         child: Container(

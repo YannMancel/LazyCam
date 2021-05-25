@@ -31,7 +31,8 @@ class CameraPage extends HookWidget {
               : SizedBox.expand(
                   child: CameraPreview(cameraController.controller!),
                 ),
-          error: (_, message) => StyledText(data: message ?? 'Unknown error'),
+          error: (_, message) =>
+              StyledText.huge(data: message ?? 'Unknown error'),
           orElse: () => const CircularProgressIndicator(),
         ),
       ),

@@ -105,7 +105,9 @@ class _TimerView extends StatelessWidget {
                 ),
               ),
             ),
-            StyledText(data: _duration.minutesAndSecondsFormatWithoutUnits),
+            StyledText.medium(
+              data: _duration.minutesAndSecondsFormatWithoutUnits,
+            ),
           ],
         );
       },

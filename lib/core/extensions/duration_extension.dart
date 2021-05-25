@@ -4,7 +4,14 @@ extension DurationExtension on Duration {
   }
 
   String get minutesAndSecondsFormatWithoutUnits {
-    return '${this.inMinutes}:${this.secondsSubtractedWithMinutes}';
+    final seconds =
+        this.secondsSubtractedWithMinutes.toString().padLeft(2, '0');
+
+    final minutes = (this.inMinutes < 10)
+        ? this.inMinutes.toString().padLeft(2, '0')
+        : this.inMinutes.toString();
+
+    return '$minutes : $seconds';
   }
 
   String get minutesAndSecondsFormat {
