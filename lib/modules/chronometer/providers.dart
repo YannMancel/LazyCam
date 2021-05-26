@@ -3,8 +3,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart'
 
 import 'chronometer.dart';
 
-final timerProvider = StateNotifierProvider.autoDispose
-    .family<ChronometerController, TimerState, Duration>(
-  (_, duration) => ChronometerControllerImpl(initialDuration: duration),
+final timerProvider =
+    StateNotifierProvider.autoDispose<ChronometerController, TimerState>(
+  (_) => ChronometerControllerImpl(),
   name: ChronometerController.kName,
 );

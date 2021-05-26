@@ -33,7 +33,9 @@ class ImageStreamControllerImpl extends ImageStreamController
 
   final CameraController _cameraController = CameraControllerImpl();
   final ChronometerController _chronometerController =
-      ChronometerControllerImpl(initialDuration: const Duration(seconds: 15));
+      ChronometerControllerImpl().apply(
+    actionOnItself: (it) => it.duration = const Duration(seconds: 15),
+  );
 
   // To calculate the difference between the begin and end of timer
   int _frameNumber = 0;

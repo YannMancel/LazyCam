@@ -17,4 +17,6 @@ extension DurationExtension on Duration {
   String get minutesAndSecondsFormat {
     return '${this.inMinutes} min ${this.secondsSubtractedWithMinutes} s';
   }
+
+  double get inSecondsInDouble => this.inSeconds.toDouble();
 }

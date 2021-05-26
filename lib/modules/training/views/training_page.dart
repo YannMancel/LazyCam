@@ -5,24 +5,28 @@ import 'package:hooks_riverpod/hooks_riverpod.dart'
     show ProviderListener, useProvider;
 
 import '../../../core/core.dart';
-import '../chronometer.dart';
+import '../../training/training.dart';
+import '../../chronometer/chronometer.dart';
 
-class TimerPage extends HookWidget {
-  const TimerPage({
+class TrainingPage extends HookWidget {
+  const TrainingPage({
     Key? key,
-    required Duration initialDuration,
-  })   : _initialDuration = initialDuration,
+    required Training training,
+  })   : _training = training,
         super(key: key);
 
-  final Duration _initialDuration;
+  final Training _training;
 
   @override
   Widget build(BuildContext context) {
+    final initialDuration = _training.cycles.first.time;
+
+    // TODO remove and replace by start by training controller
     final timerController = useProvider(timerProvider.notifier);
 
     useEffect(() {
       WidgetsBinding.instance!.addPostFrameCallback(
-        (_) => timerController.duration = _initialDuration,
+        (_) => timerController.duration = initialDuration,
       );
     }, <Object?>['only_one_useEffect_call']);
 
@@ -45,10 +49,7 @@ class TimerPage extends HookWidget {
           title: const Text('Timer'),
         ),
         body: Center(
-          child: _TimerView(
-            initialDuration: _initialDuration,
-            duration: timerState.duration,
-          ),
+          child: _TimerView(cycle: _training.cycles.first),
         ),
         floatingActionButton: FloatingActionButton(
           onPressed: () => timerState.maybeWhen(
@@ -58,7 +59,6 @@ class TimerPage extends HookWidget {
             },
             orElse: () {
               animationController.forward();
-              // TODO add pause call
               timerController.start();
             },
           ),
@@ -76,21 +76,20 @@ class TimerPage extends HookWidget {
 class _TimerView extends StatelessWidget {
   const _TimerView({
     Key? key,
-    required Duration initialDuration,
-    required Duration duration,
-  })   : _initialDuration = initialDuration,
-        _duration = duration,
+    required Cycle cycle,
+  })   : _cycle = cycle,
         super(key: key);
 
-  final Duration _initialDuration;
-  final Duration _duration;
+  final Cycle _cycle;
 
   @override
   Widget build(BuildContext context) {
-    final value = ((_initialDuration.inSeconds.toDouble() -
-                _duration.inSeconds.toDouble()) *
+    final timerState = useProvider(timerProvider);
+
+    final value = ((_cycle.time.inSecondsInDouble -
+                timerState.duration.inSecondsInDouble) *
             1.0) /
-        _initialDuration.inSeconds.toDouble();
+        _cycle.time.inSecondsInDouble;
 
     return LayoutBuilder(
       builder: (_, constraints) {
@@ -110,7 +109,7 @@ class _TimerView extends StatelessWidget {
               ),
             ),
             StyledText.medium(
-              data: _duration.minutesAndSecondsFormatWithoutUnits,
+              data: timerState.duration.minutesAndSecondsFormatWithoutUnits,
             ),
           ],
         );

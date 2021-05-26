@@ -22,7 +22,9 @@ abstract class MaterialRouteGenerator with RouteNames {
       // [LEVEL 2]
       case RouteNames.kTimerRoute:
         final training = onGenerateRoute.arguments as Training;
-        return _getRoute(page: TimerPage(training: training));
+        return _getRoute(
+          page: TimerPage(initialDuration: training.cycles.first.time),
+        );
 
       default:
         throw FormatException('Route of ${onGenerateRoute.name} unknown.');
