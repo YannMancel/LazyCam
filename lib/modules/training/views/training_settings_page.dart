@@ -114,7 +114,7 @@ class _CycleCard extends HookWidget {
                       ),
                     ),
                     IconButton(
-                      icon: Icon(Icons.add, color: Colors.red),
+                      icon: AppIcon(icon: Icons.add),
                       onPressed: () {
                         context
                             .read(trainingProvider.notifier)
@@ -122,7 +122,7 @@ class _CycleCard extends HookWidget {
                       },
                     ),
                     IconButton(
-                      icon: Icon(Icons.copy, color: Colors.red),
+                      icon: AppIcon(icon: Icons.copy),
                       onPressed: () {
                         context
                             .read(trainingProvider.notifier)
@@ -131,7 +131,7 @@ class _CycleCard extends HookWidget {
                     ),
                     if (training.cycles.length > 1)
                       IconButton(
-                        icon: Icon(Icons.delete, color: Colors.red),
+                        icon: AppIcon(icon: Icons.delete),
                         onPressed: () {
                           context
                               .read(trainingProvider.notifier)

@@ -13,6 +13,10 @@ class TimerState with _$TimerState {
     @Default(Duration.zero) Duration duration,
   }) = _Start;
 
+  const factory TimerState.pause({
+    @Default(Duration.zero) Duration duration,
+  }) = _Pause;
+
   const factory TimerState.stop({
     @Default(Duration.zero) Duration duration,
   }) = _Stop;

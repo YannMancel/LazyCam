@@ -28,6 +28,12 @@ class _$TimerStateTearOff {
     );
   }
 
+  _Pause pause({Duration duration = Duration.zero}) {
+    return _Pause(
+      duration: duration,
+    );
+  }
+
   _Stop stop({Duration duration = Duration.zero}) {
     return _Stop(
       duration: duration,
@@ -46,6 +52,7 @@ mixin _$TimerState {
   TResult when<TResult extends Object?>({
     required TResult Function(Duration duration) initial,
     required TResult Function(Duration duration) start,
+    required TResult Function(Duration duration) pause,
     required TResult Function(Duration duration) stop,
   }) =>
       throw _privateConstructorUsedError;
@@ -53,6 +60,7 @@ mixin _$TimerState {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(Duration duration)? initial,
     TResult Function(Duration duration)? start,
+    TResult Function(Duration duration)? pause,
     TResult Function(Duration duration)? stop,
     required TResult orElse(),
   }) =>
@@ -61,6 +69,7 @@ mixin _$TimerState {
   TResult map<TResult extends Object?>({
     required TResult Function(_Initial value) initial,
     required TResult Function(_Start value) start,
+    required TResult Function(_Pause value) pause,
     required TResult Function(_Stop value) stop,
   }) =>
       throw _privateConstructorUsedError;
@@ -68,6 +77,7 @@ mixin _$TimerState {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_Initial value)? initial,
     TResult Function(_Start value)? start,
+    TResult Function(_Pause value)? pause,
     TResult Function(_Stop value)? stop,
     required TResult orElse(),
   }) =>
@@ -181,6 +191,7 @@ class _$_Initial with DiagnosticableTreeMixin implements _Initial {
   TResult when<TResult extends Object?>({
     required TResult Function(Duration duration) initial,
     required TResult Function(Duration duration) start,
+    required TResult Function(Duration duration) pause,
     required TResult Function(Duration duration) stop,
   }) {
     return initial(duration);
@@ -191,6 +202,7 @@ class _$_Initial with DiagnosticableTreeMixin implements _Initial {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(Duration duration)? initial,
     TResult Function(Duration duration)? start,
+    TResult Function(Duration duration)? pause,
     TResult Function(Duration duration)? stop,
     required TResult orElse(),
   }) {
@@ -205,6 +217,7 @@ class _$_Initial with DiagnosticableTreeMixin implements _Initial {
   TResult map<TResult extends Object?>({
     required TResult Function(_Initial value) initial,
     required TResult Function(_Start value) start,
+    required TResult Function(_Pause value) pause,
     required TResult Function(_Stop value) stop,
   }) {
     return initial(this);
@@ -215,6 +228,7 @@ class _$_Initial with DiagnosticableTreeMixin implements _Initial {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_Initial value)? initial,
     TResult Function(_Start value)? start,
+    TResult Function(_Pause value)? pause,
     TResult Function(_Stop value)? stop,
     required TResult orElse(),
   }) {
@@ -310,6 +324,7 @@ class _$_Start with DiagnosticableTreeMixin implements _Start {
   TResult when<TResult extends Object?>({
     required TResult Function(Duration duration) initial,
     required TResult Function(Duration duration) start,
+    required TResult Function(Duration duration) pause,
     required TResult Function(Duration duration) stop,
   }) {
     return start(duration);
@@ -320,6 +335,7 @@ class _$_Start with DiagnosticableTreeMixin implements _Start {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(Duration duration)? initial,
     TResult Function(Duration duration)? start,
+    TResult Function(Duration duration)? pause,
     TResult Function(Duration duration)? stop,
     required TResult orElse(),
   }) {
@@ -334,6 +350,7 @@ class _$_Start with DiagnosticableTreeMixin implements _Start {
   TResult map<TResult extends Object?>({
     required TResult Function(_Initial value) initial,
     required TResult Function(_Start value) start,
+    required TResult Function(_Pause value) pause,
     required TResult Function(_Stop value) stop,
   }) {
     return start(this);
@@ -344,6 +361,7 @@ class _$_Start with DiagnosticableTreeMixin implements _Start {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_Initial value)? initial,
     TResult Function(_Start value)? start,
+    TResult Function(_Pause value)? pause,
     TResult Function(_Stop value)? stop,
     required TResult orElse(),
   }) {
@@ -362,6 +380,138 @@ abstract class _Start implements TimerState {
   @override
   @JsonKey(ignore: true)
   _$StartCopyWith<_Start> get copyWith => throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$PauseCopyWith<$Res> implements $TimerStateCopyWith<$Res> {
+  factory _$PauseCopyWith(_Pause value, $Res Function(_Pause) then) =
+      __$PauseCopyWithImpl<$Res>;
+  @override
+  $Res call({Duration duration});
+}
+
+/// @nodoc
+class __$PauseCopyWithImpl<$Res> extends _$TimerStateCopyWithImpl<$Res>
+    implements _$PauseCopyWith<$Res> {
+  __$PauseCopyWithImpl(_Pause _value, $Res Function(_Pause) _then)
+      : super(_value, (v) => _then(v as _Pause));
+
+  @override
+  _Pause get _value => super._value as _Pause;
+
+  @override
+  $Res call({
+    Object? duration = freezed,
+  }) {
+    return _then(_Pause(
+      duration: duration == freezed
+          ? _value.duration
+          : duration // ignore: cast_nullable_to_non_nullable
+              as Duration,
+    ));
+  }
+}
+
+/// @nodoc
+class _$_Pause with DiagnosticableTreeMixin implements _Pause {
+  const _$_Pause({this.duration = Duration.zero});
+
+  @JsonKey(defaultValue: Duration.zero)
+  @override
+  final Duration duration;
+
+  @override
+  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
+    return 'TimerState.pause(duration: $duration)';
+  }
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties
+      ..add(DiagnosticsProperty('type', 'TimerState.pause'))
+      ..add(DiagnosticsProperty('duration', duration));
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other is _Pause &&
+            (identical(other.duration, duration) ||
+                const DeepCollectionEquality()
+                    .equals(other.duration, duration)));
+  }
+
+  @override
+  int get hashCode =>
+      runtimeType.hashCode ^ const DeepCollectionEquality().hash(duration);
+
+  @JsonKey(ignore: true)
+  @override
+  _$PauseCopyWith<_Pause> get copyWith =>
+      __$PauseCopyWithImpl<_Pause>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(Duration duration) initial,
+    required TResult Function(Duration duration) start,
+    required TResult Function(Duration duration) pause,
+    required TResult Function(Duration duration) stop,
+  }) {
+    return pause(duration);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(Duration duration)? initial,
+    TResult Function(Duration duration)? start,
+    TResult Function(Duration duration)? pause,
+    TResult Function(Duration duration)? stop,
+    required TResult orElse(),
+  }) {
+    if (pause != null) {
+      return pause(duration);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_Initial value) initial,
+    required TResult Function(_Start value) start,
+    required TResult Function(_Pause value) pause,
+    required TResult Function(_Stop value) stop,
+  }) {
+    return pause(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_Initial value)? initial,
+    TResult Function(_Start value)? start,
+    TResult Function(_Pause value)? pause,
+    TResult Function(_Stop value)? stop,
+    required TResult orElse(),
+  }) {
+    if (pause != null) {
+      return pause(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _Pause implements TimerState {
+  const factory _Pause({Duration duration}) = _$_Pause;
+
+  @override
+  Duration get duration => throw _privateConstructorUsedError;
+  @override
+  @JsonKey(ignore: true)
+  _$PauseCopyWith<_Pause> get copyWith => throw _privateConstructorUsedError;
 }
 
 /// @nodoc
@@ -438,6 +588,7 @@ class _$_Stop with DiagnosticableTreeMixin implements _Stop {
   TResult when<TResult extends Object?>({
     required TResult Function(Duration duration) initial,
     required TResult Function(Duration duration) start,
+    required TResult Function(Duration duration) pause,
     required TResult Function(Duration duration) stop,
   }) {
     return stop(duration);
@@ -448,6 +599,7 @@ class _$_Stop with DiagnosticableTreeMixin implements _Stop {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(Duration duration)? initial,
     TResult Function(Duration duration)? start,
+    TResult Function(Duration duration)? pause,
     TResult Function(Duration duration)? stop,
     required TResult orElse(),
   }) {
@@ -462,6 +614,7 @@ class _$_Stop with DiagnosticableTreeMixin implements _Stop {
   TResult map<TResult extends Object?>({
     required TResult Function(_Initial value) initial,
     required TResult Function(_Start value) start,
+    required TResult Function(_Pause value) pause,
     required TResult Function(_Stop value) stop,
   }) {
     return stop(this);
@@ -472,6 +625,7 @@ class _$_Stop with DiagnosticableTreeMixin implements _Stop {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_Initial value)? initial,
     TResult Function(_Start value)? start,
+    TResult Function(_Pause value)? pause,
     TResult Function(_Stop value)? stop,
     required TResult orElse(),
   }) {

@@ -31,8 +31,6 @@ class ChronometerControllerImpl extends ChronometerController {
   ChronometerControllerImpl() : super(state: TimerState.initial());
 
   Duration _initialDuration = Duration.zero;
-  Duration? _lastDuration;
-
   StreamSubscription<int>? _stream;
 
   @override
@@ -43,15 +41,27 @@ class ChronometerControllerImpl extends ChronometerController {
 
   @override
   void start() {
-    assert(
-      _initialDuration != Duration.zero,
-      'initial duration must be greater than 0, you must call duration setter.',
+    late int seed;
+    late int count;
+
+    state.maybeWhen(
+      pause: (duration) {
+        seed = duration.inSeconds - 1;
+        count = duration.inSeconds;
+      },
+      orElse: () {
+        assert(
+          _initialDuration != Duration.zero,
+          ' initial duration must be greater than 0, '
+          'you must call duration setter.',
+        );
+
+        seed = _initialDuration.inSeconds - 1;
+        count = _initialDuration.inSeconds;
+      },
     );
 
     _stream?.cancel();
-
-    final seed = _initialDuration.inSeconds - 1;
-    final count = _initialDuration.inSeconds;
 
     _stream = Stream.periodic(
       const Duration(seconds: 1),
@@ -68,16 +78,17 @@ class ChronometerControllerImpl extends ChronometerController {
 
   @override
   void pause() {
-    //  assert(isStarted == true, 'timer state must be in start state.');
-//
-    //  _lastDuration = state.duration;
-    //  _stream?.cancel();
-    //  state = TimerState.pause();
+    assert(isStarted == true, 'timer state must be in start state.');
+
+    _stream?.cancel();
+    state = TimerState.pause(duration: state.duration);
   }
 
   @override
   void resume() {
-    // TODO: know lastDuration
+    assert(isPaused == true, 'timer state must be in pause state.');
+
+    start();
   }
 
   @override
@@ -87,7 +98,10 @@ class ChronometerControllerImpl extends ChronometerController {
   }
 
   @override
-  void reset() => duration = _initialDuration;
+  void reset() {
+    _stream?.cancel();
+    duration = _initialDuration;
+  }
 
   @override
   void dispose() {
@@ -96,14 +110,18 @@ class ChronometerControllerImpl extends ChronometerController {
   }
 
   @visibleForTesting
-  bool get isStarted => state.maybeWhen(
-        start: (_) => true,
-        orElse: () => false,
-      );
+  bool get isStarted {
+    return state.maybeWhen(
+      start: (_) => true,
+      orElse: () => false,
+    );
+  }
 
-  // @visibleForTesting
-  // bool get isPaused => state.maybeWhen(
-  //   pause: (_) => true,
-  //   orElse: () => false,
-  // );
+  @visibleForTesting
+  bool get isPaused {
+    return state.maybeWhen(
+      pause: (_) => true,
+      orElse: () => false,
+    );
+  }
 }

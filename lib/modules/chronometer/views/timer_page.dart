@@ -35,39 +35,68 @@ class TimerPage extends HookWidget {
     return ProviderListener<TimerState>(
       provider: timerProvider,
       onChange: (_, timerState) {
-        timerState.maybeWhen(
-          stop: (_) => animationController.reverse(),
-          orElse: () {/* Do nothing here */},
+        timerState.when(
+          initial: (_) => animationController.reset(),
+          start: (_) => animationController.forward(),
+          pause: (_) => animationController.reverse(),
+          stop: (_) => null,
         );
       },
       child: Scaffold(
         appBar: AppBar(
           title: const Text('Timer'),
         ),
-        body: Center(
-          child: _TimerView(
-            initialDuration: _initialDuration,
-            duration: timerState.duration,
-          ),
+        body: Stack(
+          alignment: AlignmentDirectional.bottomCenter,
+          children: [
+            Center(
+              child: _TimerView(
+                initialDuration: _initialDuration,
+                duration: timerState.duration,
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.only(bottom: 16.0),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  timerState.maybeWhen(
+                    initial: (_) => const SizedBox.shrink(),
+                    orElse: () => TextButton(
+                      onPressed: timerController.reset,
+                      child: const AppIcon(icon: Icons.loop),
+                    ),
+                  ),
+                  timerState.maybeWhen(
+                    stop: (_) => const SizedBox.shrink(),
+                    orElse: () => TextButton(
+                      onPressed: () {
+                        timerState.when(
+                          initial: (_) => timerController.start(),
+                          start: (_) => timerController.pause(),
+                          pause: (_) => timerController.resume(),
+                          stop: (_) => null,
+                        );
+                      },
+                      child: AppAnimatedIcon(
+                        icon: AnimatedIcons.play_pause,
+                        progress: animationController,
+                      ),
+                    ),
+                  ),
+                  timerState.maybeWhen(
+                    initial: (_) => const SizedBox.shrink(),
+                    stop: (_) => const SizedBox.shrink(),
+                    orElse: () => TextButton(
+                      onPressed: timerController.stop,
+                      child: const AppIcon(icon: Icons.stop),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ],
         ),
-        floatingActionButton: FloatingActionButton(
-          onPressed: () => timerState.maybeWhen(
-            start: (_) {
-              animationController.reverse();
-              timerController.stop();
-            },
-            orElse: () {
-              animationController.forward();
-              // TODO add pause call
-              timerController.start();
-            },
-          ),
-          child: AnimatedIcon(
-            icon: AnimatedIcons.play_pause,
-            progress: animationController,
-          ),
-        ),
-        floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       ),
     );
   }
@@ -109,7 +138,7 @@ class _TimerView extends StatelessWidget {
                 ),
               ),
             ),
-            StyledText.medium(
+            AppText.medium(
               data: _duration.minutesAndSecondsFormatWithoutUnits,
             ),
           ],

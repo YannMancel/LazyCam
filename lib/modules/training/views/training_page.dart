@@ -108,7 +108,7 @@ class _TimerView extends StatelessWidget {
                 ),
               ),
             ),
-            StyledText.medium(
+            AppText.medium(
               data: timerState.duration.minutesAndSecondsFormatWithoutUnits,
             ),
           ],

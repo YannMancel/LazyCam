@@ -27,7 +27,7 @@ class HomePage extends StatelessWidget with RouteNames {
       body: Stack(
         children: [
           const Align(
-            child: StyledText.huge(
+            child: AppText.huge(
               data: 'Hello',
               key: kMessageKey,
             ),

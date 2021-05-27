@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-class StyledText extends StatelessWidget {
-  const StyledText({
+class AppText extends StatelessWidget {
+  const AppText({
     Key? key,
     required String data,
     required TextStyle textStyle,
@@ -9,7 +9,7 @@ class StyledText extends StatelessWidget {
         _textStyle = textStyle,
         super(key: key);
 
-  const StyledText.huge({
+  const AppText.huge({
     Key? key,
     required String data,
   }) : this(
@@ -18,7 +18,7 @@ class StyledText extends StatelessWidget {
           textStyle: const TextStyle(fontSize: 80.0),
         );
 
-  const StyledText.medium({
+  const AppText.medium({
     Key? key,
     required String data,
   }) : this(

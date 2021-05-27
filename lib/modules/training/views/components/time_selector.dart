@@ -12,6 +12,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart'
 import '../../../../core/core.dart';
 import '../../training.dart';
 
+// TODO refactor
 class TimerSelector extends HookWidget {
   TimerSelector({
     Key? key,
@@ -83,7 +84,7 @@ class TimerSelector extends HookWidget {
       child: Row(
         children: [
           IconButton(
-            icon: const Icon(Icons.remove_circle, color: Colors.red),
+            icon: const AppIcon(icon: Icons.remove_circle),
             onPressed: timeController.decrement,
           ),
           Expanded(
@@ -134,7 +135,7 @@ class TimerSelector extends HookWidget {
             ),
           ),
           IconButton(
-            icon: const Icon(Icons.add_circle, color: Colors.red),
+            icon: const AppIcon(icon: Icons.add_circle),
             onPressed: timeController.increment,
           ),
         ],

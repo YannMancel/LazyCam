@@ -12,6 +12,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart'
 import '../../../../core/core.dart';
 import '../../training.dart';
 
+// TODO refactor
 class PauseSelector extends HookWidget {
   PauseSelector({
     Key? key,
@@ -84,7 +85,7 @@ class PauseSelector extends HookWidget {
       child: Row(
         children: [
           IconButton(
-            icon: const Icon(Icons.remove_circle, color: Colors.red),
+            icon: const AppIcon(icon: Icons.remove_circle),
             onPressed: timeController.decrement,
           ),
           Expanded(
@@ -135,7 +136,7 @@ class PauseSelector extends HookWidget {
             ),
           ),
           IconButton(
-            icon: const Icon(Icons.add_circle, color: Colors.red),
+            icon: const AppIcon(icon: Icons.add_circle),
             onPressed: timeController.increment,
           ),
         ],
