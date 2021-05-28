@@ -234,7 +234,7 @@ class __CycleDialogState extends State<_CycleDialog> {
             const Divider(),
             _SectionDialog(
               title: 'Time',
-              child: TimerSelector(
+              child: TimeSelector(
                 cycle: widget._cycle,
                 onChanged: (time) {
                   _newCycle = _newCycle.copyWith(time: time);

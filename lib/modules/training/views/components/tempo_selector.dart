@@ -1,9 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart'
-    show
-        TextInputFormatter,
-        FilteringTextInputFormatter,
-        LengthLimitingTextInputFormatter;
 import 'package:flutter_hooks/flutter_hooks.dart'
     show HookWidget, useTextEditingController, useFocusNode;
 import 'package:hooks_riverpod/hooks_riverpod.dart'
@@ -12,7 +7,6 @@ import 'package:hooks_riverpod/hooks_riverpod.dart'
 import '../../../../core/core.dart';
 import '../../training.dart';
 
-// TODO refactor
 class TempoSelector extends HookWidget {
   TempoSelector({
     Key? key,
@@ -61,35 +55,11 @@ class TempoSelector extends HookWidget {
           numberController.input = '$lastData';
         });
       },
-      child: Row(
-        children: [
-          IconButton(
-            icon: const AppIcon(icon: Icons.remove_circle),
-            onPressed: numberController.decrement,
-          ),
-          Expanded(
-            child: TextField(
-                controller: textEditController,
-                focusNode: nodeFocus,
-                keyboardType: TextInputType.number,
-                textAlign: TextAlign.center,
-                inputFormatters: <TextInputFormatter>[
-                  FilteringTextInputFormatter.digitsOnly,
-                  LengthLimitingTextInputFormatter(_maxDigit),
-                ],
-                decoration: const InputDecoration(
-                  border: InputBorder.none,
-                  floatingLabelBehavior: FloatingLabelBehavior.never,
-                ),
-                onEditingComplete: () {
-                  numberController.input = textEditController.text;
-                }),
-          ),
-          IconButton(
-            icon: const AppIcon(icon: Icons.add_circle),
-            onPressed: numberController.increment,
-          ),
-        ],
+      child: AppNumberSelector(
+        numberController: numberController,
+        textEditController: textEditController,
+        nodeFocus: nodeFocus,
+        maxDigit: _maxDigit,
       ),
     );
   }

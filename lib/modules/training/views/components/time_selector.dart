@@ -1,9 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart'
-    show
-        TextInputFormatter,
-        FilteringTextInputFormatter,
-        LengthLimitingTextInputFormatter;
 import 'package:flutter_hooks/flutter_hooks.dart'
     show HookWidget, useTextEditingController, useFocusNode;
 import 'package:hooks_riverpod/hooks_riverpod.dart'
@@ -12,9 +7,8 @@ import 'package:hooks_riverpod/hooks_riverpod.dart'
 import '../../../../core/core.dart';
 import '../../training.dart';
 
-// TODO refactor
-class TimerSelector extends HookWidget {
-  TimerSelector({
+class TimeSelector extends HookWidget {
+  TimeSelector({
     Key? key,
     required Cycle cycle,
     int maxDigitForMinute = 3,
@@ -81,64 +75,14 @@ class TimerSelector extends HookWidget {
           timeController.setWithLastData();
         });
       },
-      child: Row(
-        children: [
-          IconButton(
-            icon: const AppIcon(icon: Icons.remove_circle),
-            onPressed: timeController.decrement,
-          ),
-          Expanded(
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Expanded(
-                  //width: kMaxTextWith,
-                  child: TextField(
-                    controller: minuteController,
-                    focusNode: minuteNodeFocus,
-                    keyboardType: TextInputType.number,
-                    textAlign: TextAlign.right,
-                    inputFormatters: <TextInputFormatter>[
-                      FilteringTextInputFormatter.digitsOnly,
-                      LengthLimitingTextInputFormatter(_maxDigitForMinute),
-                    ],
-                    decoration: const InputDecoration(
-                      border: InputBorder.none,
-                      floatingLabelBehavior: FloatingLabelBehavior.never,
-                    ),
-                    onEditingComplete: () {
-                      timeController.minutes = minuteController.text;
-                    },
-                  ),
-                ),
-                const Text(' :  '),
-                Expanded(
-                  child: TextField(
-                    controller: secondController,
-                    focusNode: secondNodeFocus,
-                    keyboardType: TextInputType.number,
-                    textAlign: TextAlign.left,
-                    inputFormatters: <TextInputFormatter>[
-                      FilteringTextInputFormatter.digitsOnly,
-                      LengthLimitingTextInputFormatter(_maxDigitForSecond),
-                    ],
-                    decoration: const InputDecoration(
-                      border: InputBorder.none,
-                      floatingLabelBehavior: FloatingLabelBehavior.never,
-                    ),
-                    onEditingComplete: () {
-                      timeController.seconds = secondController.text;
-                    },
-                  ),
-                ),
-              ],
-            ),
-          ),
-          IconButton(
-            icon: const AppIcon(icon: Icons.add_circle),
-            onPressed: timeController.increment,
-          ),
-        ],
+      child: AppTimeSelector(
+        timeController: timeController,
+        textEditControllerForMinute: minuteController,
+        textEditControllerForSecond: secondController,
+        nodeFocusForMinute: minuteNodeFocus,
+        nodeFocusForSecond: secondNodeFocus,
+        maxDigitForMinute: _maxDigitForMinute,
+        maxDigitForSecond: _maxDigitForSecond,
       ),
     );
   }
