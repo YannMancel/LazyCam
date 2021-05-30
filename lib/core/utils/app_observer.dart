@@ -3,7 +3,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart'
 
 import '../core.dart';
 
-enum ProviderEvent { Add, Update, Dependencies, Dispose }
+enum ProviderEvent { add, update, dependencies, dispose }
 
 class AppObserver extends ProviderObserver {
   const AppObserver();
@@ -25,7 +25,7 @@ class AppObserver extends ProviderObserver {
   void didAddProvider(ProviderBase provider, Object? value) {
     Logger.debug(
       message: _eventMessage(
-        providerEvent: ProviderEvent.Add,
+        providerEvent: ProviderEvent.add,
         provider: provider,
         value: value,
       ),
@@ -36,7 +36,7 @@ class AppObserver extends ProviderObserver {
   void didUpdateProvider(ProviderBase provider, Object? newValue) {
     Logger.info(
       message: _eventMessage(
-        providerEvent: ProviderEvent.Update,
+        providerEvent: ProviderEvent.update,
         provider: provider,
         value: newValue,
       ),
@@ -47,7 +47,7 @@ class AppObserver extends ProviderObserver {
   void mayHaveChanged(ProviderBase provider) {
     Logger.warning(
       message: _eventMessage(
-        providerEvent: ProviderEvent.Dependencies,
+        providerEvent: ProviderEvent.dependencies,
         provider: provider,
       ),
     );
@@ -57,7 +57,7 @@ class AppObserver extends ProviderObserver {
   void didDisposeProvider(ProviderBase provider) {
     Logger.wtf(
       message: _eventMessage(
-        providerEvent: ProviderEvent.Dispose,
+        providerEvent: ProviderEvent.dispose,
         provider: provider,
       ),
     );

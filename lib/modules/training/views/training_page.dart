@@ -5,8 +5,8 @@ import 'package:hooks_riverpod/hooks_riverpod.dart'
     show ProviderListener, useProvider;
 
 import '../../../core/core.dart';
-import '../../training/training.dart';
 import '../../chronometer/chronometer.dart';
+import '../../training/training.dart';
 
 class TrainingPage extends HookWidget {
   const TrainingPage({
@@ -96,7 +96,7 @@ class _TimerView extends StatelessWidget {
         return Stack(
           alignment: Alignment.center,
           children: [
-            Container(
+            SizedBox(
               width: constraints.maxWidth * 0.7,
               height: constraints.maxWidth * 0.7,
               child: SizedBox.expand(

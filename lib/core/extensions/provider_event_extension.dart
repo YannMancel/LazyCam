@@ -7,7 +7,7 @@ extension ProviderEventExtension on ProviderEvent {
         .reduce((a, b) => (a < b) ? b : a);
   }
 
-  String get nameInUpperCase => this.toString().split('.').last.toUpperCase();
+  String get nameInUpperCase => toString().split('.').last.toUpperCase();
 
   String get nameInUpperCaseWithPadRight => nameInUpperCase.padRight(lengthMax);
 }

@@ -1,0 +1,12 @@
+include: package:lint/analysis_options.yaml
+
+linter:
+  rules:
+    avoid_setters_without_getters: false
+    prefer_single_quotes: true
+    use_key_in_widget_constructors: true
+    avoid_multiple_declarations_per_line: true
+    sort_pub_dependencies: false
+    avoid_print: false
+    avoid_relative_lib_imports: false
+    avoid_single_cascade_in_expression_statements: false

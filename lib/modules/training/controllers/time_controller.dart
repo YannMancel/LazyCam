@@ -57,10 +57,7 @@ class TimeControllerImpl extends TimeController {
 
     if (value.isEmpty) {
       state = Result.data(
-        value: Duration(
-          minutes: _lastData.inMinutes,
-          seconds: 0,
-        ),
+        value: Duration(minutes: _lastData.inMinutes),
       );
       return;
     }
@@ -87,10 +84,7 @@ class TimeControllerImpl extends TimeController {
 
     if (value.isEmpty) {
       state = Result.data(
-        value: Duration(
-          minutes: 0,
-          seconds: _lastData.secondsSubtractedWithMinutes,
-        ),
+        value: Duration(seconds: _lastData.secondsSubtractedWithMinutes),
       );
       return;
     }

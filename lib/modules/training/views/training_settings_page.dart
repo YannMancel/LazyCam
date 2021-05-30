@@ -114,7 +114,7 @@ class _CycleCard extends HookWidget {
                       ),
                     ),
                     IconButton(
-                      icon: AppIcon(icon: Icons.add),
+                      icon: const AppIcon(icon: Icons.add),
                       onPressed: () {
                         context
                             .read(trainingProvider.notifier)
@@ -122,7 +122,7 @@ class _CycleCard extends HookWidget {
                       },
                     ),
                     IconButton(
-                      icon: AppIcon(icon: Icons.copy),
+                      icon: const AppIcon(icon: Icons.copy),
                       onPressed: () {
                         context
                             .read(trainingProvider.notifier)
@@ -131,7 +131,7 @@ class _CycleCard extends HookWidget {
                     ),
                     if (training.cycles.length > 1)
                       IconButton(
-                        icon: AppIcon(icon: Icons.delete),
+                        icon: const AppIcon(icon: Icons.delete),
                         onPressed: () {
                           context
                               .read(trainingProvider.notifier)
@@ -270,7 +270,7 @@ class __CycleDialogState extends State<_CycleDialog> {
             ),
             Row(
               children: [
-                Spacer(),
+                const Spacer(),
                 TextButton(
                   onPressed: widget._doOnCancel,
                   child: const Text('Cancel'),
@@ -343,7 +343,6 @@ class _SectionDialog extends StatelessWidget {
     return Row(
       children: [
         Expanded(
-          flex: 1,
           child: Padding(
             padding: const EdgeInsets.only(left: 16.0),
             child: Text(_title),

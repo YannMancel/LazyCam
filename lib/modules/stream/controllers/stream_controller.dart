@@ -29,7 +29,7 @@ abstract class ImageStreamController extends BaseController<StreamState> {
 // -----------------------------------------------------------------------------
 class ImageStreamControllerImpl extends ImageStreamController
     with ImageConverter {
-  ImageStreamControllerImpl() : super(state: StreamState.initial());
+  ImageStreamControllerImpl() : super(state: const StreamState.initial());
 
   final CameraController _cameraController = CameraControllerImpl();
   final ChronometerController _chronometerController =
@@ -38,7 +38,7 @@ class ImageStreamControllerImpl extends ImageStreamController
   );
 
   // To calculate the difference between the begin and end of timer
-  int _frameNumber = 0;
+  //int _frameNumber = 0;
 
   @override
   CameraController get cameraController => _cameraController;
@@ -87,8 +87,8 @@ class ImageStreamControllerImpl extends ImageStreamController
       );
     }
 
-    _frameNumber++;
-    print('IMAGES: $_frameNumber - ${state.images.length}');
+    //_frameNumber++;
+    //print('IMAGES: $_frameNumber - ${state.images.length}');
   }
 
   void _stopImageStream() {

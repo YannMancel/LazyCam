@@ -28,7 +28,7 @@ abstract class ChronometerController extends BaseController<TimerState> {
 // Implementation
 // -----------------------------------------------------------------------------
 class ChronometerControllerImpl extends ChronometerController {
-  ChronometerControllerImpl() : super(state: TimerState.initial());
+  ChronometerControllerImpl() : super(state: const TimerState.initial());
 
   Duration _initialDuration = Duration.zero;
   StreamSubscription<int>? _stream;
@@ -94,7 +94,7 @@ class ChronometerControllerImpl extends ChronometerController {
   @override
   void stop() {
     _stream?.cancel();
-    state = TimerState.stop();
+    state = const TimerState.stop();
   }
 
   @override

@@ -9,14 +9,14 @@ void main() {
   //IntegrationTestWidgetsFlutterBinding.ensureInitialized();
 
   testWidgets('Test app', (WidgetTester tester) async {
-    await tester.pumpWidget(MyApp());
+    await tester.pumpWidget(const MyApp());
 
     expect(find.byType(HomePage), findsOneWidget);
     expect(find.byKey(HomePage.kMessageKey), findsOneWidget);
     expect(find.byKey(HomePage.kNormalFabKey), findsOneWidget);
 
     await tester.tap(find.byKey(HomePage.kNormalFabKey));
-    await tester.pump(Duration(milliseconds: 10));
+    await tester.pump(const Duration(milliseconds: 10));
 
     //expect(find.byKey(HomePage.kTimerMiniFabKey), findsOneWidget);
     //expect(find.byKey(HomePage.kCameraMiniFabKey), findsOneWidget);

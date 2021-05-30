@@ -25,7 +25,7 @@ abstract class TrainingController extends BaseController<Training> {
 // Implementation
 // -----------------------------------------------------------------------------
 class TrainingControllerImpl extends TrainingController {
-  TrainingControllerImpl() : super(state: Training());
+  TrainingControllerImpl() : super(state: const Training());
 
   @override
   void replaceCycle({

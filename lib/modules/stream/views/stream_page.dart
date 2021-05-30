@@ -41,7 +41,7 @@ class StreamPage extends HookWidget {
         onPressed: () {
           context.read(imageStreamProvider.notifier).start(timeInSecond: 15);
         },
-        child: Icon(Icons.stream),
+        child: const Icon(Icons.stream),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
     );
@@ -72,7 +72,6 @@ class _StreamView extends HookWidget {
       stop: (_) => SizedBox.expand(
         child: Container(
           color: Colors.red,
-          child: null,
         ),
       ),
     );

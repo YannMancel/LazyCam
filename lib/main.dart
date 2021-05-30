@@ -1,20 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart' show ProviderScope;
 
-import 'routes.dart';
 import 'core/core.dart';
+import 'routes.dart';
 
-void main() => runApp(MyApp());
+void main() => runApp(const MyApp());
 
 class MyApp extends StatelessWidget with RouteNames {
+  const MyApp({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return ProviderScope(
-      observers: [const AppObserver()],
+      observers: const [AppObserver()],
       child: MaterialApp(
         title: 'LazyCam',
-        showPerformanceOverlay: false,
-        debugShowMaterialGrid: false,
         debugShowCheckedModeBanner: false,
         theme: ThemeData.dark(),
         initialRoute: RouteNames.kHomeRoute,

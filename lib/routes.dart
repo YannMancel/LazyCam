@@ -21,9 +21,11 @@ abstract class MaterialRouteGenerator with RouteNames {
         return _getRoute(page: const StreamPage());
       // [LEVEL 2]
       case RouteNames.kTimerRoute:
-        final training = onGenerateRoute.arguments as Training;
+        final training = onGenerateRoute.arguments as Training?;
         return _getRoute(
-          page: TimerPage(initialDuration: training.cycles.first.time),
+          page: TimerPage(
+            initialDuration: training?.cycles.first.time ?? Duration.zero,
+          ),
         );
 
       default:

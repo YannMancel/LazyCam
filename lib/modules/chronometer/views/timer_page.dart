@@ -126,7 +126,7 @@ class _TimerView extends StatelessWidget {
         return Stack(
           alignment: Alignment.center,
           children: [
-            Container(
+            SizedBox(
               width: constraints.maxWidth * 0.7,
               height: constraints.maxWidth * 0.7,
               child: SizedBox.expand(

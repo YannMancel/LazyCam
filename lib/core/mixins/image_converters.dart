@@ -159,10 +159,10 @@ mixin ImageConverter {
   // Black
   image_lib.Image _convertYUV420({required CameraImage cameraImage}) {
     // Create Image buffer
-    var img = image_lib.Image(cameraImage.width, cameraImage.height);
+    final img = image_lib.Image(cameraImage.width, cameraImage.height);
 
-    Plane plane = cameraImage.planes[0];
-    const int shift = (0xFF << 24);
+    final Plane plane = cameraImage.planes[0];
+    const int shift = 0xFF << 24;
 
     // Fill image buffer with plane[0] from YUV420_888
     for (int x = 0; x < cameraImage.width; x++) {
@@ -173,7 +173,7 @@ mixin ImageConverter {
         // color: 0x FF  FF  FF  FF
         //           A   B   G   R
         // Calculate pixel color
-        var newVal =
+        final newVal =
             shift | (pixelColor << 16) | (pixelColor << 8) | pixelColor;
 
         img.data[planeOffset + x] = newVal;

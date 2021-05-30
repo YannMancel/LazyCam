@@ -27,7 +27,7 @@ abstract class CameraController extends BaseController<CameraState> {
 // Implementation
 // -----------------------------------------------------------------------------
 class CameraControllerImpl extends CameraController {
-  CameraControllerImpl() : super(state: CameraState.initial()) {
+  CameraControllerImpl() : super(state: const CameraState.initial()) {
     initialize();
   }
 
