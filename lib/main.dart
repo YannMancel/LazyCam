@@ -16,7 +16,7 @@ class MyApp extends StatelessWidget with RouteNames {
       child: MaterialApp(
         title: 'LazyCam',
         debugShowCheckedModeBanner: false,
-        theme: ThemeData.dark(),
+        theme: AppTheme.darkTheme,
         initialRoute: RouteNames.kHomeRoute,
         onGenerateRoute: MaterialRouteGenerator.generate,
       ),

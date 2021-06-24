@@ -19,7 +19,7 @@ class StreamPage extends HookWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Steam'),
-        actions: [
+        actions: <Widget>[
           IconButton(
             icon: const Icon(Icons.flip_camera_ios_sharp),
             onPressed: cameraController.switchCamera,
@@ -33,7 +33,12 @@ class StreamPage extends HookWidget {
               : _StreamView(
                   preview: CameraPreview(cameraController.controller!),
                 ),
-          error: (_, message) => AppText.huge(data: message ?? 'Unknown error'),
+          error: (_, message) {
+            return Text(
+              message ?? 'Unknown error',
+              style: AppTextStyles.headline1,
+            );
+          },
           orElse: () => const CircularProgressIndicator(),
         ),
       ),
@@ -64,15 +69,19 @@ class _StreamView extends HookWidget {
     return timerState.when(
       initial: (_) => SizedBox.expand(child: _preview),
       start: (seconds) => Center(
-        child: AppText.huge(data: '$seconds'),
+        child: Text(
+          '$seconds',
+          style: AppTextStyles.headline1,
+        ),
       ),
       pause: (_) => const Center(
-        child: AppText.huge(data: 'Pause'),
-      ),
-      stop: (_) => SizedBox.expand(
-        child: Container(
-          color: Colors.red,
+        child: Text(
+          'Pause',
+          style: AppTextStyles.headline1,
         ),
+      ),
+      stop: (_) => const SizedBox.expand(
+        child: ColoredBox(color: Colors.red),
       ),
     );
   }

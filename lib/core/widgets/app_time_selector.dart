@@ -1,3 +1,4 @@
+import 'package:ffmpeg_demo/core/mixins/app_text_styles.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart'
     show
@@ -6,7 +7,6 @@ import 'package:flutter/services.dart'
         LengthLimitingTextInputFormatter;
 
 import '../../modules/training/training.dart';
-import '../core.dart';
 
 class AppTimeSelector extends StatelessWidget {
   const AppTimeSelector({
@@ -40,15 +40,14 @@ class AppTimeSelector extends StatelessWidget {
     return Row(
       children: [
         IconButton(
-          icon: const AppIcon(icon: Icons.remove_circle),
+          icon: const Icon(Icons.remove_circle),
           onPressed: _timeController.decrement,
         ),
         Expanded(
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
-            children: [
+            children: <Widget>[
               Expanded(
-                //width: kMaxTextWith,
                 child: TextField(
                   controller: _textEditControllerForMinute,
                   focusNode: _nodeFocusForMinute,
@@ -58,16 +57,15 @@ class AppTimeSelector extends StatelessWidget {
                     FilteringTextInputFormatter.digitsOnly,
                     LengthLimitingTextInputFormatter(_maxDigitForMinute),
                   ],
-                  decoration: const InputDecoration(
-                    border: InputBorder.none,
-                    floatingLabelBehavior: FloatingLabelBehavior.never,
-                  ),
                   onEditingComplete: () {
                     _timeController.minutes = _textEditControllerForMinute.text;
                   },
                 ),
               ),
-              const Text(' :  '),
+              const Text(
+                ' :  ',
+                style: AppTextStyles.subtitle1,
+              ),
               Expanded(
                 child: TextField(
                   controller: _textEditControllerForSecond,
@@ -78,10 +76,6 @@ class AppTimeSelector extends StatelessWidget {
                     FilteringTextInputFormatter.digitsOnly,
                     LengthLimitingTextInputFormatter(_maxDigitForSecond),
                   ],
-                  decoration: const InputDecoration(
-                    border: InputBorder.none,
-                    floatingLabelBehavior: FloatingLabelBehavior.never,
-                  ),
                   onEditingComplete: () {
                     _timeController.seconds = _textEditControllerForSecond.text;
                   },
@@ -91,7 +85,7 @@ class AppTimeSelector extends StatelessWidget {
           ),
         ),
         IconButton(
-          icon: const AppIcon(icon: Icons.add_circle),
+          icon: const Icon(Icons.add_circle),
           onPressed: _timeController.increment,
         ),
       ],

@@ -64,7 +64,7 @@ class TimerPage extends HookWidget {
                     initial: (_) => const SizedBox.shrink(),
                     orElse: () => TextButton(
                       onPressed: timerController.reset,
-                      child: const AppIcon(icon: Icons.loop),
+                      child: const Icon(Icons.loop),
                     ),
                   ),
                   timerState.maybeWhen(
@@ -78,7 +78,7 @@ class TimerPage extends HookWidget {
                           stop: (_) => null,
                         );
                       },
-                      child: AppAnimatedIcon(
+                      child: AnimatedIcon(
                         icon: AnimatedIcons.play_pause,
                         progress: animationController,
                       ),
@@ -89,7 +89,7 @@ class TimerPage extends HookWidget {
                     stop: (_) => const SizedBox.shrink(),
                     orElse: () => TextButton(
                       onPressed: timerController.stop,
-                      child: const AppIcon(icon: Icons.stop),
+                      child: const Icon(Icons.stop),
                     ),
                   ),
                 ],
@@ -125,7 +125,7 @@ class _TimerView extends StatelessWidget {
       builder: (_, constraints) {
         return Stack(
           alignment: Alignment.center,
-          children: [
+          children: <Widget>[
             SizedBox(
               width: constraints.maxWidth * 0.7,
               height: constraints.maxWidth * 0.7,
@@ -138,8 +138,9 @@ class _TimerView extends StatelessWidget {
                 ),
               ),
             ),
-            AppText.medium(
-              data: _duration.minutesAndSecondsFormatWithoutUnits,
+            Text(
+              _duration.minutesAndSecondsFormatWithoutUnits,
+              style: AppTextStyles.headline2,
             ),
           ],
         );

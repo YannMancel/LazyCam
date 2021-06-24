@@ -95,7 +95,7 @@ class _TimerView extends StatelessWidget {
       builder: (_, constraints) {
         return Stack(
           alignment: Alignment.center,
-          children: [
+          children: <Widget>[
             SizedBox(
               width: constraints.maxWidth * 0.7,
               height: constraints.maxWidth * 0.7,
@@ -108,8 +108,9 @@ class _TimerView extends StatelessWidget {
                 ),
               ),
             ),
-            AppText.medium(
-              data: timerState.duration.minutesAndSecondsFormatWithoutUnits,
+            Text(
+              timerState.duration.minutesAndSecondsFormatWithoutUnits,
+              style: AppTextStyles.headline2,
             ),
           ],
         );

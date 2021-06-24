@@ -25,11 +25,12 @@ class HomePage extends StatelessWidget with RouteNames {
         title: const Text('Home'),
       ),
       body: Stack(
-        children: [
+        children: <Widget>[
           const Align(
-            child: AppText.huge(
-              data: 'Hello',
+            child: Text(
+              'Hello',
               key: kMessageKey,
+              style: AppTextStyles.headline1,
             ),
           ),
           _MiniFAB(

@@ -17,7 +17,7 @@ class CameraPage extends HookWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Camera'),
-        actions: [
+        actions: <Widget>[
           IconButton(
             icon: const Icon(Icons.flip_camera_ios_sharp),
             onPressed: cameraController.switchCamera,
@@ -31,7 +31,12 @@ class CameraPage extends HookWidget {
               : SizedBox.expand(
                   child: CameraPreview(cameraController.controller!),
                 ),
-          error: (_, message) => AppText.huge(data: message ?? 'Unknown error'),
+          error: (_, message) {
+            return Text(
+              message ?? 'Unknown error',
+              style: AppTextStyles.headline1,
+            );
+          },
           orElse: () => const CircularProgressIndicator(),
         ),
       ),

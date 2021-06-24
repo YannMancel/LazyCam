@@ -6,7 +6,6 @@ import 'package:flutter/services.dart'
         LengthLimitingTextInputFormatter;
 
 import '../../modules/training/training.dart';
-import '../core.dart';
 
 class AppNumberSelector extends StatelessWidget {
   const AppNumberSelector({
@@ -29,31 +28,28 @@ class AppNumberSelector extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Row(
-      children: [
+      children: <Widget>[
         IconButton(
-          icon: const AppIcon(icon: Icons.remove_circle),
+          icon: const Icon(Icons.remove_circle),
           onPressed: _numberController.decrement,
         ),
         Expanded(
           child: TextField(
-              controller: _textEditController,
-              focusNode: _nodeFocus,
-              keyboardType: TextInputType.number,
-              textAlign: TextAlign.center,
-              inputFormatters: <TextInputFormatter>[
-                FilteringTextInputFormatter.digitsOnly,
-                LengthLimitingTextInputFormatter(_maxDigit),
-              ],
-              decoration: const InputDecoration(
-                border: InputBorder.none,
-                floatingLabelBehavior: FloatingLabelBehavior.never,
-              ),
-              onEditingComplete: () {
-                _numberController.input = _textEditController.text;
-              }),
+            controller: _textEditController,
+            focusNode: _nodeFocus,
+            keyboardType: TextInputType.number,
+            textAlign: TextAlign.center,
+            inputFormatters: <TextInputFormatter>[
+              FilteringTextInputFormatter.digitsOnly,
+              LengthLimitingTextInputFormatter(_maxDigit),
+            ],
+            onEditingComplete: () {
+              _numberController.input = _textEditController.text;
+            },
+          ),
         ),
         IconButton(
-          icon: const AppIcon(icon: Icons.add_circle),
+          icon: const Icon(Icons.add_circle),
           onPressed: _numberController.increment,
         ),
       ],

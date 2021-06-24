@@ -14,14 +14,14 @@ class TrainingSettingsPage extends StatelessWidget {
     return Scaffold(
       body: Stack(
         alignment: Alignment.bottomCenter,
-        children: const [
+        children: const <Widget>[
           CustomScrollView(
-            slivers: [
+            slivers: <Widget>[
               _AppBar(),
               SliverPadding(
                 // 16.0 for top and bottom margins of Go button
-                // 36.0 for height of Go button
-                padding: EdgeInsets.only(bottom: 2.0 * 16.0 + 36.0),
+                // 44.0 for height of Go button
+                padding: EdgeInsets.only(bottom: 2.0 * 16.0 + 44.0),
                 sliver: _Training(),
               ),
             ],
@@ -79,8 +79,8 @@ class _CycleCard extends HookWidget {
   Widget build(BuildContext context) {
     final training = useProvider(trainingProvider);
 
-    return Container(
-      margin: const EdgeInsets.only(top: 8.0),
+    return Padding(
+      padding: const EdgeInsets.only(top: 8.0),
       child: Card(
         elevation: 4.0,
         child: InkWell(
@@ -104,9 +104,9 @@ class _CycleCard extends HookWidget {
             child: Column(
               mainAxisSize: MainAxisSize.min,
               crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
+              children: <Widget>[
                 Row(
-                  children: [
+                  children: <Widget>[
                     Expanded(
                       child: Text(
                         'Cycle ${_cycle.id + 1}',
@@ -114,7 +114,7 @@ class _CycleCard extends HookWidget {
                       ),
                     ),
                     IconButton(
-                      icon: const AppIcon(icon: Icons.add),
+                      icon: const Icon(Icons.add),
                       onPressed: () {
                         context
                             .read(trainingProvider.notifier)
@@ -122,7 +122,7 @@ class _CycleCard extends HookWidget {
                       },
                     ),
                     IconButton(
-                      icon: const AppIcon(icon: Icons.copy),
+                      icon: const Icon(Icons.copy),
                       onPressed: () {
                         context
                             .read(trainingProvider.notifier)
@@ -131,7 +131,7 @@ class _CycleCard extends HookWidget {
                     ),
                     if (training.cycles.length > 1)
                       IconButton(
-                        icon: const AppIcon(icon: Icons.delete),
+                        icon: const Icon(Icons.delete),
                         onPressed: () {
                           context
                               .read(trainingProvider.notifier)
@@ -223,7 +223,7 @@ class __CycleDialogState extends State<_CycleDialog> {
         child: Column(
           mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
+          children: <Widget>[
             Padding(
               padding: const EdgeInsets.only(bottom: 8.0),
               child: Text(
@@ -269,7 +269,7 @@ class __CycleDialogState extends State<_CycleDialog> {
               ),
             ),
             Row(
-              children: [
+              children: <Widget>[
                 const Spacer(),
                 TextButton(
                   onPressed: widget._doOnCancel,
@@ -308,10 +308,10 @@ class _SectionCard extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 8.0),
       child: Row(
-        children: [
+        children: <Widget>[
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 16.0),
-            child: Icon(_iconData),
+            child: Icon(_iconData, color: Colors.grey),
           ),
           Expanded(
             child: Text(_title),
@@ -341,7 +341,7 @@ class _SectionDialog extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Row(
-      children: [
+      children: <Widget>[
         Expanded(
           child: Padding(
             padding: const EdgeInsets.only(left: 16.0),
@@ -366,20 +366,14 @@ class _GoAction extends HookWidget with RouteNames {
 
     return Padding(
       padding: const EdgeInsets.all(16.0),
-      child: Row(
-        children: [
-          Expanded(
-            child: ElevatedButton(
-              onPressed: () {
-                context.pushWithArgumentTo(
-                  routeName: RouteNames.kTimerRoute,
-                  arguments: training,
-                );
-              },
-              child: const Text('Go'),
-            ),
-          ),
-        ],
+      child: ElevatedButton(
+        onPressed: () {
+          context.pushWithArgumentTo(
+            routeName: RouteNames.kTimerRoute,
+            arguments: training,
+          );
+        },
+        child: const Text('Go'),
       ),
     );
   }
