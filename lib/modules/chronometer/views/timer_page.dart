@@ -7,96 +7,126 @@ import 'package:hooks_riverpod/hooks_riverpod.dart'
 import '../../../core/core.dart';
 import '../chronometer.dart';
 
+@Deprecated('Page does not used at this step of project')
 class TimerPage extends HookWidget {
   const TimerPage({
     Key? key,
-    required Duration initialDuration,
-  })   : _initialDuration = initialDuration,
+    required Duration duration,
+  })   : _duration = duration,
         super(key: key);
 
-  final Duration _initialDuration;
+  final Duration _duration;
 
   @override
   Widget build(BuildContext context) {
     final timerController = useProvider(timerProvider.notifier);
+    final timerState = useProvider(timerProvider);
 
     useEffect(() {
       WidgetsBinding.instance!.addPostFrameCallback(
-        (_) => timerController.duration = _initialDuration,
+        (_) => timerController.duration = _duration,
       );
-    }, <Object?>['only_one_useEffect_call']);
+    }, const <Object?>['only_one_useEffect_call']);
 
-    final timerState = useProvider(timerProvider);
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('Timer'),
+      ),
+      body: Stack(
+        alignment: AlignmentDirectional.bottomCenter,
+        children: <Widget>[
+          _TimerView(
+            initialDuration: _duration,
+            duration: timerState.duration,
+          ),
+          _ActionButtons(
+            timerController: timerController,
+            timerState: timerState,
+          ),
+        ],
+      ),
+    );
+  }
+}
 
+class _ActionButtons extends HookWidget {
+  const _ActionButtons({
+    Key? key,
+    required ChronometerController timerController,
+    required TimerState timerState,
+  })   : _timerController = timerController,
+        _timerState = timerState,
+        super(key: key);
+
+  final ChronometerController _timerController;
+  final TimerState _timerState;
+
+  static const _kIconSize = 48.0;
+
+  @override
+  Widget build(BuildContext context) {
     final animationController = useAnimationController(
       duration: const Duration(milliseconds: 200),
     );
 
-    return ProviderListener<TimerState>(
-      provider: timerProvider,
-      onChange: (_, timerState) {
-        timerState.when(
-          initial: (_) => animationController.reset(),
-          start: (_) => animationController.forward(),
-          pause: (_) => animationController.reverse(),
-          stop: (_) => null,
-        );
-      },
-      child: Scaffold(
-        appBar: AppBar(
-          title: const Text('Timer'),
-        ),
-        body: Stack(
-          alignment: AlignmentDirectional.bottomCenter,
-          children: [
-            Center(
-              child: _TimerView(
-                initialDuration: _initialDuration,
-                duration: timerState.duration,
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 16.0),
+      child: Row(
+        mainAxisSize: MainAxisSize.min,
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: <Widget>[
+          _timerState.maybeWhen(
+            initial: (_) => const SizedBox.shrink(),
+            orElse: () => IconButton(
+              padding: const EdgeInsets.all(16.0),
+              iconSize: _kIconSize,
+              onPressed: _timerController.reset,
+              icon: const Icon(Icons.loop),
+            ),
+          ),
+          _timerState.maybeWhen(
+            stop: (_) => const SizedBox.shrink(),
+            orElse: () => TextButton(
+              onPressed: () {
+                _timerState.when(
+                  initial: (_) => _timerController.start(),
+                  start: (_) => _timerController.pause(),
+                  pause: (_) => _timerController.resume(),
+                  stop: (_) {/* Use case not possible */},
+                );
+              },
+              child: ProviderListener<TimerState>(
+                provider: timerProvider,
+                onChange: (_, timerState) {
+                  timerState.when(
+                    initial: (_) => animationController.reset(),
+                    start: (_) => animationController.forward(),
+                    pause: (_) => animationController.reverse(),
+                    stop: (_) => {/* Do nothing here */},
+                  );
+                },
+                child: Padding(
+                  padding: const EdgeInsets.all(16.0),
+                  child: AnimatedIcon(
+                    size: _kIconSize,
+                    icon: AnimatedIcons.play_pause,
+                    progress: animationController,
+                  ),
+                ),
               ),
             ),
-            Padding(
-              padding: const EdgeInsets.only(bottom: 16.0),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  timerState.maybeWhen(
-                    initial: (_) => const SizedBox.shrink(),
-                    orElse: () => TextButton(
-                      onPressed: timerController.reset,
-                      child: const Icon(Icons.loop),
-                    ),
-                  ),
-                  timerState.maybeWhen(
-                    stop: (_) => const SizedBox.shrink(),
-                    orElse: () => TextButton(
-                      onPressed: () {
-                        timerState.when(
-                          initial: (_) => timerController.start(),
-                          start: (_) => timerController.pause(),
-                          pause: (_) => timerController.resume(),
-                          stop: (_) => null,
-                        );
-                      },
-                      child: AnimatedIcon(
-                        icon: AnimatedIcons.play_pause,
-                        progress: animationController,
-                      ),
-                    ),
-                  ),
-                  timerState.maybeWhen(
-                    initial: (_) => const SizedBox.shrink(),
-                    stop: (_) => const SizedBox.shrink(),
-                    orElse: () => TextButton(
-                      onPressed: timerController.stop,
-                      child: const Icon(Icons.stop),
-                    ),
-                  ),
-                ],
-              ),
+          ),
+          _timerState.maybeWhen(
+            initial: (_) => const SizedBox.shrink(),
+            stop: (_) => const SizedBox.shrink(),
+            orElse: () => IconButton(
+              padding: const EdgeInsets.all(16.0),
+              iconSize: _kIconSize,
+              onPressed: _timerController.stop,
+              icon: const Icon(Icons.stop),
             ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }
@@ -121,15 +151,15 @@ class _TimerView extends StatelessWidget {
             1.0) /
         _initialDuration.inSeconds.toDouble();
 
-    return LayoutBuilder(
-      builder: (_, constraints) {
-        return Stack(
-          alignment: Alignment.center,
-          children: <Widget>[
-            SizedBox(
-              width: constraints.maxWidth * 0.7,
-              height: constraints.maxWidth * 0.7,
-              child: SizedBox.expand(
+    return Center(
+      child: LayoutBuilder(
+        builder: (_, constraints) {
+          return Stack(
+            alignment: Alignment.center,
+            children: <Widget>[
+              SizedBox(
+                width: constraints.maxWidth * 0.7,
+                height: constraints.maxWidth * 0.7,
                 child: CircularProgressIndicator(
                   value: value,
                   backgroundColor: Colors.grey,
@@ -137,14 +167,14 @@ class _TimerView extends StatelessWidget {
                   strokeWidth: 15.0,
                 ),
               ),
-            ),
-            Text(
-              _duration.minutesAndSecondsFormatWithoutUnits,
-              style: AppTextStyles.headline2,
-            ),
-          ],
-        );
-      },
+              Text(
+                _duration.minutesAndSecondsFormatWithoutUnits,
+                style: AppTextStyles.headline2,
+              ),
+            ],
+          );
+        },
+      ),
     );
   }
 }

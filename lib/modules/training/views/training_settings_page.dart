@@ -369,7 +369,7 @@ class _GoAction extends HookWidget with RouteNames {
       child: ElevatedButton(
         onPressed: () {
           context.pushWithArgumentTo(
-            routeName: RouteNames.kTimerRoute,
+            routeName: RouteNames.kTrainingRoute,
             arguments: training,
           );
         },

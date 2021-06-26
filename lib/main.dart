@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart' show ProviderScope;
+import 'package:flutter_riverpod/flutter_riverpod.dart'
+    show ProviderObserver, ProviderScope;
 
 import 'core/core.dart';
 import 'routes.dart';
@@ -12,7 +13,7 @@ class MyApp extends StatelessWidget with RouteNames {
   @override
   Widget build(BuildContext context) {
     return ProviderScope(
-      observers: const [AppObserver()],
+      observers: const <ProviderObserver>[AppObserver()],
       child: MaterialApp(
         title: 'LazyCam',
         debugShowCheckedModeBanner: false,

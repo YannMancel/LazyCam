@@ -25,9 +25,9 @@ abstract class NumberController extends BaseController<Result<int>> {
 // -----------------------------------------------------------------------------
 class NumberControllerImpl extends NumberController {
   NumberControllerImpl({
-    required int initialValue,
-  })   : _lastData = initialValue,
-        super(state: Result.data(value: initialValue));
+    required int value,
+  })   : _lastData = value,
+        super(state: Result.data(value: value));
 
   int _lastData;
   int? _digit;

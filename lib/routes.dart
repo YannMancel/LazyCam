@@ -4,36 +4,36 @@ import 'core/core.dart';
 import 'modules/modules.dart';
 
 abstract class MaterialRouteGenerator with RouteNames {
-  static Route<dynamic>? generate(RouteSettings? onGenerateRoute) {
+  static Route<dynamic>? generate(RouteSettings? routeSettings) {
     // Calls initialRoute of MaterialApp
-    if (onGenerateRoute == null) return null;
+    if (routeSettings == null) return null;
 
-    switch (onGenerateRoute.name) {
+    switch (routeSettings.name) {
       // [LEVEL 0]
       case RouteNames.kHomeRoute:
-        return _getRoute(page: const HomePage());
+        return _route(page: const HomePage());
+
       // [LEVEL 1]
       case RouteNames.kTrainingSettingsRoute:
-        return _getRoute(page: const TrainingSettingsPage());
+        return _route(page: const TrainingSettingsPage());
       case RouteNames.kCameraRoute:
-        return _getRoute(page: const CameraPage());
+        return _route(page: const CameraPage());
       case RouteNames.kStreamRoute:
-        return _getRoute(page: const StreamPage());
+        return _route(page: const StreamPage());
+
       // [LEVEL 2]
-      case RouteNames.kTimerRoute:
-        final training = onGenerateRoute.arguments as Training?;
-        return _getRoute(
-          page: TimerPage(
-            initialDuration: training?.cycles.first.time ?? Duration.zero,
-          ),
+      case RouteNames.kTrainingRoute:
+        final training = routeSettings.arguments as Training?;
+        return _route(
+          page: TrainingPage(training: training ?? const Training()),
         );
 
       default:
-        throw FormatException('Route of ${onGenerateRoute.name} unknown.');
+        throw FormatException('Route of ${routeSettings.name} unknown.');
     }
   }
 
-  static Route<dynamic> _getRoute({required Widget page}) {
+  static Route<dynamic> _route({required Widget page}) {
     return MaterialPageRoute(builder: (_) => page);
   }
 }

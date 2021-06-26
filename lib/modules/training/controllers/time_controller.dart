@@ -30,9 +30,9 @@ abstract class TimeController extends BaseController<Result<Duration>> {
 // -----------------------------------------------------------------------------
 class TimeControllerImpl extends TimeController {
   TimeControllerImpl({
-    required Duration initialValue,
-  })   : _lastData = initialValue,
-        super(state: Result.data(value: initialValue));
+    required Duration value,
+  })   : _lastData = value,
+        super(state: Result.data(value: value));
 
   Duration _lastData;
 
