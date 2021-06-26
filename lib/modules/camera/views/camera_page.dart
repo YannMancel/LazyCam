@@ -12,7 +12,7 @@ class CameraPage extends HookWidget {
   @override
   Widget build(BuildContext context) {
     final cameraState = useProvider(cameraProvider);
-    final cameraController = useProvider(cameraProvider.notifier);
+    final cameraLogic = useProvider(cameraProvider.notifier);
 
     return Scaffold(
       appBar: AppBar(
@@ -20,16 +20,16 @@ class CameraPage extends HookWidget {
         actions: <Widget>[
           IconButton(
             icon: const Icon(Icons.flip_camera_ios_sharp),
-            onPressed: cameraController.switchCamera,
+            onPressed: cameraLogic.switchCamera,
           ),
         ],
       ),
       body: Center(
         child: cameraState.maybeWhen(
-          readyPreview: (_) => (cameraController.controller == null)
+          readyPreview: (_) => (cameraLogic.controller == null)
               ? const SizedBox()
               : SizedBox.expand(
-                  child: CameraPreview(cameraController.controller!),
+                  child: CameraPreview(cameraLogic.controller!),
                 ),
           error: (_, message) {
             return Text(
@@ -41,7 +41,7 @@ class CameraPage extends HookWidget {
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: cameraController.recordMovie,
+        onPressed: cameraLogic.recordMovie,
         child: const Icon(Icons.camera),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,

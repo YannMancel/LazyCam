@@ -6,13 +6,13 @@ import '../training.dart';
 // -----------------------------------------------------------------------------
 // Abstract class
 // -----------------------------------------------------------------------------
-abstract class TimeController extends BaseController<Result<Duration>> {
-  TimeController({required Result<Duration> state}) : super(state: state);
+abstract class TimeLogic extends BaseController<Result<Duration>> {
+  TimeLogic({required Result<Duration> state}) : super(state: state);
 
-  static const kName = 'TimeProvider';
+  static const kName = 'TimeLogic';
 
   @override
-  String get name => TimeController.kName;
+  String get name => TimeLogic.kName;
 
   void setDigits({
     required int minutes,
@@ -28,8 +28,8 @@ abstract class TimeController extends BaseController<Result<Duration>> {
 // -----------------------------------------------------------------------------
 // Implementation
 // -----------------------------------------------------------------------------
-class TimeControllerImpl extends TimeController {
-  TimeControllerImpl({
+class TimeLogicImpl extends TimeLogic {
+  TimeLogicImpl({
     required Duration value,
   })   : _lastData = value,
         super(state: Result.data(value: value));

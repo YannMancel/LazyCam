@@ -14,7 +14,7 @@ class StreamPage extends HookWidget {
   Widget build(BuildContext context) {
     final cameraState = useProvider(streamCameraProvider);
     final cameraController =
-        useProvider(imageStreamProvider.notifier).cameraController;
+        useProvider(imageStreamProvider.notifier).cameraLogic;
 
     return Scaffold(
       appBar: AppBar(

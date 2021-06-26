@@ -5,7 +5,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart'
     show ProviderListener, useProvider;
 
 import '../../../core/core.dart';
-import '../chronometer.dart';
+import '../timer.dart';
 
 @Deprecated('Page does not used at this step of project')
 class TimerPage extends HookWidget {
@@ -19,12 +19,12 @@ class TimerPage extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
-    final timerController = useProvider(timerProvider.notifier);
+    final timerLogic = useProvider(timerProvider.notifier);
     final timerState = useProvider(timerProvider);
 
     useEffect(() {
       WidgetsBinding.instance!.addPostFrameCallback(
-        (_) => timerController.duration = _duration,
+        (_) => timerLogic.duration = _duration,
       );
     }, const <Object?>['only_one_useEffect_call']);
 
@@ -40,7 +40,7 @@ class TimerPage extends HookWidget {
             duration: timerState.duration,
           ),
           _ActionButtons(
-            timerController: timerController,
+            timerController: timerLogic,
             timerState: timerState,
           ),
         ],
@@ -52,13 +52,13 @@ class TimerPage extends HookWidget {
 class _ActionButtons extends HookWidget {
   const _ActionButtons({
     Key? key,
-    required ChronometerController timerController,
+    required TimerLogic timerController,
     required TimerState timerState,
   })   : _timerController = timerController,
         _timerState = timerState,
         super(key: key);
 
-  final ChronometerController _timerController;
+  final TimerLogic _timerController;
   final TimerState _timerState;
 
   static const _kIconSize = 48.0;

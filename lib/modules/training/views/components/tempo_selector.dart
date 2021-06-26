@@ -28,8 +28,8 @@ class TempoSelector extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
-    final numberController = useProvider(tempoProvider(_cycle).notifier);
-    numberController.digit = _maxDigit;
+    final numberLogic = useProvider(tempoProvider(_cycle).notifier);
+    numberLogic.digit = _maxDigit;
 
     final textEditController = useTextEditingController(
       text: '${_cycle.tempo}',
@@ -52,11 +52,11 @@ class TempoSelector extends HookWidget {
           _onChanged?.call(value);
         }, error: (message, lastData) {
           context.notify = message;
-          numberController.input = '$lastData';
+          numberLogic.input = '$lastData';
         });
       },
       child: AppNumberSelector(
-        numberController: numberController,
+        numberLogic: numberLogic,
         textEditController: textEditController,
         nodeFocus: nodeFocus,
         maxDigit: _maxDigit,

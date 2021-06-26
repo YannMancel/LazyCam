@@ -3,18 +3,18 @@ import 'dart:async' show StreamSubscription;
 import 'package:flutter/foundation.dart' show visibleForTesting;
 
 import '../../../core/core.dart';
-import '../chronometer.dart';
+import '../timer.dart';
 
 // -----------------------------------------------------------------------------
 // Abstract class
 // -----------------------------------------------------------------------------
-abstract class ChronometerController extends BaseController<TimerState> {
-  ChronometerController({required TimerState state}) : super(state: state);
+abstract class TimerLogic extends BaseController<TimerState> {
+  TimerLogic({required TimerState state}) : super(state: state);
 
-  static const kName = 'ChronometerProvider';
+  static const kName = 'TimerLogic';
 
   @override
-  String get name => ChronometerController.kName;
+  String get name => TimerLogic.kName;
 
   set duration(Duration duration);
   void start();
@@ -27,8 +27,8 @@ abstract class ChronometerController extends BaseController<TimerState> {
 // -----------------------------------------------------------------------------
 // Implementation
 // -----------------------------------------------------------------------------
-class ChronometerControllerImpl extends ChronometerController {
-  ChronometerControllerImpl() : super(state: const TimerState.initial());
+class TimerLogicImpl extends TimerLogic {
+  TimerLogicImpl() : super(state: const TimerState.initial());
 
   Duration _initialDuration = Duration.zero;
   StreamSubscription<int>? _stream;

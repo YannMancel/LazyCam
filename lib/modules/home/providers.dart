@@ -3,7 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart'
 
 import 'home.dart';
 
-final menuProvider = StateNotifierProvider<MenuController, MenuState>(
-  (_) => MenuControllerImpl(),
-  name: MenuController.kName,
+final menuProvider = StateNotifierProvider<MenuLogic, MenuState>(
+  (_) => MenuLogicImpl(),
+  name: MenuLogic.kName,
 );

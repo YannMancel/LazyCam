@@ -2,7 +2,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart'
     show StateNotifierProvider;
 
 import '../camera/camera.dart';
-import '../chronometer/chronometer.dart';
+import '../timer/timer.dart';
 import 'stream.dart';
 
 // -----------------------------------------------------------------------------
@@ -10,19 +10,19 @@ import 'stream.dart';
 // -----------------------------------------------------------------------------
 /// Manages the image stream from camera thanks to timer.
 final imageStreamProvider =
-    StateNotifierProvider.autoDispose<ImageStreamController, StreamState>(
-  (_) => ImageStreamControllerImpl(),
-  name: ImageStreamController.kName,
+    StateNotifierProvider.autoDispose<ImageStreamLogic, StreamState>(
+  (_) => ImageStreamLogicImpl(),
+  name: ImageStreamLogic.kName,
 );
 
 final streamTimerProvider =
-    StateNotifierProvider.autoDispose<ChronometerController, TimerState>(
-  (ref) => ref.watch(imageStreamProvider.notifier).chronometerController,
-  name: '${ImageStreamController.kName}.${ChronometerController.kName}',
+    StateNotifierProvider.autoDispose<TimerLogic, TimerState>(
+  (ref) => ref.watch(imageStreamProvider.notifier).timerLogic,
+  name: '${ImageStreamLogic.kName}.${TimerLogic.kName}',
 );
 
 final streamCameraProvider =
-    StateNotifierProvider.autoDispose<CameraController, CameraState>(
-  (ref) => ref.watch(imageStreamProvider.notifier).cameraController,
-  name: '${ImageStreamController.kName}.${CameraController.kName}',
+    StateNotifierProvider.autoDispose<CameraLogic, CameraState>(
+  (ref) => ref.watch(imageStreamProvider.notifier).cameraLogic,
+  name: '${ImageStreamLogic.kName}.${CameraLogic.kName}',
 );

@@ -6,13 +6,13 @@ import '../training.dart';
 // -----------------------------------------------------------------------------
 // Abstract class
 // -----------------------------------------------------------------------------
-abstract class NumberController extends BaseController<Result<int>> {
-  NumberController({required Result<int> state}) : super(state: state);
+abstract class NumberLogic extends BaseController<Result<int>> {
+  NumberLogic({required Result<int> state}) : super(state: state);
 
-  static const kName = 'NumberProvider';
+  static const kName = 'NumberLogic';
 
   @override
-  String get name => NumberController.kName;
+  String get name => NumberLogic.kName;
 
   set digit(int value);
   set input(String value);
@@ -23,8 +23,8 @@ abstract class NumberController extends BaseController<Result<int>> {
 // -----------------------------------------------------------------------------
 // Implementation
 // -----------------------------------------------------------------------------
-class NumberControllerImpl extends NumberController {
-  NumberControllerImpl({
+class NumberLogicImpl extends NumberLogic {
+  NumberLogicImpl({
     required int value,
   })   : _lastData = value,
         super(state: Result.data(value: value));

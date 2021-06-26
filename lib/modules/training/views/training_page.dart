@@ -1,3 +1,4 @@
+import 'package:ffmpeg_demo/modules/modules.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart'
     show HookWidget, useAnimationController, useEffect;
@@ -5,7 +6,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart'
     show ProviderListener, useProvider;
 
 import '../../../core/core.dart';
-import '../../chronometer/chronometer.dart';
+import '../../timer/timer.dart';
 import '../../training/training.dart';
 
 class TrainingPage extends HookWidget {
@@ -22,12 +23,12 @@ class TrainingPage extends HookWidget {
     final cycle = useProvider(trainingManagerProvider(_training));
 
     // [Time]
-    final timerController = useProvider(timerProvider.notifier);
+    final timerLogic = useProvider(timerProvider.notifier);
     final timerState = useProvider(timerProvider);
 
     useEffect(() {
       WidgetsBinding.instance!.addPostFrameCallback(
-        (_) => timerController.duration = cycle.time,
+        (_) => timerLogic.duration = cycle.time,
       );
     }, const <Object?>['only_one_useEffect_call']);
 
@@ -43,7 +44,7 @@ class TrainingPage extends HookWidget {
             duration: timerState.duration,
           ),
           _ActionButtons(
-            timerController: timerController,
+            timerController: timerLogic,
             timerState: timerState,
           ),
         ],
@@ -55,13 +56,13 @@ class TrainingPage extends HookWidget {
 class _ActionButtons extends HookWidget {
   const _ActionButtons({
     Key? key,
-    required ChronometerController timerController,
+    required TimerLogic timerController,
     required TimerState timerState,
   })   : _timerController = timerController,
         _timerState = timerState,
         super(key: key);
 
-  final ChronometerController _timerController;
+  final TimerLogic _timerController;
   final TimerState _timerState;
 
   static const _kIconSize = 48.0;

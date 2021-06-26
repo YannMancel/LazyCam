@@ -4,7 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart'
 import 'camera.dart';
 
 final cameraProvider =
-    StateNotifierProvider.autoDispose<CameraController, CameraState>(
-  (ref) => CameraControllerImpl(),
-  name: CameraController.kName,
+    StateNotifierProvider.autoDispose<CameraLogic, CameraState>(
+  (ref) => CameraLogicImpl(),
+  name: CameraLogic.kName,
 );

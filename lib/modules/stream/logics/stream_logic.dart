@@ -4,22 +4,22 @@ import 'package:flutter/material.dart' show Image;
 
 import '../../../core/core.dart';
 import '../../camera/camera.dart';
-import '../../chronometer/chronometer.dart';
+import '../../timer/timer.dart';
 import '../stream.dart';
 
 // -----------------------------------------------------------------------------
 // Abstract class
 // -----------------------------------------------------------------------------
-abstract class ImageStreamController extends BaseController<StreamState> {
-  ImageStreamController({required StreamState state}) : super(state: state);
+abstract class ImageStreamLogic extends BaseController<StreamState> {
+  ImageStreamLogic({required StreamState state}) : super(state: state);
 
-  static const kName = 'ImageStreamProvider';
+  static const kName = 'ImageStreamLogic';
 
   @override
-  String get name => ImageStreamController.kName;
+  String get name => ImageStreamLogic.kName;
 
-  CameraController get cameraController;
-  ChronometerController get chronometerController;
+  CameraLogic get cameraLogic;
+  TimerLogic get timerLogic;
   Future<void> start({required int timeInSecond});
   Future<void> stop();
 }
@@ -27,13 +27,11 @@ abstract class ImageStreamController extends BaseController<StreamState> {
 // -----------------------------------------------------------------------------
 // Implementation
 // -----------------------------------------------------------------------------
-class ImageStreamControllerImpl extends ImageStreamController
-    with ImageConverter {
-  ImageStreamControllerImpl() : super(state: const StreamState.initial());
+class ImageStreamLogicImpl extends ImageStreamLogic with ImageConverter {
+  ImageStreamLogicImpl() : super(state: const StreamState.initial());
 
-  final CameraController _cameraController = CameraControllerImpl();
-  final ChronometerController _chronometerController =
-      ChronometerControllerImpl().apply(
+  final CameraLogic _cameraController = CameraLogicImpl();
+  final TimerLogic _chronometerController = TimerLogicImpl().apply(
     actionOnItself: (it) => it.duration = const Duration(seconds: 15),
   );
 
@@ -41,10 +39,10 @@ class ImageStreamControllerImpl extends ImageStreamController
   //int _frameNumber = 0;
 
   @override
-  CameraController get cameraController => _cameraController;
+  CameraLogic get cameraLogic => _cameraController;
 
   @override
-  ChronometerController get chronometerController => _chronometerController;
+  TimerLogic get timerLogic => _chronometerController;
 
   @override
   Future<void> start({required int timeInSecond}) async {

@@ -10,17 +10,17 @@ import '../../modules/training/training.dart';
 class AppNumberSelector extends StatelessWidget {
   const AppNumberSelector({
     Key? key,
-    required NumberController numberController,
+    required NumberLogic numberLogic,
     required TextEditingController textEditController,
     required FocusNode nodeFocus,
     required int maxDigit,
-  })   : _numberController = numberController,
+  })   : _numberLogic = numberLogic,
         _textEditController = textEditController,
         _nodeFocus = nodeFocus,
         _maxDigit = maxDigit,
         super(key: key);
 
-  final NumberController _numberController;
+  final NumberLogic _numberLogic;
   final TextEditingController _textEditController;
   final FocusNode _nodeFocus;
   final int _maxDigit;
@@ -31,7 +31,7 @@ class AppNumberSelector extends StatelessWidget {
       children: <Widget>[
         IconButton(
           icon: const Icon(Icons.remove_circle),
-          onPressed: _numberController.decrement,
+          onPressed: _numberLogic.decrement,
         ),
         Expanded(
           child: TextField(
@@ -44,13 +44,13 @@ class AppNumberSelector extends StatelessWidget {
               LengthLimitingTextInputFormatter(_maxDigit),
             ],
             onEditingComplete: () {
-              _numberController.input = _textEditController.text;
+              _numberLogic.input = _textEditController.text;
             },
           ),
         ),
         IconButton(
           icon: const Icon(Icons.add_circle),
-          onPressed: _numberController.increment,
+          onPressed: _numberLogic.increment,
         ),
       ],
     );

@@ -4,13 +4,13 @@ import '../training.dart';
 // -----------------------------------------------------------------------------
 // Abstract class
 // -----------------------------------------------------------------------------
-abstract class TrainingController extends BaseController<Training> {
-  TrainingController({required Training state}) : super(state: state);
+abstract class TrainingLogic extends BaseController<Training> {
+  TrainingLogic({required Training state}) : super(state: state);
 
-  static const kName = 'TrainingProvider';
+  static const kName = 'TrainingLogic';
 
   @override
-  String get name => TrainingController.kName;
+  String get name => TrainingLogic.kName;
 
   void replaceCycle({
     required Cycle oldVersion,
@@ -24,8 +24,8 @@ abstract class TrainingController extends BaseController<Training> {
 // -----------------------------------------------------------------------------
 // Implementation
 // -----------------------------------------------------------------------------
-class TrainingControllerImpl extends TrainingController {
-  TrainingControllerImpl() : super(state: const Training());
+class TrainingLogicImpl extends TrainingLogic {
+  TrainingLogicImpl() : super(state: const Training());
 
   @override
   void replaceCycle({

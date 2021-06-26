@@ -38,8 +38,8 @@ class PauseSelector extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
-    final timeController = useProvider(pauseProvider(_cycle).notifier);
-    timeController.setDigits(
+    final timeLogic = useProvider(pauseProvider(_cycle).notifier);
+    timeLogic.setDigits(
       minutes: _maxDigitForMinute,
       seconds: _maxDigitForSecond,
     );
@@ -73,11 +73,11 @@ class PauseSelector extends HookWidget {
           _onChanged?.call(value);
         }, error: (message, lastData) {
           context.notify = message;
-          timeController.setWithLastData();
+          timeLogic.setWithLastData();
         });
       },
       child: AppTimeSelector(
-        timeController: timeController,
+        timeLogic: timeLogic,
         textEditControllerForMinute: minuteController,
         textEditControllerForSecond: secondController,
         nodeFocusForMinute: minuteNodeFocus,

@@ -4,20 +4,20 @@ import '../training.dart';
 // -----------------------------------------------------------------------------
 // Abstract class
 // -----------------------------------------------------------------------------
-abstract class TrainingManagerController extends BaseController<Cycle> {
-  TrainingManagerController({required Cycle state}) : super(state: state);
+abstract class TrainingManagerLogic extends BaseController<Cycle> {
+  TrainingManagerLogic({required Cycle state}) : super(state: state);
 
-  static const kName = 'TrainingManagerProvider';
+  static const kName = 'TrainingManagerLogic';
 
   @override
-  String get name => TrainingManagerController.kName;
+  String get name => TrainingManagerLogic.kName;
 }
 
 // -----------------------------------------------------------------------------
 // Implementation
 // -----------------------------------------------------------------------------
-class TrainingManagerControllerImpl extends TrainingManagerController {
-  TrainingManagerControllerImpl({
+class TrainingManagerLogicImpl extends TrainingManagerLogic {
+  TrainingManagerLogicImpl({
     required Training training,
   })   : _training = training,
         super(

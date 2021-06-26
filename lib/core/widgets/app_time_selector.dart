@@ -11,14 +11,14 @@ import '../../modules/training/training.dart';
 class AppTimeSelector extends StatelessWidget {
   const AppTimeSelector({
     Key? key,
-    required TimeController timeController,
+    required TimeLogic timeLogic,
     required TextEditingController textEditControllerForMinute,
     required TextEditingController textEditControllerForSecond,
     required FocusNode nodeFocusForMinute,
     required FocusNode nodeFocusForSecond,
     required int maxDigitForMinute,
     required int maxDigitForSecond,
-  })   : _timeController = timeController,
+  })   : _timeLogic = timeLogic,
         _textEditControllerForMinute = textEditControllerForMinute,
         _textEditControllerForSecond = textEditControllerForSecond,
         _nodeFocusForMinute = nodeFocusForMinute,
@@ -27,7 +27,7 @@ class AppTimeSelector extends StatelessWidget {
         _maxDigitForSecond = maxDigitForSecond,
         super(key: key);
 
-  final TimeController _timeController;
+  final TimeLogic _timeLogic;
   final TextEditingController _textEditControllerForMinute;
   final TextEditingController _textEditControllerForSecond;
   final FocusNode _nodeFocusForMinute;
@@ -41,7 +41,7 @@ class AppTimeSelector extends StatelessWidget {
       children: [
         IconButton(
           icon: const Icon(Icons.remove_circle),
-          onPressed: _timeController.decrement,
+          onPressed: _timeLogic.decrement,
         ),
         Expanded(
           child: Row(
@@ -58,7 +58,7 @@ class AppTimeSelector extends StatelessWidget {
                     LengthLimitingTextInputFormatter(_maxDigitForMinute),
                   ],
                   onEditingComplete: () {
-                    _timeController.minutes = _textEditControllerForMinute.text;
+                    _timeLogic.minutes = _textEditControllerForMinute.text;
                   },
                 ),
               ),
@@ -77,7 +77,7 @@ class AppTimeSelector extends StatelessWidget {
                     LengthLimitingTextInputFormatter(_maxDigitForSecond),
                   ],
                   onEditingComplete: () {
-                    _timeController.seconds = _textEditControllerForSecond.text;
+                    _timeLogic.seconds = _textEditControllerForSecond.text;
                   },
                 ),
               ),
@@ -86,7 +86,7 @@ class AppTimeSelector extends StatelessWidget {
         ),
         IconButton(
           icon: const Icon(Icons.add_circle),
-          onPressed: _timeController.increment,
+          onPressed: _timeLogic.increment,
         ),
       ],
     );

@@ -1,7 +1,7 @@
-export 'controllers/number_controller.dart';
-export 'controllers/time_controller.dart';
-export 'controllers/training_controller.dart';
-export 'controllers/training_manager_controller.dart';
+export 'logics/number_logic.dart';
+export 'logics/time_logic.dart';
+export 'logics/training_logic.dart';
+export 'logics/training_manager_logic.dart';
 export 'models/cycle.dart';
 export 'models/result.dart';
 export 'models/training.dart';

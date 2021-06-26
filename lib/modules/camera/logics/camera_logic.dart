@@ -8,13 +8,13 @@ import '../camera.dart';
 // -----------------------------------------------------------------------------
 // Abstract class
 // -----------------------------------------------------------------------------
-abstract class CameraController extends BaseController<CameraState> {
-  CameraController({required CameraState state}) : super(state: state);
+abstract class CameraLogic extends BaseController<CameraState> {
+  CameraLogic({required CameraState state}) : super(state: state);
 
-  static const kName = 'CameraController';
+  static const kName = 'CameraLogic';
 
   @override
-  String get name => CameraController.kName;
+  String get name => CameraLogic.kName;
 
   set error(String message);
   bool get isReadyPreview;
@@ -26,8 +26,8 @@ abstract class CameraController extends BaseController<CameraState> {
 // -----------------------------------------------------------------------------
 // Implementation
 // -----------------------------------------------------------------------------
-class CameraControllerImpl extends CameraController {
-  CameraControllerImpl() : super(state: const CameraState.initial()) {
+class CameraLogicImpl extends CameraLogic {
+  CameraLogicImpl() : super(state: const CameraState.initial()) {
     initialize();
   }
 

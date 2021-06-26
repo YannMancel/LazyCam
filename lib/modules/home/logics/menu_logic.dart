@@ -4,13 +4,13 @@ import '../home.dart';
 // -----------------------------------------------------------------------------
 // Abstract class
 // -----------------------------------------------------------------------------
-abstract class MenuController extends BaseController<MenuState> {
-  MenuController({required MenuState state}) : super(state: state);
+abstract class MenuLogic extends BaseController<MenuState> {
+  MenuLogic({required MenuState state}) : super(state: state);
 
-  static const kName = 'MenuProvider';
+  static const kName = 'MenuLogic';
 
   @override
-  String get name => MenuController.kName;
+  String get name => MenuLogic.kName;
 
   void reverseState();
 }
@@ -18,8 +18,8 @@ abstract class MenuController extends BaseController<MenuState> {
 // -----------------------------------------------------------------------------
 // Implementation
 // -----------------------------------------------------------------------------
-class MenuControllerImpl extends MenuController {
-  MenuControllerImpl() : super(state: const MenuState.close());
+class MenuLogicImpl extends MenuLogic {
+  MenuLogicImpl() : super(state: const MenuState.close());
 
   @override
   void reverseState() {

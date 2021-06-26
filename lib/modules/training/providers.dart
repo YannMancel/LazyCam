@@ -8,15 +8,15 @@ import 'training.dart';
 // Training
 // -----------------------------------------------------------------------------
 final trainingProvider =
-    StateNotifierProvider.autoDispose<TrainingController, Training>(
-  (_) => TrainingControllerImpl(),
-  name: TrainingController.kName,
+    StateNotifierProvider.autoDispose<TrainingLogic, Training>(
+  (_) => TrainingLogicImpl(),
+  name: TrainingLogic.kName,
 );
 
 final trainingManagerProvider = StateNotifierProvider.autoDispose
-    .family<TrainingManagerController, Cycle, Training>(
-  (_, training) => TrainingManagerControllerImpl(training: training),
-  name: TrainingManagerController.kName,
+    .family<TrainingManagerLogic, Cycle, Training>(
+  (_, training) => TrainingManagerLogicImpl(training: training),
+  name: TrainingManagerLogic.kName,
 );
 
 // -----------------------------------------------------------------------------
@@ -24,28 +24,28 @@ final trainingManagerProvider = StateNotifierProvider.autoDispose
 // -----------------------------------------------------------------------------
 /// Manages the [Cycle.time].
 final timeProvider = StateNotifierProvider.autoDispose
-    .family<TimeController, Result<Duration>, Cycle>(
-  (ref, cycle) => TimeControllerImpl(value: cycle.time),
-  name: '${TimeController.kName}.time',
+    .family<TimeLogic, Result<Duration>, Cycle>(
+  (ref, cycle) => TimeLogicImpl(value: cycle.time),
+  name: '${TimeLogic.kName}.time',
 );
 
 /// Manages the [Cycle.tempo].
-final tempoProvider = StateNotifierProvider.autoDispose
-    .family<NumberController, Result<int>, Cycle>(
-  (ref, cycle) => NumberControllerImpl(value: cycle.tempo),
-  name: '${NumberController.kName}.tempo',
+final tempoProvider =
+    StateNotifierProvider.autoDispose.family<NumberLogic, Result<int>, Cycle>(
+  (ref, cycle) => NumberLogicImpl(value: cycle.tempo),
+  name: '${NumberLogic.kName}.tempo',
 );
 
 /// Manages the [Cycle.pause].
 final pauseProvider = StateNotifierProvider.autoDispose
-    .family<TimeController, Result<Duration>, Cycle>(
-  (ref, cycle) => TimeControllerImpl(value: cycle.pause),
-  name: '${TimeController.kName}.pause',
+    .family<TimeLogic, Result<Duration>, Cycle>(
+  (ref, cycle) => TimeLogicImpl(value: cycle.pause),
+  name: '${TimeLogic.kName}.pause',
 );
 
 /// Manages the [Cycle.repeat].
-final repeatProvider = StateNotifierProvider.autoDispose
-    .family<NumberController, Result<int>, Cycle>(
-  (ref, cycle) => NumberControllerImpl(value: cycle.repeat),
-  name: '${NumberController.kName}.repeat',
+final repeatProvider =
+    StateNotifierProvider.autoDispose.family<NumberLogic, Result<int>, Cycle>(
+  (ref, cycle) => NumberLogicImpl(value: cycle.repeat),
+  name: '${NumberLogic.kName}.repeat',
 );
