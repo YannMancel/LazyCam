@@ -1,0 +1,15 @@
+# https://www.wilsonwilson.dev/articles/flutter-build-yaml/
+
+targets:
+  $default:
+    builders:
+      freezed|freezed:
+        enabled: true
+        generate_for:
+          - "lib/modules/camera/models/camera_state.dart"
+          - "lib/modules/home/models/menu_state.dart"
+          - "lib/modules/steam/models/stream_state.dart"
+          - "lib/modules/timer/models/timer_state.dart"
+          - "lib/modules/training/models/cycle.dart"
+          - "lib/modules/training/models/result.dart"
+          - "lib/modules/training/models/training.dart"

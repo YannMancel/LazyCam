@@ -62,6 +62,11 @@ dependencies: ## update dependencies
 	@$(call print_color_message,"update dependencies")
 	$(FLUTTER) pub get
 
+.PHONY: show-dependencies
+show-dependencies: ## Show dependencies tree
+	@$(call print_color_message,"Show dependencies tree")
+	$(FLUTTER) pub deps
+
 .PHONY: format
 format: ## format code by default lib directory
 	@$(call print_color_message,"format code by default lib directory")
