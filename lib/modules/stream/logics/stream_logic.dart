@@ -2,10 +2,7 @@ import 'package:camera/camera.dart' as camera_lib show CameraImage;
 import 'package:flutter/foundation.dart' show visibleForTesting;
 import 'package:flutter/material.dart' show Image;
 
-import '../../../core/core.dart';
-import '../../camera/camera.dart';
-import '../../timer/timer.dart';
-import '../stream.dart';
+import '../../../_features.dart';
 
 // -----------------------------------------------------------------------------
 // Abstract class

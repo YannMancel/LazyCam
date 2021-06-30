@@ -1,9 +1,7 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart'
     show StateNotifierProvider;
 
-import '../camera/camera.dart';
-import '../timer/timer.dart';
-import 'stream.dart';
+import '../../_features.dart';
 
 // -----------------------------------------------------------------------------
 // Stream

@@ -4,8 +4,7 @@ import 'package:flutter_hooks/flutter_hooks.dart'
 import 'package:hooks_riverpod/hooks_riverpod.dart'
     show ProviderListener, useProvider;
 
-import '../../../../core/core.dart';
-import '../../training.dart';
+import '../../../../_features.dart';
 
 class RepeatSelector extends HookWidget {
   RepeatSelector({

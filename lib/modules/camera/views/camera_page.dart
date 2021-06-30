@@ -3,8 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart' show HookWidget;
 import 'package:hooks_riverpod/hooks_riverpod.dart' show useProvider;
 
-import '../../../core/core.dart';
-import '../camera.dart';
+import '../../../_features.dart';
 
 class CameraPage extends HookWidget {
   const CameraPage({Key? key}) : super(key: key);

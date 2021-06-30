@@ -2,8 +2,7 @@ import 'package:camera/camera.dart' as camera_lib
     show CameraController, availableCameras, ResolutionPreset;
 import 'package:flutter/foundation.dart' show visibleForTesting;
 
-import '../../../core/core.dart';
-import '../camera.dart';
+import '../../../_features.dart';
 
 // -----------------------------------------------------------------------------
 // Abstract class

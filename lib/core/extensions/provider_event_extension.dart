@@ -1,4 +1,4 @@
-import '../core.dart';
+import '../../_features.dart';
 
 extension ProviderEventExtension on ProviderEvent {
   int get lengthMax {

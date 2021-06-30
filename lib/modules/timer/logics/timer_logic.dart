@@ -2,8 +2,7 @@ import 'dart:async' show StreamSubscription;
 
 import 'package:flutter/foundation.dart' show visibleForTesting;
 
-import '../../../core/core.dart';
-import '../timer.dart';
+import '../../../_features.dart';
 
 // -----------------------------------------------------------------------------
 // Abstract class

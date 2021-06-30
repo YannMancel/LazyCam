@@ -5,7 +5,7 @@ import 'package:flutter/services.dart'
         FilteringTextInputFormatter,
         LengthLimitingTextInputFormatter;
 
-import '../../modules/training/training.dart';
+import '../../_features.dart';
 
 class AppNumberSelector extends StatelessWidget {
   const AppNumberSelector({

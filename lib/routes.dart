@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'core/core.dart';
-import 'modules/modules.dart';
+import '_features.dart';
 
 abstract class MaterialRouteGenerator with RouteNames {
   static Route<dynamic>? generate(RouteSettings? routeSettings) {

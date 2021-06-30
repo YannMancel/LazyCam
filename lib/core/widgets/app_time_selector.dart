@@ -6,7 +6,7 @@ import 'package:flutter/services.dart'
         FilteringTextInputFormatter,
         LengthLimitingTextInputFormatter;
 
-import '../../modules/training/training.dart';
+import '../../_features.dart';
 
 class AppTimeSelector extends StatelessWidget {
   const AppTimeSelector({

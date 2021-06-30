@@ -7,7 +7,7 @@ import 'package:camera/camera.dart' show CameraImage, ImageFormatGroup, Plane;
 /*
 // imgLib -> Image package from https://pub.dartlang.org/packages/image
 import 'package:image/image.dart' as imglib;
-import 'package:camera/camera.dart';
+import 'package:camera/_camera.dart';
 
 Future<List<int>> convertImagetoPng(CameraImage image) async {
   try {

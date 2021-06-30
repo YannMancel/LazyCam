@@ -4,8 +4,7 @@ import 'package:flutter_hooks/flutter_hooks.dart'
 import 'package:hooks_riverpod/hooks_riverpod.dart' show useProvider;
 import 'package:flutter_riverpod/flutter_riverpod.dart' show BuildContextX;
 
-import '../../../core/core.dart';
-import '../home.dart';
+import '../../../_features.dart';
 
 class HomePage extends StatelessWidget with RouteNames {
   const HomePage({Key? key}) : super(key: key);

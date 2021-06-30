@@ -1,5 +1,4 @@
-import '../../../core/core.dart';
-import '../home.dart';
+import '../../../_features.dart';
 
 // -----------------------------------------------------------------------------
 // Abstract class

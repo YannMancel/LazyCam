@@ -2,7 +2,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart'
     show StateNotifierProvider;
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-import 'training.dart';
+import '../../_features.dart';
 
 // -----------------------------------------------------------------------------
 // Training

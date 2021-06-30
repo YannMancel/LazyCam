@@ -1,6 +1,6 @@
 import 'package:flutter/foundation.dart' show ValueChanged;
 
-import '../../modules/modules.dart';
+import '../../_features.dart';
 
 extension ResultExtension<T> on Result<T> {
   bool get isData => when(

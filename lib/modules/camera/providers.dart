@@ -1,7 +1,7 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart'
     show StateNotifierProvider;
 
-import 'camera.dart';
+import '../../_features.dart';
 
 final cameraProvider =
     StateNotifierProvider.autoDispose<CameraLogic, CameraState>(

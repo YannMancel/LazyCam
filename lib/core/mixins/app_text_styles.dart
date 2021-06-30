@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../core.dart';
+import '../../_features.dart';
 
 mixin AppTextStyles {
   /// Headline 1 Text Style

@@ -3,8 +3,7 @@ import 'package:flutter_hooks/flutter_hooks.dart' show HookWidget;
 import 'package:flutter_riverpod/flutter_riverpod.dart' show BuildContextX;
 import 'package:hooks_riverpod/hooks_riverpod.dart' show useProvider;
 
-import '../../../core/core.dart';
-import '../training.dart';
+import '../../../_features.dart';
 
 class TrainingSettingsPage extends StatelessWidget {
   const TrainingSettingsPage({Key? key}) : super(key: key);

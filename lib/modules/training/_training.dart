@@ -6,6 +6,6 @@ export 'models/cycle.dart';
 export 'models/result.dart';
 export 'models/training.dart';
 export 'providers.dart';
-export 'views/components/components.dart';
+export 'views/components/_components.dart';
 export 'views/training_page.dart';
 export 'views/training_settings_page.dart';

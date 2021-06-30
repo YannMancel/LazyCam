@@ -4,8 +4,7 @@ import 'package:flutter_hooks/flutter_hooks.dart' show HookWidget;
 import 'package:hooks_riverpod/hooks_riverpod.dart' show useProvider;
 import 'package:flutter_riverpod/flutter_riverpod.dart' show BuildContextX;
 
-import '../../../core/core.dart';
-import '../stream.dart';
+import '../../../_features.dart';
 
 class StreamPage extends HookWidget {
   const StreamPage({Key? key}) : super(key: key);
