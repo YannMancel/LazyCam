@@ -14,7 +14,7 @@ class AppNumberSelector extends StatelessWidget {
     required TextEditingController textEditController,
     required FocusNode nodeFocus,
     required int maxDigit,
-  })   : _numberLogic = numberLogic,
+  })  : _numberLogic = numberLogic,
         _textEditController = textEditController,
         _nodeFocus = nodeFocus,
         _maxDigit = maxDigit,

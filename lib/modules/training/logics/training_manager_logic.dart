@@ -18,7 +18,7 @@ abstract class TrainingManagerLogic extends BaseController<Cycle> {
 class TrainingManagerLogicImpl extends TrainingManagerLogic {
   TrainingManagerLogicImpl({
     required Training training,
-  })   : _training = training,
+  })  : _training = training,
         super(
           state: training.cycles.isNotEmpty
               ? training.cycles.first
@@ -26,6 +26,7 @@ class TrainingManagerLogicImpl extends TrainingManagerLogic {
         );
 
   final Training _training;
+  Training get training => _training;
 
   // TODO Logic
   //  - When time stopped,

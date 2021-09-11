@@ -56,7 +56,7 @@ class _StreamView extends HookWidget {
   const _StreamView({
     Key? key,
     required CameraPreview preview,
-  })   : _preview = preview,
+  })  : _preview = preview,
         super(key: key);
 
   final CameraPreview _preview;

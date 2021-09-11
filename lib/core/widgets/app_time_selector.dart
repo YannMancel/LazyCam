@@ -1,4 +1,3 @@
-import 'package:ffmpeg_demo/core/mixins/app_text_styles.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart'
     show
@@ -18,7 +17,7 @@ class AppTimeSelector extends StatelessWidget {
     required FocusNode nodeFocusForSecond,
     required int maxDigitForMinute,
     required int maxDigitForSecond,
-  })   : _timeLogic = timeLogic,
+  })  : _timeLogic = timeLogic,
         _textEditControllerForMinute = textEditControllerForMinute,
         _textEditControllerForSecond = textEditControllerForSecond,
         _nodeFocusForMinute = nodeFocusForMinute,

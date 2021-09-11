@@ -1,0 +1,42 @@
+name: Flutter CI
+
+# This workflow is triggered on pushes to the repository.
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  build:
+    # This job will run on ubuntu virtual machine
+    runs-on: ubuntu-latest
+
+    steps:
+      # checks-out your repository so your workflow can access it.
+      # https://github.com/actions/checkout
+      - uses: actions/checkout@v2
+
+      # Setup Java environment in order to build the Android app.
+      # https://github.com/actions/setup-java
+      - uses: actions/setup-java@v1
+        with:
+          java-version: '12.x'
+
+      # Setup the flutter environment.
+      # https://github.com/subosito/flutter-action
+      - uses: subosito/flutter-action@v1
+        with:
+          channel: 'stable' # 'dev', 'alpha', default to: 'stable'
+          # flutter-version: '1.12.x' # you can also specify exact version of flutter
+
+      - name: Dependencies
+        run: flutter pub get
+
+      - name: Format (lib repository)
+        run: flutter format --set-exit-if-changed --dry-run lib/
+
+      - name: Analyze
+        run: flutter analyze
+
+      - name: Tests
+        run: flutter test

@@ -11,7 +11,7 @@ class TimerPage extends HookWidget {
   const TimerPage({
     Key? key,
     required Duration duration,
-  })   : _duration = duration,
+  })  : _duration = duration,
         super(key: key);
 
   final Duration _duration;
@@ -53,7 +53,7 @@ class _ActionButtons extends HookWidget {
     Key? key,
     required TimerLogic timerController,
     required TimerState timerState,
-  })   : _timerController = timerController,
+  })  : _timerController = timerController,
         _timerState = timerState,
         super(key: key);
 
@@ -136,7 +136,7 @@ class _TimerView extends StatelessWidget {
     Key? key,
     required Duration initialDuration,
     required Duration duration,
-  })   : _initialDuration = initialDuration,
+  })  : _initialDuration = initialDuration,
         _duration = duration,
         super(key: key);
 

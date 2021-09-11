@@ -25,7 +25,7 @@ abstract class NumberLogic extends BaseController<Result<int>> {
 class NumberLogicImpl extends NumberLogic {
   NumberLogicImpl({
     required int value,
-  })   : _lastData = value,
+  })  : _lastData = value,
         super(state: Result.data(value: value));
 
   int _lastData;

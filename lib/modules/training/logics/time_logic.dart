@@ -30,7 +30,7 @@ abstract class TimeLogic extends BaseController<Result<Duration>> {
 class TimeLogicImpl extends TimeLogic {
   TimeLogicImpl({
     required Duration value,
-  })   : _lastData = value,
+  })  : _lastData = value,
         super(state: Result.data(value: value));
 
   Duration _lastData;

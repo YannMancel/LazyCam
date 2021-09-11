@@ -1,5 +1,5 @@
-name: ffmpeg_demo
-description: An Flutter application to test ffmpeg.
+name: lazy_cam
+description: An Flutter application to manage training.
 
 publish_to: 'none'
 

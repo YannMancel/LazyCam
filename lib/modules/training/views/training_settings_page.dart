@@ -69,7 +69,7 @@ class _CycleCard extends HookWidget {
   const _CycleCard({
     Key? key,
     required Cycle cycle,
-  })   : _cycle = cycle,
+  })  : _cycle = cycle,
         super(key: key);
 
   final Cycle _cycle;
@@ -187,7 +187,7 @@ class _CycleDialog extends StatefulWidget {
     required Cycle cycle,
     required ValueChanged<Cycle> doOnAccept,
     required VoidCallback doOnCancel,
-  })   : _cycle = cycle,
+  })  : _cycle = cycle,
         _doOnAccept = doOnAccept,
         _doOnCancel = doOnCancel,
         super(key: key);
@@ -293,7 +293,7 @@ class _SectionCard extends StatelessWidget {
     required IconData iconData,
     required String title,
     required Widget child,
-  })   : _iconData = iconData,
+  })  : _iconData = iconData,
         _title = title,
         _child = child,
         super(key: key);
@@ -330,7 +330,7 @@ class _SectionDialog extends StatelessWidget {
     Key? key,
     required String title,
     required Widget child,
-  })   : _title = title,
+  })  : _title = title,
         _child = child,
         super(key: key);
 
