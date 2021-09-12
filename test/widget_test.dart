@@ -1,7 +1,7 @@
 import 'package:flutter_test/flutter_test.dart';
 
-import 'package:lazy_cam/main.dart';
 import 'package:lazy_cam/_features.dart';
+import 'package:lazy_cam/main.dart';
 
 void main() {
   testWidgets(

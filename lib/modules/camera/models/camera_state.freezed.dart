@@ -1,5 +1,6 @@
+// coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
-// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides
+// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target
 
 part of 'camera_state.dart';
 
@@ -65,6 +66,15 @@ mixin _$CameraState {
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult Function(bool isFirstCamera)? initial,
+    TResult Function(bool isFirstCamera)? setup,
+    TResult Function(bool isFirstCamera)? readyPreview,
+    TResult Function(bool isFirstCamera)? switchCamera,
+    TResult Function(bool isFirstCamera, String? message)? error,
+  }) =>
+      throw _privateConstructorUsedError;
+  @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(bool isFirstCamera)? initial,
     TResult Function(bool isFirstCamera)? setup,
@@ -81,6 +91,15 @@ mixin _$CameraState {
     required TResult Function(_ReadyPreview value) readyPreview,
     required TResult Function(_SwitchCamera value) switchCamera,
     required TResult Function(_Error value) error,
+  }) =>
+      throw _privateConstructorUsedError;
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult Function(_Initial value)? initial,
+    TResult Function(_Setup value)? setup,
+    TResult Function(_ReadyPreview value)? readyPreview,
+    TResult Function(_SwitchCamera value)? switchCamera,
+    TResult Function(_Error value)? error,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -159,6 +178,7 @@ class __$InitialCopyWithImpl<$Res> extends _$CameraStateCopyWithImpl<$Res>
 }
 
 /// @nodoc
+
 class _$_Initial with DiagnosticableTreeMixin implements _Initial {
   const _$_Initial({this.isFirstCamera = true});
 
@@ -211,6 +231,18 @@ class _$_Initial with DiagnosticableTreeMixin implements _Initial {
 
   @override
   @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult Function(bool isFirstCamera)? initial,
+    TResult Function(bool isFirstCamera)? setup,
+    TResult Function(bool isFirstCamera)? readyPreview,
+    TResult Function(bool isFirstCamera)? switchCamera,
+    TResult Function(bool isFirstCamera, String? message)? error,
+  }) {
+    return initial?.call(isFirstCamera);
+  }
+
+  @override
+  @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(bool isFirstCamera)? initial,
     TResult Function(bool isFirstCamera)? setup,
@@ -235,6 +267,18 @@ class _$_Initial with DiagnosticableTreeMixin implements _Initial {
     required TResult Function(_Error value) error,
   }) {
     return initial(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult Function(_Initial value)? initial,
+    TResult Function(_Setup value)? setup,
+    TResult Function(_ReadyPreview value)? readyPreview,
+    TResult Function(_SwitchCamera value)? switchCamera,
+    TResult Function(_Error value)? error,
+  }) {
+    return initial?.call(this);
   }
 
   @override
@@ -296,6 +340,7 @@ class __$SetupCopyWithImpl<$Res> extends _$CameraStateCopyWithImpl<$Res>
 }
 
 /// @nodoc
+
 class _$_Setup with DiagnosticableTreeMixin implements _Setup {
   const _$_Setup({this.isFirstCamera = true});
 
@@ -348,6 +393,18 @@ class _$_Setup with DiagnosticableTreeMixin implements _Setup {
 
   @override
   @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult Function(bool isFirstCamera)? initial,
+    TResult Function(bool isFirstCamera)? setup,
+    TResult Function(bool isFirstCamera)? readyPreview,
+    TResult Function(bool isFirstCamera)? switchCamera,
+    TResult Function(bool isFirstCamera, String? message)? error,
+  }) {
+    return setup?.call(isFirstCamera);
+  }
+
+  @override
+  @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(bool isFirstCamera)? initial,
     TResult Function(bool isFirstCamera)? setup,
@@ -372,6 +429,18 @@ class _$_Setup with DiagnosticableTreeMixin implements _Setup {
     required TResult Function(_Error value) error,
   }) {
     return setup(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult Function(_Initial value)? initial,
+    TResult Function(_Setup value)? setup,
+    TResult Function(_ReadyPreview value)? readyPreview,
+    TResult Function(_SwitchCamera value)? switchCamera,
+    TResult Function(_Error value)? error,
+  }) {
+    return setup?.call(this);
   }
 
   @override
@@ -435,6 +504,7 @@ class __$ReadyPreviewCopyWithImpl<$Res> extends _$CameraStateCopyWithImpl<$Res>
 }
 
 /// @nodoc
+
 class _$_ReadyPreview with DiagnosticableTreeMixin implements _ReadyPreview {
   const _$_ReadyPreview({this.isFirstCamera = true});
 
@@ -487,6 +557,18 @@ class _$_ReadyPreview with DiagnosticableTreeMixin implements _ReadyPreview {
 
   @override
   @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult Function(bool isFirstCamera)? initial,
+    TResult Function(bool isFirstCamera)? setup,
+    TResult Function(bool isFirstCamera)? readyPreview,
+    TResult Function(bool isFirstCamera)? switchCamera,
+    TResult Function(bool isFirstCamera, String? message)? error,
+  }) {
+    return readyPreview?.call(isFirstCamera);
+  }
+
+  @override
+  @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(bool isFirstCamera)? initial,
     TResult Function(bool isFirstCamera)? setup,
@@ -511,6 +593,18 @@ class _$_ReadyPreview with DiagnosticableTreeMixin implements _ReadyPreview {
     required TResult Function(_Error value) error,
   }) {
     return readyPreview(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult Function(_Initial value)? initial,
+    TResult Function(_Setup value)? setup,
+    TResult Function(_ReadyPreview value)? readyPreview,
+    TResult Function(_SwitchCamera value)? switchCamera,
+    TResult Function(_Error value)? error,
+  }) {
+    return readyPreview?.call(this);
   }
 
   @override
@@ -575,6 +669,7 @@ class __$SwitchCameraCopyWithImpl<$Res> extends _$CameraStateCopyWithImpl<$Res>
 }
 
 /// @nodoc
+
 class _$_SwitchCamera with DiagnosticableTreeMixin implements _SwitchCamera {
   const _$_SwitchCamera({this.isFirstCamera = true});
 
@@ -627,6 +722,18 @@ class _$_SwitchCamera with DiagnosticableTreeMixin implements _SwitchCamera {
 
   @override
   @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult Function(bool isFirstCamera)? initial,
+    TResult Function(bool isFirstCamera)? setup,
+    TResult Function(bool isFirstCamera)? readyPreview,
+    TResult Function(bool isFirstCamera)? switchCamera,
+    TResult Function(bool isFirstCamera, String? message)? error,
+  }) {
+    return switchCamera?.call(isFirstCamera);
+  }
+
+  @override
+  @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(bool isFirstCamera)? initial,
     TResult Function(bool isFirstCamera)? setup,
@@ -651,6 +758,18 @@ class _$_SwitchCamera with DiagnosticableTreeMixin implements _SwitchCamera {
     required TResult Function(_Error value) error,
   }) {
     return switchCamera(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult Function(_Initial value)? initial,
+    TResult Function(_Setup value)? setup,
+    TResult Function(_ReadyPreview value)? readyPreview,
+    TResult Function(_SwitchCamera value)? switchCamera,
+    TResult Function(_Error value)? error,
+  }) {
+    return switchCamera?.call(this);
   }
 
   @override
@@ -717,6 +836,7 @@ class __$ErrorCopyWithImpl<$Res> extends _$CameraStateCopyWithImpl<$Res>
 }
 
 /// @nodoc
+
 class _$_Error with DiagnosticableTreeMixin implements _Error {
   const _$_Error({this.isFirstCamera = true, this.message});
 
@@ -776,6 +896,18 @@ class _$_Error with DiagnosticableTreeMixin implements _Error {
 
   @override
   @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult Function(bool isFirstCamera)? initial,
+    TResult Function(bool isFirstCamera)? setup,
+    TResult Function(bool isFirstCamera)? readyPreview,
+    TResult Function(bool isFirstCamera)? switchCamera,
+    TResult Function(bool isFirstCamera, String? message)? error,
+  }) {
+    return error?.call(isFirstCamera, message);
+  }
+
+  @override
+  @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(bool isFirstCamera)? initial,
     TResult Function(bool isFirstCamera)? setup,
@@ -800,6 +932,18 @@ class _$_Error with DiagnosticableTreeMixin implements _Error {
     required TResult Function(_Error value) error,
   }) {
     return error(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult Function(_Initial value)? initial,
+    TResult Function(_Setup value)? setup,
+    TResult Function(_ReadyPreview value)? readyPreview,
+    TResult Function(_SwitchCamera value)? switchCamera,
+    TResult Function(_Error value)? error,
+  }) {
+    return error?.call(this);
   }
 
   @override

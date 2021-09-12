@@ -12,7 +12,9 @@ on:
   workflow_dispatch:
 
 jobs:
-  build:
+  flutter-ci:
+    name: Run Flutter CI
+
     # This job will run on ubuntu virtual machine
     runs-on: ubuntu-latest
 

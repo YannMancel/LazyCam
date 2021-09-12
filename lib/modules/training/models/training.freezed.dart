@@ -1,5 +1,6 @@
+// coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
-// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides
+// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target
 
 part of 'training.dart';
 
@@ -17,8 +18,7 @@ class _$TrainingTearOff {
   const _$TrainingTearOff();
 
   _Training call(
-      {String name = 'Training',
-      List<Cycle> cycles = const <Cycle>[const Cycle()]}) {
+      {String name = 'Training', List<Cycle> cycles = const <Cycle>[Cycle()]}) {
     return _Training(
       name: name,
       cycles: cycles,
@@ -108,14 +108,15 @@ class __$TrainingCopyWithImpl<$Res> extends _$TrainingCopyWithImpl<$Res>
 }
 
 /// @nodoc
+
 class _$_Training with DiagnosticableTreeMixin implements _Training {
   const _$_Training(
-      {this.name = 'Training', this.cycles = const <Cycle>[const Cycle()]});
+      {this.name = 'Training', this.cycles = const <Cycle>[Cycle()]});
 
   @JsonKey(defaultValue: 'Training')
   @override
   final String name;
-  @JsonKey(defaultValue: const <Cycle>[const Cycle()])
+  @JsonKey(defaultValue: const <Cycle>[Cycle()])
   @override
   final List<Cycle> cycles;
 

@@ -1,8 +1,8 @@
 import 'dart:typed_data' show Uint8List;
 
+import 'package:camera/camera.dart' show CameraImage, ImageFormatGroup, Plane;
 import 'package:flutter/material.dart' show Image;
 import 'package:image/image.dart' as image_lib show Image, PngEncoder, Format;
-import 'package:camera/camera.dart' show CameraImage, ImageFormatGroup, Plane;
 
 /*
 // imgLib -> Image package from https://pub.dartlang.org/packages/image

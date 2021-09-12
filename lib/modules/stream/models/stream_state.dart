@@ -1,6 +1,5 @@
-import 'package:flutter/material.dart' show Image;
-
 import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart' show Image;
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'stream_state.freezed.dart';

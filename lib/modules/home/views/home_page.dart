@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart'
     show HookWidget, useAnimationController;
-import 'package:hooks_riverpod/hooks_riverpod.dart' show useProvider;
 import 'package:flutter_riverpod/flutter_riverpod.dart' show BuildContextX;
+import 'package:hooks_riverpod/hooks_riverpod.dart' show useProvider;
 
 import '../../../_features.dart';
 

@@ -1,5 +1,6 @@
+// coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
-// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides
+// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target
 
 part of 'menu_state.dart';
 
@@ -37,6 +38,12 @@ mixin _$MenuState {
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult Function()? open,
+    TResult Function()? close,
+  }) =>
+      throw _privateConstructorUsedError;
+  @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? open,
     TResult Function()? close,
@@ -47,6 +54,12 @@ mixin _$MenuState {
   TResult map<TResult extends Object?>({
     required TResult Function(_Open value) open,
     required TResult Function(_Close value) close,
+  }) =>
+      throw _privateConstructorUsedError;
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult Function(_Open value)? open,
+    TResult Function(_Close value)? close,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -90,6 +103,7 @@ class __$OpenCopyWithImpl<$Res> extends _$MenuStateCopyWithImpl<$Res>
 }
 
 /// @nodoc
+
 class _$_Open with DiagnosticableTreeMixin implements _Open {
   const _$_Open();
 
@@ -123,6 +137,15 @@ class _$_Open with DiagnosticableTreeMixin implements _Open {
 
   @override
   @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult Function()? open,
+    TResult Function()? close,
+  }) {
+    return open?.call();
+  }
+
+  @override
+  @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? open,
     TResult Function()? close,
@@ -141,6 +164,15 @@ class _$_Open with DiagnosticableTreeMixin implements _Open {
     required TResult Function(_Close value) close,
   }) {
     return open(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult Function(_Open value)? open,
+    TResult Function(_Close value)? close,
+  }) {
+    return open?.call(this);
   }
 
   @override
@@ -178,6 +210,7 @@ class __$CloseCopyWithImpl<$Res> extends _$MenuStateCopyWithImpl<$Res>
 }
 
 /// @nodoc
+
 class _$_Close with DiagnosticableTreeMixin implements _Close {
   const _$_Close();
 
@@ -211,6 +244,15 @@ class _$_Close with DiagnosticableTreeMixin implements _Close {
 
   @override
   @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult Function()? open,
+    TResult Function()? close,
+  }) {
+    return close?.call();
+  }
+
+  @override
+  @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? open,
     TResult Function()? close,
@@ -229,6 +271,15 @@ class _$_Close with DiagnosticableTreeMixin implements _Close {
     required TResult Function(_Close value) close,
   }) {
     return close(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult Function(_Open value)? open,
+    TResult Function(_Close value)? close,
+  }) {
+    return close?.call(this);
   }
 
   @override

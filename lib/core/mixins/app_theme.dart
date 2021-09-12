@@ -44,7 +44,7 @@ mixin AppTheme {
     elevation: 4.0,
     iconTheme: _iconTheme,
     actionsIconTheme: _iconTheme,
-    textTheme: _textTheme,
+    titleTextStyle: _textTheme.headline6,
   );
 
   // https://material.io/components/buttons#theming

@@ -10,3 +10,5 @@ linter:
     avoid_print: false
     avoid_relative_lib_imports: false
     avoid_single_cascade_in_expression_statements: false
+    avoid_classes_with_only_static_members: false
+    directives_ordering: true
